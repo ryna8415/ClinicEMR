@@ -1,4 +1,4 @@
-using System.Data;
+using ClinicEMR.Data;
 using MySql.Data.MySqlClient;
 
 namespace ClinicEMR
@@ -21,8 +21,7 @@ namespace ClinicEMR
 
             using (MySqlConnection connection2 = connection)
             {
-                if (connection2.State != ConnectionState.Open)
-                    connection2.Open();
+                connection2.Open();
                 MessageBox.Show("Connected!");
             }
         }
