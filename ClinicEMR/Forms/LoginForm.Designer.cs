@@ -28,32 +28,105 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
+            lblClinicEMR = new Label();
+            lblUsername = new Label();
+            txtUsername = new TextBox();
+            lblPassword = new Label();
+            txtPassword = new TextBox();
+            btnLogIn = new Button();
+            lblError = new Label();
             SuspendLayout();
             // 
-            // button1
+            // lblClinicEMR
             // 
-            button1.Location = new Point(355, 200);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 0;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            lblClinicEMR.AutoSize = true;
+            lblClinicEMR.Font = new Font("Nirmala UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblClinicEMR.ImageAlign = ContentAlignment.TopCenter;
+            lblClinicEMR.Location = new Point(79, 24);
+            lblClinicEMR.Name = "lblClinicEMR";
+            lblClinicEMR.Size = new Size(145, 37);
+            lblClinicEMR.TabIndex = 1;
+            lblClinicEMR.Text = "ClinicEMR";
+            // 
+            // lblUsername
+            // 
+            lblUsername.AutoSize = true;
+            lblUsername.Location = new Point(45, 140);
+            lblUsername.Name = "lblUsername";
+            lblUsername.Size = new Size(66, 15);
+            lblUsername.TabIndex = 2;
+            lblUsername.Text = "Username: ";
+            // 
+            // txtUsername
+            // 
+            txtUsername.Location = new Point(117, 132);
+            txtUsername.Name = "txtUsername";
+            txtUsername.Size = new Size(123, 23);
+            txtUsername.TabIndex = 3;
+            // 
+            // lblPassword
+            // 
+            lblPassword.AutoSize = true;
+            lblPassword.Location = new Point(45, 176);
+            lblPassword.Name = "lblPassword";
+            lblPassword.Size = new Size(63, 15);
+            lblPassword.TabIndex = 4;
+            lblPassword.Text = "Password: ";
+            // 
+            // txtPassword
+            // 
+            txtPassword.Location = new Point(117, 168);
+            txtPassword.Name = "txtPassword";
+            txtPassword.PasswordChar = '*';
+            txtPassword.Size = new Size(123, 23);
+            txtPassword.TabIndex = 5;
+            // 
+            // btnLogIn
+            // 
+            btnLogIn.Location = new Point(165, 209);
+            btnLogIn.Name = "btnLogIn";
+            btnLogIn.Size = new Size(75, 23);
+            btnLogIn.TabIndex = 6;
+            btnLogIn.Text = "Log In";
+            btnLogIn.UseVisualStyleBackColor = true;
+            btnLogIn.Click += btnLogIn_Click;
+            // 
+            // lblError
+            // 
+            lblError.AutoSize = true;
+            lblError.ForeColor = Color.Red;
+            lblError.Location = new Point(117, 194);
+            lblError.Name = "lblError";
+            lblError.Size = new Size(0, 15);
+            lblError.TabIndex = 7;
+            lblError.Visible = false;
             // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(button1);
+            ClientSize = new Size(303, 450);
+            Controls.Add(lblError);
+            Controls.Add(btnLogIn);
+            Controls.Add(txtPassword);
+            Controls.Add(lblPassword);
+            Controls.Add(txtUsername);
+            Controls.Add(lblUsername);
+            Controls.Add(lblClinicEMR);
             Name = "LoginForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
-
-        private Button button1;
+        private Label lblClinicEMR;
+        private Label lblUsername;
+        private TextBox txtUsername;
+        private Label lblPassword;
+        private TextBox txtPassword;
+        private Button btnLogIn;
+        private Label lblError;
     }
 }

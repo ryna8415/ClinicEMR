@@ -1,3 +1,5 @@
+using ClinicEMR.Data;
+using ClinicEMR.Services;
 using System.Data;
 using MySql.Data.MySqlClient;
 
@@ -10,21 +12,46 @@ namespace ClinicEMR
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private int _failCount = 0;
+
+
+        private void btnLogIn_Click(object sender, EventArgs e)
         {
-            var connection = DatabaseHelper.GetConnection();
-            if (connection == null)
+            // Step 1: Get input
+            string username = txtUsername.Text.Trim();
+            string password = txtPassword.Text;
+
+            // Step 2: Validate
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                MessageBox.Show("Failed to create DB connection.");
+                MessageBox.Show("Please enter username and password.");
                 return;
             }
 
-            using (MySqlConnection connection2 = connection)
+            // Step 3: Call service
+            var user = LoginService.Authenticate(username, password);
+
+            // Step 4: Handle result
+            if (user == null)
             {
-                if (connection2.State != ConnectionState.Open)
-                    connection2.Open();
-                MessageBox.Show("Connected!");
+                _failCount++;
+                if (_failCount >= 5) 
+                { 
+                    btnLogIn.Enabled = false; 
+                    lblError.Text = "Account locked. Restart app."; 
+                    lblError.Visible = true; return; 
+                }
+                MessageBox.Show("Invalid username or password.");
+                return;
             }
+
+            MessageBox.Show("Welcome " + user.FullName + " ("+ user.Role + ")");
+            // Open correct dashboard based on role
+            /*            if (user.Role == "admin") new AdminDashboard(user).Show();
+                        if (user.Role == "nurse") new NurseDashboard(user).Show();
+                        if (user.Role == "doctor") new DoctorDashboard(user).Show();
+                        this.Hide(); // hide login form*/
+
         }
     }
 }
