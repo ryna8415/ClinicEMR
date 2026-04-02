@@ -1,5 +1,4 @@
 ﻿using BCrypt.Net;
-using ClinicEMR.Data;
 using ClinicEMR.Models;
 using MySql.Data.MySqlClient;
 
