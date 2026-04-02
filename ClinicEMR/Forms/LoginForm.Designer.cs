@@ -42,7 +42,7 @@
             lblClinicEMR.AutoSize = true;
             lblClinicEMR.Font = new Font("Nirmala UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblClinicEMR.ImageAlign = ContentAlignment.TopCenter;
-            lblClinicEMR.Location = new Point(79, 24);
+            lblClinicEMR.Location = new Point(79, 49);
             lblClinicEMR.Name = "lblClinicEMR";
             lblClinicEMR.Size = new Size(145, 37);
             lblClinicEMR.TabIndex = 1;
@@ -95,7 +95,7 @@
             // 
             lblError.AutoSize = true;
             lblError.ForeColor = Color.Red;
-            lblError.Location = new Point(117, 194);
+            lblError.Location = new Point(64, 254);
             lblError.Name = "lblError";
             lblError.Size = new Size(0, 15);
             lblError.TabIndex = 7;
@@ -105,7 +105,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(303, 450);
+            ClientSize = new Size(303, 323);
             Controls.Add(lblError);
             Controls.Add(btnLogIn);
             Controls.Add(txtPassword);

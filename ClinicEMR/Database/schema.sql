@@ -96,5 +96,5 @@ CREATE TABLE IF NOT EXISTS prescriptions (
 );
 
 INSERT IGNORE INTO users (username, password_hash, full_name, role)
-VALUES ('admin', 'REPLACE_WITH_BCRYPT_HASH', 'System Admin', 'admin');
+VALUES ('admin', '$2a$12$//Hc0lDP.0dbks8zNxGRH.EswDGaaTcFv3gjTSXhrT6SfCW7MVrkS', 'System Admin', 'admin');
 
