@@ -1,5 +1,7 @@
 using ClinicEMR.Data;
 using ClinicEMR.Services;
+using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace ClinicEMR
 {
