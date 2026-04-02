@@ -3,6 +3,27 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+appsettings.json
+App.config
+connection.config
+*.env
+
+# ─── Visual Studio build output ──────────────────────
+bin/
+obj/
+*.user
+.vs/
+
+# ─── OS files ─────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ─── Database backups (run locally, never commit) ─────
+*.sql.bak
+database/backups/
+
+
 # User-specific files
 *.rsuser
 *.suo
@@ -361,3 +382,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
