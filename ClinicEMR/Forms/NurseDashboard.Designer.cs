@@ -28,12 +28,42 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "NurseDashboard";
+            panel1 = new Panel();
+            lblWelcome = new Label();
+            SuspendLayout();
+            // 
+            // panel1
+            // 
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(203, 451);
+            panel1.TabIndex = 1;
+            // 
+            // lblWelcome
+            // 
+            lblWelcome.AutoSize = true;
+            lblWelcome.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblWelcome.Location = new Point(209, 9);
+            lblWelcome.Name = "lblWelcome";
+            lblWelcome.Size = new Size(0, 37);
+            lblWelcome.TabIndex = 2;
+            // 
+            // NurseDashboard
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(lblWelcome);
+            Controls.Add(panel1);
+            Name = "NurseDashboard";
+            Text = "NurseDashboard";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private Panel panel1;
+        private Label lblWelcome;
     }
 }
