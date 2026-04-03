@@ -5,14 +5,17 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using ClinicEMR.Models;
+
 
 namespace ClinicEMR.Forms
 {
     public partial class AdminDashboard : Form
     {
-        public AdminDashboard()
+        public AdminDashboard(User user)
         {
             InitializeComponent();
+            lblWelcome.Text = "Welcome, " + user.FullName;
         }
     }
 }

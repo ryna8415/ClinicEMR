@@ -1,3 +1,4 @@
+using ClinicEMR.Forms;
 using ClinicEMR.Services;
 using MySql.Data.MySqlClient;
 
@@ -45,10 +46,10 @@ namespace ClinicEMR
 
             MessageBox.Show("Welcome " + user.FullName + " ("+ user.Role + ")");
             // Open correct dashboard based on role
-            /*            if (user.Role == "admin") new AdminDashboard(user).Show();
+                       if (user.Role == "admin") new AdminDashboard(user).Show();
                         if (user.Role == "nurse") new NurseDashboard(user).Show();
                         if (user.Role == "doctor") new DoctorDashboard(user).Show();
-                        this.Hide(); // hide login form*/
+                        this.Hide(); // hide login form
 
         }
     }
