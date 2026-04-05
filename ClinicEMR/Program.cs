@@ -1,3 +1,5 @@
+using ClinicEMR.Forms;
+
 namespace ClinicEMR
 {
     internal static class Program
