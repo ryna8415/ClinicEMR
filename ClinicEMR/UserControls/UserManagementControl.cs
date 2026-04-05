@@ -6,16 +6,18 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using ClinicEMR.Models;
+using ClinicEMR.Services;
 
-
-namespace ClinicEMR.Forms
+namespace ClinicEMR.UserControls
 {
-    public partial class NurseDashboard : Form
+    public partial class UserManagementControl : UserControl
     {
-        public NurseDashboard(User user)
+        private readonly User _user;
+        public UserManagementControl(User user)
         {
             InitializeComponent();
-            lblWelcome.Text = "Welcome, " + user.FullName;
+            _user = user;
         }
     }
+
 }

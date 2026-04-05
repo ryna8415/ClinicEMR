@@ -34,22 +34,25 @@ namespace ClinicEMR
             if (user == null)
             {
                 _failCount++;
-                if (_failCount >= 5) 
-                { 
-                    btnLogIn.Enabled = false; 
-                    lblError.Text = "Account locked. Restart app."; 
-                    lblError.Visible = true; return; 
+                if (_failCount >= 5)
+                {
+                    btnLogIn.Enabled = false;
+                    lblError.Text = "Account locked. Restart app.";
+                    lblError.Visible = true; return;
                 }
                 MessageBox.Show("Invalid username or password.");
                 return;
             }
 
-            MessageBox.Show("Welcome " + user.FullName + " ("+ user.Role + ")");
-            // Open correct dashboard based on role
-                       if (user.Role == "admin") new AdminDashboard(user).Show();
-                        if (user.Role == "nurse") new NurseDashboard(user).Show();
-                        if (user.Role == "doctor") new DoctorDashboard(user).Show();
-                        this.Hide(); // hide login form
+            // Open the single shell form -- Day 3 creates this
+            var shell = new MainShellForm(user);
+            shell.Show();
+            this.Hide();
+
+        }
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
 
         }
     }
