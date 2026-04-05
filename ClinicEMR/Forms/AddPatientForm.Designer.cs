@@ -31,7 +31,6 @@
             txtFirstName = new TextBox();
             lblNewPatient = new Label();
             txtLastName = new TextBox();
-            lblPatientName = new Label();
             label1 = new Label();
             txtContact = new TextBox();
             lblAddress = new Label();
@@ -46,6 +45,8 @@
             lblSex = new Label();
             btnSave = new Button();
             btnCancel = new Button();
+            lblFirstName = new Label();
+            lblLastName = new Label();
             SuspendLayout();
             // 
             // txtFirstName
@@ -73,23 +74,14 @@
             txtLastName.Size = new Size(179, 23);
             txtLastName.TabIndex = 6;
             // 
-            // lblPatientName
-            // 
-            lblPatientName.AutoSize = true;
-            lblPatientName.Location = new Point(12, 168);
-            lblPatientName.Name = "lblPatientName";
-            lblPatientName.Size = new Size(61, 15);
-            lblPatientName.TabIndex = 7;
-            lblPatientName.Text = "Full Name";
-            // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Location = new Point(12, 277);
             label1.Name = "label1";
-            label1.Size = new Size(96, 15);
+            label1.Size = new Size(99, 15);
             label1.TabIndex = 8;
-            label1.Text = "Contact Number";
+            label1.Text = "Contact Number:";
             label1.TextAlign = ContentAlignment.TopCenter;
             // 
             // txtContact
@@ -104,9 +96,9 @@
             lblAddress.AutoSize = true;
             lblAddress.Location = new Point(12, 222);
             lblAddress.Name = "lblAddress";
-            lblAddress.Size = new Size(49, 15);
+            lblAddress.Size = new Size(52, 15);
             lblAddress.TabIndex = 10;
-            lblAddress.Text = "Address";
+            lblAddress.Text = "Address:";
             lblAddress.TextAlign = ContentAlignment.TopCenter;
             // 
             // txtAddress
@@ -121,9 +113,9 @@
             lblEmergency.AutoSize = true;
             lblEmergency.Location = new Point(237, 277);
             lblEmergency.Name = "lblEmergency";
-            lblEmergency.Size = new Size(111, 15);
+            lblEmergency.Size = new Size(114, 15);
             lblEmergency.TabIndex = 12;
-            lblEmergency.Text = "Emergency Contact";
+            lblEmergency.Text = "Emergency Contact:";
             lblEmergency.TextAlign = ContentAlignment.TopCenter;
             // 
             // txtEmergency
@@ -138,9 +130,9 @@
             lblAllergies.AutoSize = true;
             lblAllergies.Location = new Point(12, 332);
             lblAllergies.Name = "lblAllergies";
-            lblAllergies.Size = new Size(92, 15);
+            lblAllergies.Size = new Size(95, 15);
             lblAllergies.TabIndex = 14;
-            lblAllergies.Text = "Known Allergies";
+            lblAllergies.Text = "Known Allergies:";
             lblAllergies.TextAlign = ContentAlignment.TopCenter;
             // 
             // txtAllergies
@@ -162,15 +154,15 @@
             lblDOB.AutoSize = true;
             lblDOB.Location = new Point(237, 222);
             lblDOB.Name = "lblDOB";
-            lblDOB.Size = new Size(73, 15);
+            lblDOB.Size = new Size(76, 15);
             lblDOB.TabIndex = 17;
-            lblDOB.Text = "Date of Birth";
+            lblDOB.Text = "Date of Birth:";
             lblDOB.TextAlign = ContentAlignment.TopCenter;
             // 
             // cboSex
             // 
             cboSex.FormattingEnabled = true;
-            cboSex.Items.AddRange(new object[] { "Male", "Female", "Intersex", "Other" });
+            cboSex.Items.AddRange(new object[] { "Male", "Female", "Other" });
             cboSex.Location = new Point(379, 186);
             cboSex.Name = "cboSex";
             cboSex.Size = new Size(81, 23);
@@ -181,9 +173,9 @@
             lblSex.AutoSize = true;
             lblSex.Location = new Point(379, 168);
             lblSex.Name = "lblSex";
-            lblSex.Size = new Size(24, 15);
+            lblSex.Size = new Size(27, 15);
             lblSex.TabIndex = 19;
-            lblSex.Text = "Sex";
+            lblSex.Text = "Sex:";
             lblSex.TextAlign = ContentAlignment.TopCenter;
             // 
             // btnSave
@@ -211,6 +203,26 @@
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = false;
             // 
+            // lblFirstName
+            // 
+            lblFirstName.AutoSize = true;
+            lblFirstName.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblFirstName.Location = new Point(12, 168);
+            lblFirstName.Name = "lblFirstName";
+            lblFirstName.Size = new Size(70, 15);
+            lblFirstName.TabIndex = 22;
+            lblFirstName.Text = "First Name:";
+            // 
+            // lblLastName
+            // 
+            lblLastName.AutoSize = true;
+            lblLastName.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblLastName.Location = new Point(194, 168);
+            lblLastName.Name = "lblLastName";
+            lblLastName.Size = new Size(68, 15);
+            lblLastName.TabIndex = 23;
+            lblLastName.Text = "Last Name:";
+            // 
             // AddPatientForm
             // 
             AcceptButton = btnSave;
@@ -218,6 +230,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancel;
             ClientSize = new Size(472, 434);
+            Controls.Add(lblLastName);
+            Controls.Add(lblFirstName);
             Controls.Add(btnCancel);
             Controls.Add(btnSave);
             Controls.Add(lblSex);
@@ -232,11 +246,13 @@
             Controls.Add(lblAddress);
             Controls.Add(txtContact);
             Controls.Add(label1);
-            Controls.Add(lblPatientName);
             Controls.Add(txtLastName);
             Controls.Add(lblNewPatient);
             Controls.Add(txtFirstName);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
             Name = "AddPatientForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "AddPatientForm";
             ResumeLayout(false);
             PerformLayout();
@@ -247,7 +263,6 @@
         private TextBox txtFirstName;
         private Label lblNewPatient;
         private TextBox txtLastName;
-        private Label lblPatientName;
         private Label label1;
         private TextBox txtContact;
         private Label lblAddress;
@@ -262,5 +277,7 @@
         private Label lblSex;
         private Button btnSave;
         private Button btnCancel;
+        private Label lblFirstName;
+        private Label lblLastName;
     }
 }

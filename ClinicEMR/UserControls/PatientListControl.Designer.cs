@@ -44,12 +44,15 @@ namespace ClinicEMR.UserControls
             // 
             // txtSearch
             // 
-            txtSearch.Location = new Point(41, 55);
+            txtSearch.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtSearch.Location = new Point(41, 56);
             txtSearch.Multiline = true;
             txtSearch.Name = "txtSearch";
+            txtSearch.PlaceholderText = "Search: Name/Patient Code";
             txtSearch.Size = new Size(473, 30);
             txtSearch.TabIndex = 2;
             txtSearch.Click += btnSearch_Click;
+            txtSearch.Enter += btnSearch_Click;
             // 
             // btnSearch
             // 
@@ -96,14 +99,16 @@ namespace ClinicEMR.UserControls
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BorderStyle = BorderStyle.FixedSingle;
             Controls.Add(btnOpen);
             Controls.Add(dgvPatients);
             Controls.Add(btnAddNew);
             Controls.Add(btnSearch);
             Controls.Add(txtSearch);
             Name = "PatientListControl";
-            Size = new Size(747, 523);
+            Size = new Size(745, 521);
             Load += PatientListControl_Load;
+            Enter += btnSearch_Click;
             ((System.ComponentModel.ISupportInitialize)dgvPatients).EndInit();
             ResumeLayout(false);
             PerformLayout();
