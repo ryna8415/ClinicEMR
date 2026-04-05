@@ -114,9 +114,11 @@
             Controls.Add(txtUsername);
             Controls.Add(lblUsername);
             Controls.Add(lblClinicEMR);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
             Name = "LoginForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
+            Text = "EMRClinic";
             Load += LoginForm_Load;
             ResumeLayout(false);
             PerformLayout();

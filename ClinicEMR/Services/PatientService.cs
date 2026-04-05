@@ -30,7 +30,7 @@ namespace ClinicEMR.Services
                 if (conn == null) return list;
                 var cmd = new MySqlCommand(
                   "SELECT * FROM patients WHERE is_active=1 AND " +
-                  "(first_name LIKE @k OR last_name LIKE @k OR patient_code LIKE @k)", conn);
+                  "first_name LIKE @k OR last_name LIKE @k OR patient_code LIKE @k", conn);
                 cmd.Parameters.AddWithValue("@k", "%" + keyword + "%");
                 var r = cmd.ExecuteReader();
                 while (r.Read()) list.Add(MapRow(r));
