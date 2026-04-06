@@ -17,9 +17,9 @@ namespace ClinicEMR.UserControls
         {
             lblWelcome.Text = $"Good day, {_user.FullName}";
 
-            /*var appts = AppointmentService.GetByDate(DateTime.Today);
+            var appts = AppointmentService.GetByDate(DateTime.Today);
             lblApptCount.Text = $"{appts.Count} appointments scheduled today";
-            dgvTodayAppts.DataSource = appts;*/
+            dgvTodayAppts.DataSource = appts;
 
             lblApptCount.Text = "Appointments load in Week 2";
 

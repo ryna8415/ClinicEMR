@@ -19,5 +19,6 @@ namespace ClinicEMR.Models
         public string EmergencyContact { get; set; }
         public DateTime RegisteredAt { get; set; }
         public string FullName => $"{LastName}, {FirstName}";
+        public string DisplayInfo => $"{FullName} ({PatientCode})";
     }
 }
