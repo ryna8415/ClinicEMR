@@ -20,9 +20,9 @@ namespace ClinicEMR.Forms
             {
                 case "btnDashboard": ShowStartScreen(); break;
                 case "btnPatients": ShowControl(_patients, btn); break;
-                //case "btnAppts": ShowControl(_appointments, btn); break;
-                //case "btnVitals": ShowControl(_vitals, btn); break;
-                //case "btnConsult": ShowControl(_consultation, btn); break;
+                case "btnAppts": ShowControl(_appointments, btn); break;
+                case "btnVitals": ShowControl(_vitals, btn); break;
+                case "btnConsult": ShowControl(_consultation, btn); break;
                 //case "btnRx": ShowControl(_prescription, btn); break;
                 //case "btnReports": ShowControl(_report, btn); break;
                 case "btnUsers": ShowControl(_userMgmt, btn); break;
@@ -36,9 +36,13 @@ namespace ClinicEMR.Forms
         private DoctorDashboardControl _doctorDash;
         private AdminDashboardControl _adminDash;
 
+
         // Shared feature controls (Week 2 adds more)
         private PatientListControl _patients;
         private UserManagementControl _userMgmt;
+        private AppointmentControl _appointments;
+        private VitalsControl _vitals;
+        private ConsultationControl _consultation;
 
         // Navigation state
         private Control _activeControl;
@@ -232,11 +236,24 @@ namespace ClinicEMR.Forms
 
             _patients = new PatientListControl(_currentUser, this);
             _userMgmt = new UserManagementControl(_currentUser);
+            _appointments = new AppointmentControl(_currentUser, this);
+            _appointments.Dock = DockStyle.Fill;
+            _appointments.Visible = false;
+            pnlContent.Controls.Add(_appointments);
+            _vitals = new VitalsControl(_currentUser, this);
+            _vitals.Dock = DockStyle.Fill; _vitals.Visible = false;
+            pnlContent.Controls.Add(_vitals);
+            _consultation = new ConsultationControl(_currentUser, this);
+            _consultation.Dock = DockStyle.Fill; _consultation.Visible = false;
+            pnlContent.Controls.Add(_consultation);
+
+
+
 
             Control[] all = {
-        _nurseDash, _doctorDash, _adminDash,
-        _patients, _userMgmt
-      };
+                _nurseDash, _doctorDash, _adminDash,
+                _patients, _userMgmt
+              };
             foreach (var c in all)
             {
                 if (c == null) continue;
@@ -313,7 +330,16 @@ namespace ClinicEMR.Forms
             {
                 case "patients":
                     ShowControl(_patients, _navButtons["btnPatients"]); break;
-                    // Week 2 adds more cases here
+                case "consultation":
+                    if (id.HasValue) _consultation.LoadPatient(id.Value);
+                    ShowControl(_consultation, _navButtons["btnConsult"]); break;
+                case "vitals":
+                    if (id.HasValue) _vitals.LoadPatient(id.Value);
+                    ShowControl(_vitals, _navButtons["btnVitals"]); break;
+                /*case "prescription":
+                    if (id.HasValue) _prescription.LoadConsultation(id.Value);
+                    ShowControl(_prescription, _navButtons["btnRx"]); break;*/
+
             }
         }
 
