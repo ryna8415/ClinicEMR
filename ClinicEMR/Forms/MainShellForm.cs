@@ -24,6 +24,7 @@ namespace ClinicEMR.Forms
                 case "btnVitals": ShowControl(_vitals, btn); break;
                 case "btnConsult": ShowControl(_consultation, btn); break;
                 case "btnRx": _prescription.ResetForStandalone(); ShowControl(_prescription, btn); break;
+                case "btnMedHistory": ShowControl(_medHistory, btn); break;
                 //case "btnReports": ShowControl(_report, btn); break;
                 case "btnUsers": ShowControl(_userMgmt, btn); break;
             }
@@ -44,6 +45,7 @@ namespace ClinicEMR.Forms
         private VitalsControl _vitals;
         private PrescriptionControl _prescription;
         private ConsultationControl _consultation;
+        private MedHistoryControl _medHistory;
 
         // Navigation state
         private Control _activeControl;
@@ -148,6 +150,7 @@ namespace ClinicEMR.Forms
                 ("btnAppts",     "  Appointments", 280),
                 ("btnVitals",    "  Vital Signs",  322),
                 ("btnConsult",   "  Consultation", 364),
+                ("btnMedHistory", "  Med History", 390),
                 ("btnRx",        "  Prescription", 406),
                 ("btnReports",   "  Reports",      448),
                 ("btnUsers",     "  User Accounts",90),
@@ -250,6 +253,10 @@ namespace ClinicEMR.Forms
             _prescription = new PrescriptionControl(_currentUser, this);
             _prescription.Dock = DockStyle.Fill; _prescription.Visible = false;
             pnlContent.Controls.Add(_prescription);
+            _medHistory = new MedHistoryControl(_currentUser, this);
+            _medHistory.Dock = DockStyle.Fill; _medHistory.Visible = false;
+            pnlContent.Controls.Add(_medHistory);
+
 
 
             Control[] all = {
@@ -271,8 +278,8 @@ namespace ClinicEMR.Forms
             // Show Dashboard for everyone
             _navButtons["btnDashboard"].Visible = true;
 
-            string[] nurseButtons = { "btnPatients", "btnAppts", "btnVitals" };
-            string[] doctorButtons = { "btnPatients", "btnConsult", "btnRx", "btnReports" };
+            string[] nurseButtons = { "btnPatients", "btnAppts", "btnVitals", "btnMedHistory" };
+            string[] doctorButtons = { "btnPatients", "btnConsult", "btnRx", "btnMedHistory","btnReports" };
             string[] adminButtons = { "btnUsers", "btnReports" };
 
             string[] toShow = _currentUser.Role switch
@@ -341,6 +348,9 @@ namespace ClinicEMR.Forms
                 case "prescription":
                     if (id.HasValue) _prescription.LoadConsultation(id.Value);
                     ShowControl(_prescription, _navButtons["btnRx"]); break;
+                case "medhistory":
+                    if (id.HasValue) _medHistory.LoadPatient(id.Value);
+                    ShowControl(_medHistory, _navButtons["btnMedHistory"]); break;
 
             }
         }

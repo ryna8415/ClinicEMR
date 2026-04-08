@@ -18,6 +18,10 @@ namespace ClinicEMR.Models
         public string Address { get; set; }
         public string EmergencyContact { get; set; }
         public DateTime RegisteredAt { get; set; }
+        public string ChronicConditions { get; set; }
+        public string PastSurgeries { get; set; }
+        public string FamilyHistory { get; set; }
+        public string CurrentMedications { get; set; }
         public string FullName => $"{LastName}, {FirstName}";
         public string DisplayInfo => $"{FullName} ({PatientCode})";
     }
