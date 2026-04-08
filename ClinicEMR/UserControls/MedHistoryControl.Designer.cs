@@ -42,10 +42,10 @@
             txtConditions = new TextBox();
             txtSurgeries = new TextBox();
             lblPatientName = new Label();
+            btnSave = new Button();
             tblHeader = new TableLayoutPanel();
             cboPatient = new ComboBox();
             lblPatientInfo = new Label();
-            btnSave = new Button();
             tblLayout.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             tblHeader.SuspendLayout();
@@ -206,6 +206,17 @@
             lblPatientName.TabIndex = 11;
             lblPatientName.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // btnSave
+            // 
+            btnSave.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnSave.Location = new Point(544, 163);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(120, 40);
+            btnSave.TabIndex = 14;
+            btnSave.Text = "Save History";
+            btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
+            // 
             // tblHeader
             // 
             tblHeader.ColumnCount = 2;
@@ -244,17 +255,6 @@
             lblPatientInfo.TabIndex = 5;
             lblPatientInfo.Text = "Patient:";
             lblPatientInfo.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // btnSave
-            // 
-            btnSave.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnSave.Location = new Point(544, 163);
-            btnSave.Name = "btnSave";
-            btnSave.Size = new Size(120, 40);
-            btnSave.TabIndex = 14;
-            btnSave.Text = "Save History";
-            btnSave.UseVisualStyleBackColor = true;
-            btnSave.Click += btnSave_Click;
             // 
             // MedHistoryControl
             // 

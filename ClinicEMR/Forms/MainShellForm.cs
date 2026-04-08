@@ -69,6 +69,12 @@ namespace ClinicEMR.Forms
             pnlSidebar.Dock = DockStyle.Left;
             pnlSidebar.BackColor = Color.FromArgb(13, 43, 69);
 
+            var pnlBottomUserArea = new Panel
+            {
+                Dock = DockStyle.Bottom,
+                Height = 110,
+                BackColor = Color.Transparent
+            };
 
             // ── Separator line ────────────────────────────────────────
             var sep = new Panel
@@ -81,17 +87,17 @@ namespace ClinicEMR.Forms
 
             var sep2 = new Panel
             {
-                Dock = DockStyle.Top,
+                Location = new Point(16, 0),
+                Width = 178,
                 Height = 1,
-                Margin = new Padding(10, 8, 16, 8),
                 BackColor = Color.FromArgb(255, 255, 255, 20)
             };
 
             var sep3 = new Panel
             {
-                Dock = DockStyle.Top,
+                Location = new Point(16, 69),
+                Width = 178,
                 Height = 1,
-                Margin = new Padding(10, 8, 16, 8),
                 BackColor = Color.FromArgb(255, 255, 255, 20)
             };
 
@@ -112,13 +118,6 @@ namespace ClinicEMR.Forms
             {
                 Dock = DockStyle.Top,
                 Height = 12,  // adjust this value to taste
-                BackColor = Color.Transparent
-            };
-
-            var spacer2 = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 180,  // adjust this value to taste
                 BackColor = Color.Transparent
             };
 
@@ -189,9 +188,9 @@ namespace ClinicEMR.Forms
                 ForeColor = Color.White,
                 AutoSize = false,
                 Size = new Size(210, 22),
-                Location = new Point(0, 290),  // ← pnlSidebar not this
+                Location = new Point(0, 12),
                 Padding = new Padding(16, 0, 0, 0),
-                Anchor = AnchorStyles.Bottom | AnchorStyles.Left
+                TextAlign = ContentAlignment.MiddleLeft
             };
 
             var lblUserRole = new Label
@@ -201,31 +200,31 @@ namespace ClinicEMR.Forms
                 ForeColor = Color.FromArgb(100, 160, 200),
                 AutoSize = false,
                 Size = new Size(210, 20),
-                Location = new Point(0,268),  // ← pnlSidebar not this
+                Location = new Point(0, 36),
                 Padding = new Padding(16, 0, 0, 0),
-                Anchor = AnchorStyles.Bottom | AnchorStyles.Left
+                TextAlign = ContentAlignment.MiddleLeft
             };
 
             var btnLogout = new Button
             {
                 Text = "  Log Out",
                 Size = new Size(210, 36),
-                Location = new Point(0, 244),  // ← pnlSidebar not this
+                Location = new Point(0, 73),
                 FlatStyle = FlatStyle.Flat,
                 BackColor = Color.Transparent,
                 ForeColor = Color.FromArgb(160, 190, 220),
                 Font = new Font("Segoe UI", 9f),
                 TextAlign = ContentAlignment.MiddleLeft,
                 Cursor = Cursors.Hand,
-                Anchor = AnchorStyles.Bottom | AnchorStyles.Left,
                 UseVisualStyleBackColor = false
             };
             btnLogout.FlatAppearance.BorderSize = 0;
             btnLogout.Click += btnLogout_Click;
 
-            pnlSidebar.Controls.AddRange(new Control[] {
-                spacer2, sep2, lblUserName, lblUserRole, sep3, btnLogout
+            pnlBottomUserArea.Controls.AddRange(new Control[] {
+                sep2, lblUserName, lblUserRole, sep3, btnLogout
             });
+            pnlSidebar.Controls.Add(pnlBottomUserArea);
         }
 
         // ── Build all UserControls ──────────────────────────
