@@ -72,7 +72,7 @@ namespace ClinicEMR.Forms
             var pnlBottomUserArea = new Panel
             {
                 Dock = DockStyle.Bottom,
-                Height = 110,
+                Height = 82,
                 BackColor = Color.Transparent
             };
 
@@ -87,16 +87,14 @@ namespace ClinicEMR.Forms
 
             var sep2 = new Panel
             {
-                Location = new Point(16, 0),
-                Width = 178,
+                Dock = DockStyle.Top,
                 Height = 1,
                 BackColor = Color.FromArgb(255, 255, 255, 20)
             };
 
             var sep3 = new Panel
             {
-                Location = new Point(16, 69),
-                Width = 178,
+                Dock = DockStyle.Bottom,
                 Height = 1,
                 BackColor = Color.FromArgb(255, 255, 255, 20)
             };
@@ -188,7 +186,7 @@ namespace ClinicEMR.Forms
                 ForeColor = Color.White,
                 AutoSize = false,
                 Size = new Size(210, 22),
-                Location = new Point(0, 12),
+                Location = new Point(0, 10),
                 Padding = new Padding(16, 0, 0, 0),
                 TextAlign = ContentAlignment.MiddleLeft
             };
@@ -200,7 +198,7 @@ namespace ClinicEMR.Forms
                 ForeColor = Color.FromArgb(100, 160, 200),
                 AutoSize = false,
                 Size = new Size(210, 20),
-                Location = new Point(0, 36),
+                Location = new Point(0, 30),
                 Padding = new Padding(16, 0, 0, 0),
                 TextAlign = ContentAlignment.MiddleLeft
             };
@@ -209,7 +207,7 @@ namespace ClinicEMR.Forms
             {
                 Text = "  Log Out",
                 Size = new Size(210, 36),
-                Location = new Point(0, 73),
+                Dock = DockStyle.Bottom,
                 FlatStyle = FlatStyle.Flat,
                 BackColor = Color.Transparent,
                 ForeColor = Color.FromArgb(160, 190, 220),
@@ -221,8 +219,12 @@ namespace ClinicEMR.Forms
             btnLogout.FlatAppearance.BorderSize = 0;
             btnLogout.Click += btnLogout_Click;
 
+            sep2.Margin = Padding.Empty;
+            sep3.Margin = Padding.Empty;
+            btnLogout.Margin = Padding.Empty;
+
             pnlBottomUserArea.Controls.AddRange(new Control[] {
-                sep2, lblUserName, lblUserRole, sep3, btnLogout
+                lblUserName, lblUserRole, sep2, sep3, btnLogout
             });
             pnlSidebar.Controls.Add(pnlBottomUserArea);
         }
