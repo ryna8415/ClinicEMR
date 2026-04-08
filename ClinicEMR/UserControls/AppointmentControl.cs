@@ -1,10 +1,5 @@
 ﻿using ClinicEMR.Services;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using ClinicEMR.Models;
 
@@ -18,27 +13,85 @@ namespace ClinicEMR.Forms
         public AppointmentControl(User user, MainShellForm shell)
         {
             InitializeComponent();
-            _user = user; _shell = shell;
+            _user = user;
+            _shell = shell;
+
             dtpDate.Value = DateTime.Today;
+
+            // ✅ Default filter values
+            cboStatus.Items.Clear();
+            cboStatus.Items.AddRange(new string[]
+            {
+                "All",
+                "Scheduled",
+                "Completed",
+                "Cancelled",
+                "No-Show"
+            });
+
+            cboStatus.SelectedIndex = 0; // Default = All
+            chkAllDates.Checked = false;
         }
 
-        private void AppointmentControl_Load(object s, EventArgs e) => LoadSchedule();
+        private void AppointmentControl_Load(object s, EventArgs e)
+        {
+            LoadSchedule();
+        }
 
         public void LoadSchedule()
         {
-            dgvAppointments.DataSource = AppointmentService.GetByDate(dtpDate.Value);
-            HideCol("AppointmentId"); HideCol("PatientId");
-            HideCol("DoctorId"); HideCol("CreatedBy");
-            SetHeader("PatientName", "Patient"); SetHeader("DoctorName", "Doctor");
-            SetHeader("ApptTime", "Time"); SetHeader("ApptDate", "Date");
+            string status = cboStatus.Text;
+            bool allDates = chkAllDates.Checked;
+
+            List<Appointment> data;
+
+            // ✅ CASE 1: SHOW EVERYTHING
+            if (allDates && status == "All")
+            {
+                data = AppointmentService.GetAll();
+            }
+            // ✅ CASE 2: FILTER BY STATUS ONLY
+            else if (allDates)
+            {
+                data = AppointmentService.GetByStatus(status);
+            }
+            // ✅ CASE 3: FILTER BY DATE ONLY
+            else if (status == "All")
+            {
+                data = AppointmentService.GetByDate(dtpDate.Value);
+            }
+            // ✅ CASE 4: FILTER BY DATE + STATUS
+            else
+            {
+                data = AppointmentService.GetByDateAndStatus(dtpDate.Value, status);
+            }
+
+            // 🔄 Refresh grid properly
+            dgvAppointments.DataSource = null;
+            dgvAppointments.DataSource = data;
+
+            // 🧹 Clean columns
+            HideCol("AppointmentId");
+            HideCol("PatientId");
+            HideCol("DoctorId");
+            HideCol("CreatedBy");
+
+            SetHeader("PatientName", "Patient");
+            SetHeader("DoctorName", "Doctor");
+            SetHeader("ApptTime", "Time");
+            SetHeader("ApptDate", "Date");
         }
 
-        private void btnLoad_Click(object s, EventArgs e) => LoadSchedule();
+        private void btnLoad_Click(object s, EventArgs e)
+        {
+            LoadSchedule();
+        }
 
         private void btnBook_Click(object s, EventArgs e)
         {
             var form = new BookAppointmentForm(_user.UserId);
-            if (form.ShowDialog() == DialogResult.OK) LoadSchedule();
+            if (form.ShowDialog() == DialogResult.OK)
+                LoadSchedule();
         }
 
         private void btnUpdateStatus_Click(object s, EventArgs e)
@@ -49,7 +102,7 @@ namespace ClinicEMR.Forms
                 return;
             }
 
-            // Create dropdown
+            // 🔽 Status dialog
             Form dialog = new Form()
             {
                 Width = 300,
@@ -68,13 +121,13 @@ namespace ClinicEMR.Forms
 
             cbo.Items.AddRange(new string[]
             {
-            "Scheduled",
-            "Completed",
-            "Cancelled",
-            "No-Show"
+                "Scheduled",
+                "Completed",
+                "Cancelled",
+                "No-Show"
             });
 
-            cbo.SelectedIndex = 1; // default = Completed
+            cbo.SelectedIndex = 1;
 
             Button btnOk = new Button()
             {
@@ -107,11 +160,22 @@ namespace ClinicEMR.Forms
             if (dgvAppointments.Columns[n] != null)
                 dgvAppointments.Columns[n].Visible = false;
         }
+
         private void SetHeader(string n, string h)
         {
             if (dgvAppointments.Columns[n] != null)
                 dgvAppointments.Columns[n].HeaderText = h;
         }
-    }
 
+        private void cboStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadSchedule();
+        }
+
+        private void chkAllDates_CheckedChanged(object sender, EventArgs e)
+        {
+            dtpDate.Enabled = !chkAllDates.Checked;
+            LoadSchedule();
+        }
+    }
 }

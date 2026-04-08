@@ -46,7 +46,7 @@ namespace ClinicEMR.UserControls
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            string kw = txtSearch.Text.Trim();
+            string kw = txtSearch.Text.ToLower().Trim();
             dgvPatients.DataSource = string.IsNullOrEmpty(kw)
               ? PatientService.GetAll()
               : PatientService.Search(kw);
