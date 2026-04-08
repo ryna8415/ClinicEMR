@@ -23,7 +23,7 @@ namespace ClinicEMR.Forms
                 case "btnAppts": ShowControl(_appointments, btn); break;
                 case "btnVitals": ShowControl(_vitals, btn); break;
                 case "btnConsult": ShowControl(_consultation, btn); break;
-                //case "btnRx": ShowControl(_prescription, btn); break;
+                case "btnRx": _prescription.ResetForStandalone(); ShowControl(_prescription, btn); break;
                 //case "btnReports": ShowControl(_report, btn); break;
                 case "btnUsers": ShowControl(_userMgmt, btn); break;
             }
@@ -42,6 +42,7 @@ namespace ClinicEMR.Forms
         private UserManagementControl _userMgmt;
         private AppointmentControl _appointments;
         private VitalsControl _vitals;
+        private PrescriptionControl _prescription;
         private ConsultationControl _consultation;
 
         // Navigation state
@@ -246,8 +247,9 @@ namespace ClinicEMR.Forms
             _consultation = new ConsultationControl(_currentUser, this);
             _consultation.Dock = DockStyle.Fill; _consultation.Visible = false;
             pnlContent.Controls.Add(_consultation);
-
-
+            _prescription = new PrescriptionControl(_currentUser, this);
+            _prescription.Dock = DockStyle.Fill; _prescription.Visible = false;
+            pnlContent.Controls.Add(_prescription);
 
 
             Control[] all = {
@@ -336,9 +338,9 @@ namespace ClinicEMR.Forms
                 case "vitals":
                     if (id.HasValue) _vitals.LoadPatient(id.Value);
                     ShowControl(_vitals, _navButtons["btnVitals"]); break;
-                /*case "prescription":
+                case "prescription":
                     if (id.HasValue) _prescription.LoadConsultation(id.Value);
-                    ShowControl(_prescription, _navButtons["btnRx"]); break;*/
+                    ShowControl(_prescription, _navButtons["btnRx"]); break;
 
             }
         }

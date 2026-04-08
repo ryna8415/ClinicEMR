@@ -29,17 +29,6 @@ namespace ClinicEMR.Forms
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            if (cboPatient.SelectedValue == null || cboDoctor.SelectedValue == null)
-            {
-                MessageBox.Show("Please select both patient and doctor.");
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtPurpose.Text))
-            {
-                MessageBox.Show("Please enter purpose of visit.");
-                return;
-            }
 
             TimeSpan selectedTime = TimeSpan.Parse(cboTime.SelectedItem.ToString());
 
@@ -55,6 +44,18 @@ namespace ClinicEMR.Forms
             };
             bool ok = AppointmentService.Book(a);
 
+
+            if (cboPatient.SelectedValue == null || cboDoctor.SelectedValue == null)
+            {
+                MessageBox.Show("Please select both patient and doctor.");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtPurpose.Text))
+            {
+                MessageBox.Show("Please enter purpose of visit.");
+                return;
+            }
 
             if (!ok)
             {

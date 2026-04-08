@@ -29,35 +29,28 @@
         private void InitializeComponent()
         {
             dtpDate = new DateTimePicker();
-            btnLoad = new Button();
             btnBook = new Button();
             cboStatus = new ComboBox();
             dgvAppointments = new DataGridView();
             btnUpdateStatus = new Button();
+            chkAllDates = new CheckBox();
+            lblFilterbyDate = new Label();
+            lblFilterbyStatus = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvAppointments).BeginInit();
             SuspendLayout();
             // 
             // dtpDate
             // 
             dtpDate.Format = DateTimePickerFormat.Short;
-            dtpDate.Location = new Point(565, 25);
+            dtpDate.Location = new Point(438, 102);
             dtpDate.Name = "dtpDate";
             dtpDate.Size = new Size(121, 23);
             dtpDate.TabIndex = 0;
-            // 
-            // btnLoad
-            // 
-            btnLoad.Location = new Point(474, 25);
-            btnLoad.Name = "btnLoad";
-            btnLoad.Size = new Size(75, 23);
-            btnLoad.TabIndex = 1;
-            btnLoad.Text = "Load";
-            btnLoad.UseVisualStyleBackColor = true;
-            btnLoad.Click += btnLoad_Click;
+            dtpDate.ValueChanged += cboStatus_SelectedIndexChanged;
             // 
             // btnBook
             // 
-            btnBook.Location = new Point(474, 54);
+            btnBook.Location = new Point(45, 101);
             btnBook.Name = "btnBook";
             btnBook.Size = new Size(75, 24);
             btnBook.TabIndex = 2;
@@ -69,19 +62,20 @@
             // 
             cboStatus.FormattingEnabled = true;
             cboStatus.Items.AddRange(new object[] { "All", "Scheduled", "Completed", "Cancelled", "No-Show" });
-            cboStatus.Location = new Point(565, 56);
+            cboStatus.Location = new Point(565, 102);
             cboStatus.Name = "cboStatus";
             cboStatus.Size = new Size(121, 23);
             cboStatus.TabIndex = 3;
+            cboStatus.SelectedIndexChanged += cboStatus_SelectedIndexChanged;
             // 
             // dgvAppointments
             // 
             dgvAppointments.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvAppointments.Location = new Point(45, 98);
+            dgvAppointments.Location = new Point(45, 135);
             dgvAppointments.Name = "dgvAppointments";
             dgvAppointments.ReadOnly = true;
             dgvAppointments.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvAppointments.Size = new Size(641, 406);
+            dgvAppointments.Size = new Size(641, 369);
             dgvAppointments.TabIndex = 4;
             // 
             // btnUpdateStatus
@@ -94,30 +88,64 @@
             btnUpdateStatus.UseVisualStyleBackColor = true;
             btnUpdateStatus.Click += btnUpdateStatus_Click;
             // 
+            // chkAllDates
+            // 
+            chkAllDates.AutoSize = true;
+            chkAllDates.Location = new Point(141, 104);
+            chkAllDates.Name = "chkAllDates";
+            chkAllDates.Size = new Size(156, 19);
+            chkAllDates.TabIndex = 6;
+            chkAllDates.Text = "Display All Appoinments";
+            chkAllDates.UseVisualStyleBackColor = true;
+            chkAllDates.CheckedChanged += chkAllDates_CheckedChanged;
+            // 
+            // lblFilterbyDate
+            // 
+            lblFilterbyDate.AutoSize = true;
+            lblFilterbyDate.Location = new Point(438, 84);
+            lblFilterbyDate.Name = "lblFilterbyDate";
+            lblFilterbyDate.Size = new Size(79, 15);
+            lblFilterbyDate.TabIndex = 7;
+            lblFilterbyDate.Text = "Filter by Date:";
+            // 
+            // lblFilterbyStatus
+            // 
+            lblFilterbyStatus.AutoSize = true;
+            lblFilterbyStatus.Location = new Point(565, 84);
+            lblFilterbyStatus.Name = "lblFilterbyStatus";
+            lblFilterbyStatus.Size = new Size(87, 15);
+            lblFilterbyStatus.TabIndex = 8;
+            lblFilterbyStatus.Text = "Filter by Status:";
+            // 
             // AppointmentControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(lblFilterbyStatus);
+            Controls.Add(lblFilterbyDate);
+            Controls.Add(chkAllDates);
             Controls.Add(btnUpdateStatus);
             Controls.Add(dgvAppointments);
             Controls.Add(cboStatus);
             Controls.Add(btnBook);
-            Controls.Add(btnLoad);
             Controls.Add(dtpDate);
             Name = "AppointmentControl";
             Size = new Size(729, 555);
             Load += AppointmentControl_Load;
             ((System.ComponentModel.ISupportInitialize)dgvAppointments).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private DateTimePicker dtpDate;
-        private Button btnLoad;
         private Button btnBook;
         private ComboBox cboStatus;
         private DataGridView dgvAppointments;
         private Button btnUpdateStatus;
+        private CheckBox chkAllDates;
+        private Label lblFilterbyDate;
+        private Label lblFilterbyStatus;
     }
 }
