@@ -325,6 +325,7 @@
             cboPatient.Name = "cboPatient";
             cboPatient.Size = new Size(491, 23);
             cboPatient.TabIndex = 5;
+            cboPatient.SelectedIndexChanged += cboPatient_SelectedIndexChanged;
             // 
             // PrescriptionControl
             // 

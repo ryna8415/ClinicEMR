@@ -109,9 +109,16 @@ namespace ClinicEMR.UserControls
 
         private void cboPatient_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cboPatient.SelectedValue == null) return;
-            if (cboPatient.SelectedValue is int id)
-                _patientId = id;
+            if (cboPatient.SelectedIndex == -1)
+            {
+                _patientId = 0;
+                return;
+            }
+
+            if (cboPatient.SelectedItem is Patient selectedPatient)
+            {
+                _patientId = selectedPatient.PatientId;
+            }
         }
 
         // ════════════════════════════════════════════════════════════════════
@@ -191,6 +198,7 @@ namespace ClinicEMR.UserControls
             cboPatient.SelectedIndex = -1;
 
             _consultationId = 0;
+            _patientId = 0;
 
             SetConsultDateNow(); // reset date
         }
