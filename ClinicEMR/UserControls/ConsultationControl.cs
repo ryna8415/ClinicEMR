@@ -2,6 +2,7 @@
 using ClinicEMR.Models;
 using ClinicEMR.Services;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace ClinicEMR.UserControls
@@ -15,6 +16,7 @@ namespace ClinicEMR.UserControls
 
         private readonly User _user;
         private readonly MainShellForm _shell;
+        private readonly Label _consultationPlaceholder;
 
         // ── Constructor ──────────────────────────────────────────────────────
         public ConsultationControl(User user, MainShellForm shell)
@@ -22,12 +24,14 @@ namespace ClinicEMR.UserControls
             InitializeComponent();
             _user = user;
             _shell = shell;
+            _consultationPlaceholder = CreatePlaceholder();
 
             // Disable Rx button until a consultation is saved
             btnAddRx.Enabled = false;
 
             gbPatientInfo.Visible = false;
             LoadPatients();
+            ShowPlaceholder("Choose a patient to display consultation details.");
 
             // Lock yesterday's records silently every time this control loads
             ConsultService.LockPastConsultations(_user.UserId);
@@ -84,6 +88,7 @@ namespace ClinicEMR.UserControls
             btnAddRx.Enabled = true;
 
             gbPatientInfo.Visible = true;
+            ShowPlaceholder(null);
         }
 
         public void RefreshPatients(int? selectedPatientId = null)
@@ -159,6 +164,7 @@ namespace ClinicEMR.UserControls
 
             // ── Show the form ────────────────────────────────────────────────
             gbPatientInfo.Visible = true;
+            ShowPlaceholder(null);
             txtChief.Focus();
         }
 
@@ -227,6 +233,33 @@ namespace ClinicEMR.UserControls
             txtNotes.Clear();
             lblAllergy.Visible = false;
             lblVitals.Text = "";
+        }
+
+        private Label CreatePlaceholder()
+        {
+            var placeholder = new Label
+            {
+                BackColor = Color.FromArgb(248, 249, 250),
+                BorderStyle = BorderStyle.FixedSingle,
+                ForeColor = Color.FromArgb(108, 117, 125),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Segoe UI", 10F, FontStyle.Italic),
+                Bounds = gbPatientInfo.Bounds,
+                Anchor = gbPatientInfo.Anchor,
+                Visible = false
+            };
+
+            Controls.Add(placeholder);
+            placeholder.BringToFront();
+            return placeholder;
+        }
+
+        private void ShowPlaceholder(string? message)
+        {
+            bool showPlaceholder = !string.IsNullOrWhiteSpace(message);
+            _consultationPlaceholder.Text = message ?? string.Empty;
+            _consultationPlaceholder.Visible = showPlaceholder;
+            gbPatientInfo.Visible = !showPlaceholder;
         }
     }
 }
