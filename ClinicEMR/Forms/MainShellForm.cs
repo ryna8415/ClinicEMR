@@ -360,6 +360,7 @@ namespace ClinicEMR.Forms
             _patients?.LoadPatients();
             _vitals?.RefreshPatients(selectedPatientId);
             _medHistory?.RefreshPatients(selectedPatientId);
+            _consultation?.RefreshPatients(selectedPatientId);
         }
 
         // ── Logout ───────────────────────────────────────────
