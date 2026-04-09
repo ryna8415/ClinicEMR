@@ -27,6 +27,10 @@ CREATE TABLE IF NOT EXISTS patients (
   address           TEXT,
   emergency_contact VARCHAR(120),
   known_allergies   TEXT,
+  chronic_conditions TEXT,
+  past_surgeries     TEXT,
+  family_history     TEXT,
+  current_medications TEXT,
   is_active         TINYINT(1) DEFAULT 1,
   registered_at     DATETIME DEFAULT CURRENT_TIMESTAMP
 );

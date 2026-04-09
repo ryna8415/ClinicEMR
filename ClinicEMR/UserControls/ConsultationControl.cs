@@ -11,6 +11,7 @@ namespace ClinicEMR.UserControls
         // ── Private state ────────────────────────────────────────────────────
         private int _patientId = 0;
         private int _savedConsultId = 0;
+        private bool _isLoadingPatients = false;
 
         private readonly User _user;
         private readonly MainShellForm _shell;
@@ -25,9 +26,8 @@ namespace ClinicEMR.UserControls
             // Disable Rx button until a consultation is saved
             btnAddRx.Enabled = false;
 
-            // Hide the results list and patient info panel on startup
-            lstResults.Visible = false;
             gbPatientInfo.Visible = false;
+            LoadPatients();
 
             // Lock yesterday's records silently every time this control loads
             ConsultService.LockPastConsultations(_user.UserId);
@@ -41,6 +41,7 @@ namespace ClinicEMR.UserControls
         // Load a patient directly (Options B and C from the guide)
         public void LoadPatient(int patientId)
         {
+            RefreshPatients(patientId);
             SelectPatient(patientId);
         }
 
@@ -85,57 +86,35 @@ namespace ClinicEMR.UserControls
             gbPatientInfo.Visible = true;
         }
 
-        // ════════════════════════════════════════════════════════════════════
-        // PATIENT SEARCH (Option A — search box inside ConsultationControl)
-        // ════════════════════════════════════════════════════════════════════
-
-        // Live search as the doctor types
-        private void txtSearch_TextChanged(object sender, EventArgs e)
+        public void RefreshPatients(int? selectedPatientId = null)
         {
-            string kw = txtSearch.Text.Trim();
+            LoadPatients(selectedPatientId ?? _patientId);
+        }
 
-            if (string.IsNullOrEmpty(kw))
+        private void LoadPatients(int? selectedPatientId = null)
+        {
+            _isLoadingPatients = true;
+            var patients = PatientService.GetAll();
+
+            cmbPatients.DataSource = null;
+            cmbPatients.DataSource = patients;
+            cmbPatients.DisplayMember = "FullName";
+            cmbPatients.ValueMember = "PatientId";
+            cmbPatients.SelectedIndex = -1;
+
+            if (selectedPatientId.HasValue && selectedPatientId.Value > 0)
             {
-                lstResults.Visible = false;
-                return;
+                for (int i = 0; i < cmbPatients.Items.Count; i++)
+                {
+                    if (cmbPatients.Items[i] is Patient patient && patient.PatientId == selectedPatientId.Value)
+                    {
+                        cmbPatients.SelectedIndex = i;
+                        break;
+                    }
+                }
             }
 
-            var results = PatientService.Search(kw);
-
-            // Rebind -- set DataSource to null first to force refresh
-            lstResults.DataSource = null;
-            lstResults.DataSource = results;
-            lstResults.DisplayMember = "DisplayInfo";   // e.g. "Cruz, Ana — PT-00001"
-            lstResults.ValueMember = "PatientId";
-
-            lstResults.Visible = results.Count > 0;
-            lstResults.Height = Math.Min(results.Count * 20 + 4, 120);
-            lstResults.BringToFront();
-        }
-
-        // When the doctor clicks a result in the dropdown list
-        private void lstResults_Click(object sender, EventArgs e)
-        {
-            if (lstResults.SelectedItem == null) return;
-
-            var p = lstResults.SelectedItem as Patient;
-            if (p == null) return;
-
-            SelectPatient(p.PatientId);
-
-            lstResults.Visible = false;
-            txtSearch.Text = "";
-        }
-
-        // Hide the dropdown when focus leaves the search box
-        // (use BeginInvoke so the click event on lstResults fires first)
-        private void txtSearch_Leave(object sender, EventArgs e)
-        {
-            this.BeginInvoke(new Action(() =>
-            {
-                if (!lstResults.Focused)
-                    lstResults.Visible = false;
-            }));
+            _isLoadingPatients = false;
         }
 
         // ════════════════════════════════════════════════════════════════════
@@ -181,6 +160,14 @@ namespace ClinicEMR.UserControls
             // ── Show the form ────────────────────────────────────────────────
             gbPatientInfo.Visible = true;
             txtChief.Focus();
+        }
+
+        private void cmbPatients_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_isLoadingPatients || cmbPatients.SelectedIndex == -1) return;
+            if (cmbPatients.SelectedItem is not Patient selectedPatient) return;
+
+            SelectPatient(selectedPatient.PatientId);
         }
 
         // ════════════════════════════════════════════════════════════════════

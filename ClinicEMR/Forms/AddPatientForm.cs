@@ -37,6 +37,7 @@ namespace ClinicEMR.Forms
             };
             PatientService.Add(p);
             MessageBox.Show("Patient registered successfully!");
+            DialogResult = DialogResult.OK;
             this.Close();
             
         }

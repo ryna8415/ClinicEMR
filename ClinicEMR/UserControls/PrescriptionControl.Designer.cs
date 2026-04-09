@@ -30,7 +30,6 @@
         {
             tblLayout = new TableLayoutPanel();
             tblHeader = new TableLayoutPanel();
-            cboPatient = new ComboBox();
             lblModeInfo = new Label();
             lblConsultDate = new Label();
             tblContent = new TableLayoutPanel();
@@ -50,6 +49,8 @@
             lblPrescription = new Label();
             tableLayoutPanel2 = new TableLayoutPanel();
             btnDone = new Button();
+            lblPatientInfo = new Label();
+            cboPatient = new ComboBox();
             tblLayout.SuspendLayout();
             tblHeader.SuspendLayout();
             tblContent.SuspendLayout();
@@ -76,12 +77,14 @@
             // 
             // tblHeader
             // 
-            tblHeader.ColumnCount = 2;
-            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 80F));
+            tblHeader.ColumnCount = 3;
+            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.213257F));
+            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 71.61383F));
             tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            tblHeader.Controls.Add(cboPatient, 0, 0);
-            tblHeader.Controls.Add(lblModeInfo, 0, 1);
-            tblHeader.Controls.Add(lblConsultDate, 1, 0);
+            tblHeader.Controls.Add(cboPatient, 1, 0);
+            tblHeader.Controls.Add(lblModeInfo, 1, 1);
+            tblHeader.Controls.Add(lblConsultDate, 2, 0);
+            tblHeader.Controls.Add(lblPatientInfo, 0, 0);
             tblHeader.Dock = DockStyle.Fill;
             tblHeader.Location = new Point(20, 10);
             tblHeader.Margin = new Padding(20, 10, 20, 3);
@@ -92,21 +95,10 @@
             tblHeader.Size = new Size(694, 47);
             tblHeader.TabIndex = 0;
             // 
-            // cboPatient
-            // 
-            cboPatient.Dock = DockStyle.Fill;
-            cboPatient.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboPatient.FormattingEnabled = true;
-            cboPatient.Location = new Point(3, 3);
-            cboPatient.Name = "cboPatient";
-            cboPatient.Size = new Size(549, 23);
-            cboPatient.TabIndex = 2;
-            cboPatient.SelectedValueChanged += cboPatient_SelectedIndexChanged;
-            // 
             // lblModeInfo
             // 
             lblModeInfo.AutoSize = true;
-            lblModeInfo.Location = new Point(3, 27);
+            lblModeInfo.Location = new Point(60, 27);
             lblModeInfo.Name = "lblModeInfo";
             lblModeInfo.Size = new Size(0, 15);
             lblModeInfo.TabIndex = 3;
@@ -115,7 +107,7 @@
             // 
             lblConsultDate.AutoSize = true;
             lblConsultDate.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblConsultDate.Location = new Point(558, 0);
+            lblConsultDate.Location = new Point(557, 0);
             lblConsultDate.Name = "lblConsultDate";
             lblConsultDate.Padding = new Padding(3);
             lblConsultDate.RightToLeft = RightToLeft.No;
@@ -313,6 +305,28 @@
             btnDone.UseVisualStyleBackColor = true;
             btnDone.Click += btnDone_Click;
             // 
+            // lblPatientInfo
+            // 
+            lblPatientInfo.Anchor = AnchorStyles.Right;
+            lblPatientInfo.AutoSize = true;
+            lblPatientInfo.Location = new Point(7, 6);
+            lblPatientInfo.Name = "lblPatientInfo";
+            lblPatientInfo.Size = new Size(47, 15);
+            lblPatientInfo.TabIndex = 4;
+            lblPatientInfo.Text = "Patient:";
+            lblPatientInfo.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // cboPatient
+            // 
+            cboPatient.Dock = DockStyle.Fill;
+            cboPatient.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboPatient.FormattingEnabled = true;
+            cboPatient.Location = new Point(60, 3);
+            cboPatient.Name = "cboPatient";
+            cboPatient.Size = new Size(491, 23);
+            cboPatient.TabIndex = 5;
+            cboPatient.SelectedIndexChanged += cboPatient_SelectedIndexChanged;
+            // 
             // PrescriptionControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -353,8 +367,9 @@
         private Button btnDone;
         private ListBox lstDrugs;
         private Label lblPrescription;
-        private ComboBox cboPatient;
         private Label lblModeInfo;
         private Label lblDate;
+        private Label lblPatientInfo;
+        private ComboBox cboPatient;
     }
 }

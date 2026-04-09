@@ -30,6 +30,7 @@ namespace ClinicEMR.UserControls
         // Called from outside (e.g. patient list 'Take Vitals' button)
         public void LoadPatient(int patientId)
         {
+            RefreshPatients(patientId);
             _selectedPatientId = patientId;
             var p = PatientService.GetById(patientId);
             lblPatientName.Text = p?.FullName ?? "Unknown";
@@ -143,15 +144,38 @@ namespace ClinicEMR.UserControls
 
         private void LoadPatients()
         {
+            LoadPatients(_selectedPatientId);
+        }
+
+        public void RefreshPatients(int? selectedPatientId = null)
+        {
+            LoadPatients(selectedPatientId ?? _selectedPatientId);
+        }
+
+        private void LoadPatients(int? selectedPatientId)
+        {
             _isLoadingPatients = true;
 
             var patients = PatientService.GetAll();
 
+            cmbPatients.DataSource = null;
             cmbPatients.DataSource = patients;
             cmbPatients.DisplayMember = "FullName";
             cmbPatients.ValueMember = "PatientId";
 
             cmbPatients.SelectedIndex = -1;
+
+            if (selectedPatientId.HasValue && selectedPatientId.Value > 0)
+            {
+                for (int i = 0; i < cmbPatients.Items.Count; i++)
+                {
+                    if (cmbPatients.Items[i] is Patient patient && patient.PatientId == selectedPatientId.Value)
+                    {
+                        cmbPatients.SelectedIndex = i;
+                        break;
+                    }
+                }
+            }
 
             _isLoadingPatients = false;
         }
@@ -163,6 +187,7 @@ namespace ClinicEMR.UserControls
             if (cmbPatients.SelectedIndex == -1) return;
 
             var selected = (Patient)cmbPatients.SelectedItem;
+            _selectedPatientId = selected.PatientId;
 
             lblPatientName.Text = selected.FullName;
 

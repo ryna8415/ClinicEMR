@@ -49,8 +49,7 @@
             lblPatient = new Label();
             lblPatientName = new Label();
             lblConsultation = new Label();
-            lstResults = new ListBox();
-            txtSearch = new TextBox();
+            cmbPatients = new ComboBox();
             lblSearchName = new Label();
             gbPatientInfo.SuspendLayout();
             SuspendLayout();
@@ -268,38 +267,26 @@
             lblConsultation.TabIndex = 0;
             lblConsultation.Text = "Patient Information";
             // 
-            // lstResults
+            // cmbPatients
             // 
-            lstResults.BorderStyle = BorderStyle.None;
-            lstResults.FormattingEnabled = true;
-            lstResults.Location = new Point(83, 75);
-            lstResults.Name = "lstResults";
-            lstResults.Size = new Size(625, 60);
-            lstResults.TabIndex = 6;
-            lstResults.Click += lstResults_Click;
-            // 
-            // txtSearch
-            // 
-            txtSearch.BorderStyle = BorderStyle.None;
-            txtSearch.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtSearch.Location = new Point(83, 45);
-            txtSearch.Multiline = true;
-            txtSearch.Name = "txtSearch";
-            txtSearch.PlaceholderText = "Search: Name/Patient Code";
-            txtSearch.Size = new Size(625, 30);
-            txtSearch.TabIndex = 3;
-            txtSearch.TextChanged += txtSearch_TextChanged;
-            txtSearch.Leave += txtSearch_Leave;
+            cmbPatients.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cmbPatients.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cmbPatients.FormattingEnabled = true;
+            cmbPatients.Location = new Point(108, 47);
+            cmbPatients.Name = "cmbPatients";
+            cmbPatients.Size = new Size(609, 23);
+            cmbPatients.TabIndex = 3;
+            cmbPatients.SelectedIndexChanged += cmbPatients_SelectedIndexChanged;
             // 
             // lblSearchName
             // 
             lblSearchName.AutoSize = true;
             lblSearchName.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblSearchName.Location = new Point(32, 52);
+            lblSearchName.Location = new Point(41, 48);
             lblSearchName.Name = "lblSearchName";
-            lblSearchName.Size = new Size(51, 17);
+            lblSearchName.Size = new Size(54, 17);
             lblSearchName.TabIndex = 7;
-            lblSearchName.Text = "Search:";
+            lblSearchName.Text = "Patient:";
             // 
             // ConsultationControl
             // 
@@ -307,8 +294,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             Controls.Add(lblSearchName);
-            Controls.Add(txtSearch);
-            Controls.Add(lstResults);
+            Controls.Add(cmbPatients);
             Controls.Add(gbPatientInfo);
             Name = "ConsultationControl";
             Size = new Size(737, 676);
@@ -339,8 +325,7 @@
         private TextBox txtNotes;
         private Button btnSave;
         private Button btnAddRx;
-        private TextBox txtSearch;
-        private ListBox lstResults;
+        private ComboBox cmbPatients;
         private Label lblMeta;
         private Label lblSearchName;
         private Label lblConsultation;
