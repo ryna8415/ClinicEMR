@@ -1,4 +1,4 @@
-﻿using ClinicEMR.Models;
+using ClinicEMR.Models;
 using ClinicEMR.Services;
 using System;
 using System.Collections.Generic;
@@ -29,9 +29,32 @@ namespace ClinicEMR.Forms
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
+            if (cboPatient.SelectedValue == null || cboDoctor.SelectedValue == null)
+            {
+                MessageBox.Show("Please select both patient and doctor.");
+                return;
+            }
+
+            if (cboTime.SelectedItem == null)
+            {
+                MessageBox.Show("Please select an appointment time.");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtPurpose.Text))
+            {
+                MessageBox.Show("Please enter purpose of visit.");
+                return;
+            }
 
             TimeSpan selectedTime = TimeSpan.Parse(cboTime.SelectedItem.ToString());
+            DateTime appointmentDateTime = dtpDate.Value.Date.Add(selectedTime);
 
+            if (appointmentDateTime < DateTime.Now)
+            {
+                MessageBox.Show("Please select a future appointment date and time.");
+                return;
+            }
 
             var a = new Appointment
             {
@@ -42,20 +65,8 @@ namespace ClinicEMR.Forms
                 Purpose = txtPurpose.Text.Trim(),
                 CreatedBy = _createdBy
             };
+
             bool ok = AppointmentService.Book(a);
-
-
-            if (cboPatient.SelectedValue == null || cboDoctor.SelectedValue == null)
-            {
-                MessageBox.Show("Please select both patient and doctor.");
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtPurpose.Text))
-            {
-                MessageBox.Show("Please enter purpose of visit.");
-                return;
-            }
 
             if (!ok)
             {
@@ -73,7 +84,6 @@ namespace ClinicEMR.Forms
         {
             cboTime.Items.Clear();
 
-            // Example: 8:00 AM to 5:00 PM every 30 minutes
             TimeSpan start = new TimeSpan(8, 0, 0);
             TimeSpan end = new TimeSpan(17, 0, 0);
 

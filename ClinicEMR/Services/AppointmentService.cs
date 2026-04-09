@@ -1,4 +1,4 @@
-﻿using ClinicEMR.Models;
+using ClinicEMR.Models;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -91,6 +91,7 @@ namespace ClinicEMR.Services
 
             return list;
         }
+
         public static List<Appointment> GetByDate(DateTime date)
         {
             var list = new List<Appointment>();
@@ -184,7 +185,10 @@ namespace ClinicEMR.Services
             {
                 if (conn == null) return false;
 
-                // 🔍 Check double booking
+                DateTime appointmentDateTime = a.ApptDate.Date.Add(a.ApptTime);
+                if (appointmentDateTime < DateTime.Now)
+                    return false;
+
                 var checkCmd = new MySqlCommand(@"
             SELECT COUNT(*) FROM appointments
             WHERE doctor_id=@d
@@ -196,12 +200,25 @@ namespace ClinicEMR.Services
                 checkCmd.Parameters.AddWithValue("@date", a.ApptDate.Date);
                 checkCmd.Parameters.AddWithValue("@t", a.ApptTime);
 
-                int count = Convert.ToInt32(checkCmd.ExecuteScalar());
-
-                if (count > 0)
+                int doctorConflictCount = Convert.ToInt32(checkCmd.ExecuteScalar());
+                if (doctorConflictCount > 0)
                     return false;
 
-                // ✅ Insert (MATCHES YOUR SCHEMA)
+                var patientCheckCmd = new MySqlCommand(@"
+            SELECT COUNT(*) FROM appointments
+            WHERE patient_id=@p
+            AND appt_date=@date
+            AND appt_time=@t
+            AND status != 'Cancelled'", conn);
+
+                patientCheckCmd.Parameters.AddWithValue("@p", a.PatientId);
+                patientCheckCmd.Parameters.AddWithValue("@date", a.ApptDate.Date);
+                patientCheckCmd.Parameters.AddWithValue("@t", a.ApptTime);
+
+                int patientConflictCount = Convert.ToInt32(patientCheckCmd.ExecuteScalar());
+                if (patientConflictCount > 0)
+                    return false;
+
                 var cmd = new MySqlCommand(@"
             INSERT INTO appointments
             (patient_id, doctor_id, appt_date, appt_time, purpose, status, created_by)
@@ -213,7 +230,7 @@ namespace ClinicEMR.Services
                 cmd.Parameters.AddWithValue("@t", a.ApptTime);
                 cmd.Parameters.AddWithValue("@purpose", a.Purpose ?? "");
                 cmd.Parameters.AddWithValue("@s", a.Status ?? "Scheduled");
-                cmd.Parameters.AddWithValue("@cb", a.CreatedBy); // ⚠️ REQUIRED
+                cmd.Parameters.AddWithValue("@cb", a.CreatedBy);
 
                 cmd.ExecuteNonQuery();
 
@@ -257,7 +274,6 @@ namespace ClinicEMR.Services
         WHERE a.appt_date = @d
         ";
 
-                // ✅ APPLY STATUS FILTER
                 if (!string.IsNullOrEmpty(status) && status != "All")
                 {
                     sql += " AND a.status = @status";

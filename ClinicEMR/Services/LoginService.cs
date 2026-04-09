@@ -1,4 +1,4 @@
-﻿using BCrypt.Net;
+using BCrypt.Net;
 using ClinicEMR.Models;
 using MySql.Data.MySqlClient;
 
@@ -19,15 +19,27 @@ namespace ClinicEMR.Services
 
                 if (reader.Read())
                 {
+                    int userId = (int)reader["user_id"];
+                    string usernameValue = reader["username"].ToString();
+                    string fullNameValue = reader["full_name"].ToString();
+                    string roleValue = reader["role"].ToString();
                     string hash = reader["password_hash"].ToString();
+
                     if (BCrypt.Net.BCrypt.Verify(password, hash))
                     {
+                        reader.Close();
+
+                        var updateCmd = new MySqlCommand(
+                          "UPDATE users SET last_login=NOW() WHERE user_id=@id", conn);
+                        updateCmd.Parameters.AddWithValue("@id", userId);
+                        updateCmd.ExecuteNonQuery();
+
                         return new User
-                        {   
-                            UserId = (int)reader["user_id"],
-                            Username = reader["username"].ToString(),
-                            FullName = reader["full_name"].ToString(),
-                            Role = reader["role"].ToString()
+                        {
+                            UserId = userId,
+                            Username = usernameValue,
+                            FullName = fullNameValue,
+                            Role = roleValue
                         };
                     }
                 }

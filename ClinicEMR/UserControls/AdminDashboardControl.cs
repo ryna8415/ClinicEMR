@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,21 +24,27 @@ namespace ClinicEMR.UserControls
         {
             lblWelcome.Text = $"Welcome, {_user.FullName}";
 
-            // These services exist from Day 4 onward
-            // Wrap in try-catch in case tables are empty
             try
             {
                 lblTotalPatients.Text = $"{PatientService.GetAll().Count} patients registered";
-                // lblTotalUsers.Text = $"{UserService.GetAll().Count} staff accounts";
+                lblTotalUsers.Text = $"{UserService.GetAll().Count} staff accounts";
+                lblTodayVisits.Text = $"{ReportService.GetDailyVisitCount(DateTime.Today)} visits today";
+
+                dgvRecentLogins.DataSource = UserService.GetRecentLogins();
+                dgvRecentLogins.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                dgvRecentLogins.ReadOnly = true;
+                dgvRecentLogins.AllowUserToAddRows = false;
+                dgvRecentLogins.AllowUserToDeleteRows = false;
+                dgvRecentLogins.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                dgvRecentLogins.MultiSelect = false;
             }
             catch
             {
                 lblTotalPatients.Text = "Stats unavailable";
+                lblTotalUsers.Text = "Stats unavailable";
+                lblTodayVisits.Text = "Stats unavailable";
+                dgvRecentLogins.DataSource = null;
             }
-
-            // Week 3: uncomment when ReportService exists
-            // lblTodayVisits.Text = $"{ReportService.GetDailyVisitCount(DateTime.Today)} visits today";
-            lblTodayVisits.Text = "Visit count loads in Week 3";
         }
     }
 
