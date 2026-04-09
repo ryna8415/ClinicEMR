@@ -272,9 +272,9 @@
             cmbPatients.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cmbPatients.AutoCompleteSource = AutoCompleteSource.ListItems;
             cmbPatients.FormattingEnabled = true;
-            cmbPatients.Location = new Point(83, 47);
+            cmbPatients.Location = new Point(108, 47);
             cmbPatients.Name = "cmbPatients";
-            cmbPatients.Size = new Size(625, 23);
+            cmbPatients.Size = new Size(609, 23);
             cmbPatients.TabIndex = 3;
             cmbPatients.SelectedIndexChanged += cmbPatients_SelectedIndexChanged;
             // 
@@ -282,9 +282,9 @@
             // 
             lblSearchName.AutoSize = true;
             lblSearchName.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblSearchName.Location = new Point(32, 52);
+            lblSearchName.Location = new Point(41, 48);
             lblSearchName.Name = "lblSearchName";
-            lblSearchName.Size = new Size(55, 17);
+            lblSearchName.Size = new Size(54, 17);
             lblSearchName.TabIndex = 7;
             lblSearchName.Text = "Patient:";
             // 
