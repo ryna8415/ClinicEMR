@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Data;
 using BCrypt.Net;
 using ClinicEMR.Models;
 using MySql.Data.MySqlClient;
@@ -27,6 +28,37 @@ namespace ClinicEMR.Services
                 });
             }
             return list;
+        }
+
+        public static DataTable GetRecentLogins(int limit = 10)
+        {
+            var dt = new DataTable();
+
+            using (var conn = DatabaseHelper.GetConnection())
+            {
+                if (conn == null) return dt;
+
+                var cmd = new MySqlCommand(@"
+                    SELECT
+                        full_name AS 'Full Name',
+                        username AS 'Username',
+                        role AS 'Role',
+                        CASE WHEN is_active = 1 THEN 'Active' ELSE 'Inactive' END AS 'Status',
+                        last_login AS 'Last Login'
+                    FROM users
+                    WHERE last_login IS NOT NULL
+                    ORDER BY last_login DESC
+                    LIMIT @limit", conn);
+
+                cmd.Parameters.AddWithValue("@limit", limit);
+
+                using (var da = new MySqlDataAdapter(cmd))
+                {
+                    da.Fill(dt);
+                }
+            }
+
+            return dt;
         }
 
         public static List<User> GetByRole(string role)
@@ -73,7 +105,7 @@ namespace ClinicEMR.Services
             {
                 if (conn == null) return;
 
-                // 🔍 Step 1: Check current status
+                // Step 1: Check current status
                 var checkCmd = new MySqlCommand(
                     "SELECT is_active FROM users WHERE user_id=@id", conn);
                 checkCmd.Parameters.AddWithValue("@id", userId);
@@ -88,14 +120,12 @@ namespace ClinicEMR.Services
 
                 bool isActive = Convert.ToBoolean(result);
 
-                // ❌ Already deactivated
                 if (!isActive)
                 {
                     MessageBox.Show("This user is already deactivated.");
                     return;
                 }
 
-                // ✅ Proceed to deactivate
                 var updateCmd = new MySqlCommand(
                     "UPDATE users SET is_active=0 WHERE user_id=@id", conn);
                 updateCmd.Parameters.AddWithValue("@id", userId);

@@ -1,4 +1,4 @@
-﻿namespace ClinicEMR.UserControls
+namespace ClinicEMR.UserControls
 {
     partial class AdminDashboardControl
     {
@@ -32,6 +32,9 @@
             lblTotalPatients = new Label();
             lblWelcome = new Label();
             lblTodayVisits = new Label();
+            lblRecentLogins = new Label();
+            dgvRecentLogins = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dgvRecentLogins).BeginInit();
             SuspendLayout();
             // 
             // lblTotalUsers
@@ -74,10 +77,30 @@
             lblTodayVisits.Size = new Size(100, 90);
             lblTodayVisits.TabIndex = 8;
             // 
+            // lblRecentLogins
+            // 
+            lblRecentLogins.AutoSize = true;
+            lblRecentLogins.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblRecentLogins.Location = new Point(22, 217);
+            lblRecentLogins.Name = "lblRecentLogins";
+            lblRecentLogins.Size = new Size(145, 20);
+            lblRecentLogins.TabIndex = 9;
+            lblRecentLogins.Text = "Recent Staff Logins";
+            // 
+            // dgvRecentLogins
+            // 
+            dgvRecentLogins.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvRecentLogins.Location = new Point(22, 250);
+            dgvRecentLogins.Name = "dgvRecentLogins";
+            dgvRecentLogins.Size = new Size(743, 235);
+            dgvRecentLogins.TabIndex = 10;
+            // 
             // AdminDashboardControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(dgvRecentLogins);
+            Controls.Add(lblRecentLogins);
             Controls.Add(lblTodayVisits);
             Controls.Add(lblTotalUsers);
             Controls.Add(lblTotalPatients);
@@ -85,7 +108,9 @@
             Name = "AdminDashboardControl";
             Size = new Size(787, 522);
             Load += AdminDashboardControl_Load;
+            ((System.ComponentModel.ISupportInitialize)dgvRecentLogins).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -94,5 +119,7 @@
         private Label lblTotalPatients;
         private Label lblWelcome;
         private Label lblTodayVisits;
+        private Label lblRecentLogins;
+        private DataGridView dgvRecentLogins;
     }
 }

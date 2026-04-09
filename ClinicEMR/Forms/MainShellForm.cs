@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -12,7 +12,6 @@ namespace ClinicEMR.Forms
     {
         private Dictionary<string, Button> _navButtons;
 
-        // Single click handler for all nav buttons
         private void NavButton_Click(object sender, EventArgs e)
         {
             var btn = (Button)sender;
@@ -25,20 +24,17 @@ namespace ClinicEMR.Forms
                 case "btnConsult": ShowControl(_consultation, btn); break;
                 case "btnRx": _prescription.ResetForStandalone(); ShowControl(_prescription, btn); break;
                 case "btnMedHistory": ShowControl(_medHistory, btn); break;
-                //case "btnReports": ShowControl(_report, btn); break;
+                case "btnReports": ShowControl(_report, btn); break;
                 case "btnUsers": ShowControl(_userMgmt, btn); break;
             }
         }
 
         private readonly User _currentUser;
 
-        // Role-specific dashboards
         private NurseDashboardControl _nurseDash;
         private DoctorDashboardControl _doctorDash;
         private AdminDashboardControl _adminDash;
 
-
-        // Shared feature controls (Week 2 adds more)
         private PatientListControl _patients;
         private UserManagementControl _userMgmt;
         private AppointmentControl _appointments;
@@ -46,34 +42,32 @@ namespace ClinicEMR.Forms
         private PrescriptionControl _prescription;
         private ConsultationControl _consultation;
         private MedHistoryControl _medHistory;
+        private PatientRecordControl _patientRecord;
+        private ReportControl _report;
 
-        // Navigation state
         private Control _activeControl;
         private Button _activeButton;
 
         public MainShellForm(User user)
         {
-            InitializeComponent();   // must be first
+            InitializeComponent();
             _currentUser = user;
-            BuildSidebar();          // creates all sidebar controls in code
-            BuildControls();         // creates UserControls in pnlContent
-            ApplyRolePermissions();  // shows correct nav buttons
-            ShowStartScreen();       // loads the right dashboard
+            BuildSidebar();
+            BuildControls();
+            ApplyRolePermissions();
+            ShowStartScreen();
         }
 
-        //Build Sidebar
         private void BuildSidebar()
         {
-            pnlSidebar.Controls.Clear();  // remove anything left from designer
+            pnlSidebar.Controls.Clear();
             pnlSidebar.Width = 210;
             pnlSidebar.Dock = DockStyle.Left;
             pnlSidebar.BackColor = Color.FromArgb(13, 43, 69);
 
-
-            // ── Separator line ────────────────────────────────────────
             var sep = new Panel
             {
-                Location = new Point(16, 86),  // 56 + 22 + 8 gap = 86
+                Location = new Point(16, 86),
                 Height = 1,
                 Margin = new Padding(10, 8, 16, 8),
                 BackColor = Color.FromArgb(255, 255, 255, 20)
@@ -95,7 +89,6 @@ namespace ClinicEMR.Forms
                 BackColor = Color.FromArgb(255, 255, 255, 20)
             };
 
-
             var lblSubtitle = new Label
             {
                 Text = "Small Clinic EMR",
@@ -103,7 +96,7 @@ namespace ClinicEMR.Forms
                 ForeColor = Color.FromArgb(100, 160, 200),
                 AutoSize = false,
                 Size = new Size(210, 22),
-                Location = new Point(0, 56),   // 16px from top
+                Location = new Point(0, 56),
                 Padding = new Padding(16, 0, 0, 0),
                 TextAlign = ContentAlignment.MiddleLeft
             };
@@ -111,18 +104,17 @@ namespace ClinicEMR.Forms
             var spacer = new Panel
             {
                 Dock = DockStyle.Top,
-                Height = 12,  // adjust this value to taste
+                Height = 12,
                 BackColor = Color.Transparent
             };
 
             var spacer2 = new Panel
             {
                 Dock = DockStyle.Top,
-                Height = 120,  // adjust this value to taste
+                Height = 120,
                 BackColor = Color.Transparent
             };
 
-            // ── App title ─────────────────────────────────────────────
             var lblTitle = new Label
             {
                 Text = "ClinicEMR",
@@ -130,20 +122,18 @@ namespace ClinicEMR.Forms
                 ForeColor = Color.White,
                 AutoSize = false,
                 Size = new Size(210, 40),
-                Location = new Point(0, 16),   // 16 + 40 = 56 (right below lblTitle)
+                Location = new Point(0, 16),
                 Padding = new Padding(16, 16, 0, 0),
                 TextAlign = ContentAlignment.MiddleLeft
             };
 
             pnlSidebar.Controls.AddRange(new Control[] {
-                lblTitle,                       
+                lblTitle,
                 lblSubtitle,
                 sep,
                 spacer
             });
 
-            // ── Nav buttons ───────────────────────────────────────────
-            // Define: (Name, Text, Y position)
             var navItems = new[] {
                 ("btnDashboard", "  Dashboard",    210),
                 ("btnPatients",  "  Patients",     238),
@@ -173,15 +163,14 @@ namespace ClinicEMR.Forms
                     TextAlign = ContentAlignment.MiddleLeft,
                     Cursor = Cursors.Hand,
                     UseVisualStyleBackColor = false,
-                    Visible = false   // hidden until ApplyRolePermissions shows them
+                    Visible = false
                 };
                 btn.FlatAppearance.BorderSize = 0;
-                btn.Click += NavButton_Click;   // all buttons share one handler
+                btn.Click += NavButton_Click;
                 _navButtons[name] = btn;
                 pnlSidebar.Controls.Add(btn);
             }
 
-            // ── User info at bottom ───────────────────────────────────
             var lblUserName = new Label
             {
                 Text = _currentUser.FullName,
@@ -189,7 +178,7 @@ namespace ClinicEMR.Forms
                 ForeColor = Color.White,
                 AutoSize = false,
                 Size = new Size(210, 22),
-                Location = new Point(0, 290),  // ← pnlSidebar not this
+                Location = new Point(0, 290),
                 Padding = new Padding(16, 0, 0, 0),
                 Anchor = AnchorStyles.Bottom | AnchorStyles.Left
             };
@@ -201,7 +190,7 @@ namespace ClinicEMR.Forms
                 ForeColor = Color.FromArgb(100, 160, 200),
                 AutoSize = false,
                 Size = new Size(210, 20),
-                Location = new Point(0,268),  // ← pnlSidebar not this
+                Location = new Point(0, 268),
                 Padding = new Padding(16, 0, 0, 0),
                 Anchor = AnchorStyles.Bottom | AnchorStyles.Left
             };
@@ -210,7 +199,7 @@ namespace ClinicEMR.Forms
             {
                 Text = "  Log Out",
                 Size = new Size(210, 36),
-                Location = new Point(0, 244),  // ← pnlSidebar not this
+                Location = new Point(0, 244),
                 FlatStyle = FlatStyle.Flat,
                 BackColor = Color.Transparent,
                 ForeColor = Color.FromArgb(160, 190, 220),
@@ -228,7 +217,6 @@ namespace ClinicEMR.Forms
             });
         }
 
-        // ── Build all UserControls ──────────────────────────
         private void BuildControls()
         {
             if (_currentUser.Role == "nurse")
@@ -245,24 +233,34 @@ namespace ClinicEMR.Forms
             _appointments.Visible = false;
             pnlContent.Controls.Add(_appointments);
             _vitals = new VitalsControl(_currentUser, this);
-            _vitals.Dock = DockStyle.Fill; _vitals.Visible = false;
+            _vitals.Dock = DockStyle.Fill;
+            _vitals.Visible = false;
             pnlContent.Controls.Add(_vitals);
             _consultation = new ConsultationControl(_currentUser, this);
-            _consultation.Dock = DockStyle.Fill; _consultation.Visible = false;
+            _consultation.Dock = DockStyle.Fill;
+            _consultation.Visible = false;
             pnlContent.Controls.Add(_consultation);
             _prescription = new PrescriptionControl(_currentUser, this);
-            _prescription.Dock = DockStyle.Fill; _prescription.Visible = false;
+            _prescription.Dock = DockStyle.Fill;
+            _prescription.Visible = false;
             pnlContent.Controls.Add(_prescription);
             _medHistory = new MedHistoryControl(_currentUser, this);
-            _medHistory.Dock = DockStyle.Fill; _medHistory.Visible = false;
+            _medHistory.Dock = DockStyle.Fill;
+            _medHistory.Visible = false;
             pnlContent.Controls.Add(_medHistory);
-
-
+            _patientRecord = new PatientRecordControl(_currentUser, this);
+            _patientRecord.Dock = DockStyle.Fill;
+            _patientRecord.Visible = false;
+            pnlContent.Controls.Add(_patientRecord);
+            _report = new ReportControl(_currentUser);
+            _report.Dock = DockStyle.Fill;
+            _report.Visible = false;
+            pnlContent.Controls.Add(_report);
 
             Control[] all = {
                 _nurseDash, _doctorDash, _adminDash,
                 _patients, _userMgmt
-              };
+            };
             foreach (var c in all)
             {
                 if (c == null) continue;
@@ -272,14 +270,12 @@ namespace ClinicEMR.Forms
             }
         }
 
-        // ── Show/hide nav buttons by role ───────────────────
         private void ApplyRolePermissions()
         {
-            // Show Dashboard for everyone
             _navButtons["btnDashboard"].Visible = true;
 
             string[] nurseButtons = { "btnPatients", "btnAppts", "btnVitals", "btnMedHistory" };
-            string[] doctorButtons = { "btnPatients", "btnConsult", "btnRx", "btnMedHistory","btnReports" };
+            string[] doctorButtons = { "btnPatients", "btnConsult", "btnRx", "btnMedHistory", "btnReports" };
             string[] adminButtons = { "btnUsers", "btnReports" };
 
             string[] toShow = _currentUser.Role switch
@@ -294,7 +290,6 @@ namespace ClinicEMR.Forms
                 _navButtons[name].Visible = true;
         }
 
-        // ── Load the right dashboard for this role ──────────
         private void ShowStartScreen()
         {
             switch (_currentUser.Role)
@@ -305,7 +300,6 @@ namespace ClinicEMR.Forms
             }
         }
 
-        // ── Core swap method ─────────────────────────────────
         private void ShowControl(Control control, Button button)
         {
             if (control == null) return;
@@ -323,22 +317,22 @@ namespace ClinicEMR.Forms
             _activeButton = button;
         }
 
-        // ── Nav button clicks ────────────────────────────────
         private void btnDashboard_Click(object s, EventArgs e)
           => ShowStartScreen();
         private void btnPatients_Click(object s, EventArgs e)
           => ShowControl(_patients, _navButtons["btnPatients"]);
         private void btnUsers_Click(object s, EventArgs e)
           => ShowControl(_userMgmt, _navButtons["btnUsers"]);
-        // Week 2 adds: btnAppts, btnVitals, btnConsult, btnRx, btnReports
 
-        // ── Public navigate (UserControls call this) ─────────
         public void NavigateTo(string screen, int? id = null)
         {
             switch (screen)
             {
                 case "patients":
                     ShowControl(_patients, _navButtons["btnPatients"]); break;
+                case "patientrecord":
+                    if (id.HasValue) _patientRecord.LoadPatient(id.Value);
+                    ShowControl(_patientRecord, _navButtons["btnPatients"]); break;
                 case "consultation":
                     if (id.HasValue) _consultation.LoadPatient(id.Value);
                     ShowControl(_consultation, _navButtons["btnConsult"]); break;
@@ -347,23 +341,25 @@ namespace ClinicEMR.Forms
                     ShowControl(_vitals, _navButtons["btnVitals"]); break;
                 case "prescription":
                     if (id.HasValue) _prescription.LoadConsultation(id.Value);
+                    else _prescription.ResetForStandalone();
                     ShowControl(_prescription, _navButtons["btnRx"]); break;
                 case "medhistory":
                     if (id.HasValue) _medHistory.LoadPatient(id.Value);
                     ShowControl(_medHistory, _navButtons["btnMedHistory"]); break;
-
+                case "reports":
+                    ShowControl(_report, _navButtons["btnReports"]); break;
             }
         }
 
         public void RefreshPatientViews(int? selectedPatientId = null)
         {
             _patients?.LoadPatients();
+            _patientRecord?.RefreshPatients(selectedPatientId);
             _vitals?.RefreshPatients(selectedPatientId);
             _medHistory?.RefreshPatients(selectedPatientId);
             _consultation?.RefreshPatients(selectedPatientId);
         }
 
-        // ── Logout ───────────────────────────────────────────
         private void btnLogout_Click(object sender, EventArgs e)
         {
             var confirm = MessageBox.Show(

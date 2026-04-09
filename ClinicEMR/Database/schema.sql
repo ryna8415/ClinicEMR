@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS consultations (
 -- TABLE 6: prescriptions
 CREATE TABLE IF NOT EXISTS prescriptions (
   prescription_id  INT AUTO_INCREMENT PRIMARY KEY,
-  consultation_id  INT NOT NULL,
+  consultation_id  INT NULL,
   patient_id       INT NOT NULL,
   medication_name  VARCHAR(150) NOT NULL,
   dosage           VARCHAR(80),
@@ -101,4 +101,5 @@ CREATE TABLE IF NOT EXISTS prescriptions (
 
 INSERT IGNORE INTO users (username, password_hash, full_name, role)
 VALUES ('admin', '$2a$12$//Hc0lDP.0dbks8zNxGRH.EswDGaaTcFv3gjTSXhrT6SfCW7MVrkS', 'System Admin', 'admin');
+
 

@@ -1,4 +1,4 @@
-﻿using ClinicEMR.Forms;
+using ClinicEMR.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -53,15 +53,13 @@ namespace ClinicEMR.UserControls
             FormatGrid();
         }
 
-        // Opens AddPatientForm as a DIALOG (small popup, not a new shell window)
         private void btnAddNew_Click(object sender, EventArgs e)
         {
             var form = new AddPatientForm();
             if (form.ShowDialog() == DialogResult.OK)
-                _shell.RefreshPatientViews(); // refresh all patient-driven nurse views after adding
+                _shell.RefreshPatientViews();
         }
 
-        // In Week 2/3 this navigates to the patient record inside the shell
         private void btnOpenRecord_Click(object sender, EventArgs e)
         {
             if (dgvPatients.SelectedRows.Count == 0)
@@ -70,10 +68,7 @@ namespace ClinicEMR.UserControls
                 return;
             }
             int pid = (int)dgvPatients.SelectedRows[0].Cells["PatientId"].Value;
-            // Week 3: _shell.NavigateTo("patientrecord", pid);
-            MessageBox.Show($"Patient ID {pid} selected. Patient Record view builds in Week 3.");
+            _shell.NavigateTo("patientrecord", pid);
         }
     }
-
-
 }
