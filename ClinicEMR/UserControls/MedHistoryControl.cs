@@ -24,6 +24,7 @@ namespace ClinicEMR.UserControls
 
         public void LoadPatient(int patientId)
         {
+            RefreshPatients(patientId);
             _patientId = patientId;
             var p = PatientService.GetById(patientId);
             if (p == null) return;
@@ -37,7 +38,12 @@ namespace ClinicEMR.UserControls
             txtCurrentMeds.Text = p.CurrentMedications;
         }
 
-        private void LoadPatients()
+        public void RefreshPatients(int? selectedPatientId = null)
+        {
+            LoadPatients(selectedPatientId ?? _patientId);
+        }
+
+        private void LoadPatients(int? selectedPatientId = null)
         {
             _isLoadingPatients = true;
 
@@ -47,6 +53,9 @@ namespace ClinicEMR.UserControls
             cboPatient.DisplayMember = "FullName";
             cboPatient.ValueMember = "PatientId";
             cboPatient.SelectedIndex = -1;
+
+            if (selectedPatientId.HasValue && selectedPatientId.Value > 0)
+                SelectPatient(selectedPatientId.Value);
 
             _isLoadingPatients = false;
         }

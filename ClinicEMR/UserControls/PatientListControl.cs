@@ -58,7 +58,7 @@ namespace ClinicEMR.UserControls
         {
             var form = new AddPatientForm();
             if (form.ShowDialog() == DialogResult.OK)
-                LoadPatients(); // refresh after adding
+                _shell.RefreshPatientViews(); // refresh all patient-driven nurse views after adding
         }
 
         // In Week 2/3 this navigates to the patient record inside the shell
