@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using BCrypt.Net;
 using ClinicEMR.Models;
 using MySql.Data.MySqlClient;
@@ -84,10 +85,22 @@ namespace ClinicEMR.Services
         public static void Create(string username, string password,
                                   string fullName, string role)
         {
+            username = username.Trim();
+            fullName = fullName.Trim();
+            role = role.Trim();
+
+            var validationErrors = UserValidationService.ValidateNewUser(username, password, fullName, role);
+            if (validationErrors.Any())
+                throw new ArgumentException(string.Join("\n", validationErrors));
+
             string hash = BCrypt.Net.BCrypt.HashPassword(password);
             using (var conn = DatabaseHelper.GetConnection())
             {
                 if (conn == null) return;
+
+                if (UsernameExists(conn, username))
+                    throw new InvalidOperationException("That username is already in use. Please choose a different username.");
+
                 var cmd = new MySqlCommand(
                   "INSERT INTO users (username,password_hash,full_name,role) " +
                   "VALUES (@u,@h,@n,@r)", conn);
@@ -97,6 +110,15 @@ namespace ClinicEMR.Services
                 cmd.Parameters.AddWithValue("@r", role);
                 cmd.ExecuteNonQuery();
             }
+        }
+
+        private static bool UsernameExists(MySqlConnection conn, string username)
+        {
+            using var cmd = new MySqlCommand(
+                "SELECT 1 FROM users WHERE username=@u LIMIT 1", conn);
+            cmd.Parameters.AddWithValue("@u", username);
+
+            return cmd.ExecuteScalar() != null;
         }
 
         public static void Deactivate(int userId)
