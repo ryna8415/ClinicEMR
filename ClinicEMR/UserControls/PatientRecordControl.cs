@@ -13,12 +13,18 @@ namespace ClinicEMR.UserControls
         private readonly User _user;
         private readonly MainShellForm _shell;
         private bool _isLoadingPatients = false;
+        private readonly Label _vitalsPlaceholder;
+        private readonly Label _consultationsPlaceholder;
+        private readonly Label _prescriptionsPlaceholder;
 
         public PatientRecordControl(User user, MainShellForm shell)
         {
             InitializeComponent();
             _user = user;
             _shell = shell;
+            _vitalsPlaceholder = CreateGridPlaceholder(tabVitals, "Choose a patient to display vital signs.");
+            _consultationsPlaceholder = CreateGridPlaceholder(tabConsultations, "Choose a patient to display consultations.");
+            _prescriptionsPlaceholder = CreateGridPlaceholder(tabPrescriptions, "Choose a patient to display prescriptions.");
 
             LoadPatients();
             ConfigureGrid(dgvVitals);
@@ -106,13 +112,16 @@ namespace ClinicEMR.UserControls
             }
 
             dgvVitals.DataSource = null;
-            dgvVitals.DataSource = VitalsService.GetByPatient(_patientId);
+            var vitals = VitalsService.GetByPatient(_patientId);
+            dgvVitals.DataSource = vitals;
 
             dgvConsultations.DataSource = null;
-            dgvConsultations.DataSource = ConsultService.GetByPatient(_patientId);
+            var consultations = ConsultService.GetByPatient(_patientId);
+            dgvConsultations.DataSource = consultations;
 
             dgvPrescriptions.DataSource = null;
-            dgvPrescriptions.DataSource = PrescriptionService.GetByPatient(_patientId);
+            var prescriptions = PrescriptionService.GetByPatient(_patientId);
+            dgvPrescriptions.DataSource = prescriptions;
 
             txtHxAllergies.Text = p.KnownAllergies ?? "";
             txtHxConditions.Text = p.ChronicConditions ?? "";
@@ -123,6 +132,9 @@ namespace ClinicEMR.UserControls
             FormatVitalsGrid();
             FormatConsultGrid();
             FormatRxGrid();
+            ShowPlaceholder(_vitalsPlaceholder, dgvVitals, vitals.Count == 0 ? "No vital signs to show for this patient yet." : null);
+            ShowPlaceholder(_consultationsPlaceholder, dgvConsultations, consultations.Count == 0 ? "No consultations to show for this patient yet." : null);
+            ShowPlaceholder(_prescriptionsPlaceholder, dgvPrescriptions, prescriptions.Count == 0 ? "No prescriptions to show for this patient yet." : null);
         }
 
         private void ConfigureGrid(DataGridView grid)
@@ -150,6 +162,9 @@ namespace ClinicEMR.UserControls
             dgvVitals.DataSource = null;
             dgvConsultations.DataSource = null;
             dgvPrescriptions.DataSource = null;
+            ShowPlaceholder(_vitalsPlaceholder, dgvVitals, "Choose a patient to display vital signs.");
+            ShowPlaceholder(_consultationsPlaceholder, dgvConsultations, "Choose a patient to display consultations.");
+            ShowPlaceholder(_prescriptionsPlaceholder, dgvPrescriptions, "Choose a patient to display prescriptions.");
             txtHxAllergies.Clear();
             txtHxConditions.Clear();
             txtHxSurgeries.Clear();
@@ -226,6 +241,33 @@ namespace ClinicEMR.UserControls
             }
 
             _shell.NavigateTo("medhistory", _patientId);
+        }
+
+        private Label CreateGridPlaceholder(Control parent, string text)
+        {
+            var placeholder = new Label
+            {
+                Dock = DockStyle.Fill,
+                BackColor = Color.FromArgb(248, 249, 250),
+                BorderStyle = BorderStyle.FixedSingle,
+                ForeColor = Color.FromArgb(108, 117, 125),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Segoe UI", 10F, FontStyle.Italic),
+                Text = text,
+                Visible = false
+            };
+
+            parent.Controls.Add(placeholder);
+            placeholder.BringToFront();
+            return placeholder;
+        }
+
+        private void ShowPlaceholder(Label placeholder, DataGridView grid, string? message)
+        {
+            bool showPlaceholder = !string.IsNullOrWhiteSpace(message);
+            placeholder.Text = message ?? string.Empty;
+            placeholder.Visible = showPlaceholder;
+            grid.Visible = !showPlaceholder;
         }
     }
 }
