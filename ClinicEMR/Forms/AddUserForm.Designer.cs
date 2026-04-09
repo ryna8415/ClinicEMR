@@ -39,6 +39,7 @@
             lblRole = new Label();
             btnSave = new Button();
             btnCancel = new Button();
+            label1 = new Label();
             SuspendLayout();
             // 
             // lblNewUser
@@ -123,7 +124,7 @@
             // btnSave
             // 
             btnSave.DialogResult = DialogResult.OK;
-            btnSave.Location = new Point(279, 238);
+            btnSave.Location = new Point(279, 286);
             btnSave.Name = "btnSave";
             btnSave.RightToLeft = RightToLeft.No;
             btnSave.Size = new Size(93, 31);
@@ -137,7 +138,7 @@
             btnCancel.BackColor = SystemColors.ControlLightLight;
             btnCancel.DialogResult = DialogResult.Cancel;
             btnCancel.ForeColor = SystemColors.ControlText;
-            btnCancel.Location = new Point(180, 238);
+            btnCancel.Location = new Point(180, 286);
             btnCancel.Name = "btnCancel";
             btnCancel.RightToLeft = RightToLeft.No;
             btnCancel.Size = new Size(93, 31);
@@ -145,11 +146,22 @@
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = false;
             // 
+            // label1
+            // 
+            label1.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            label1.ForeColor = SystemColors.ControlDark;
+            label1.Location = new Point(12, 228);
+            label1.Name = "label1";
+            label1.Size = new Size(360, 36);
+            label1.TabIndex = 23;
+            label1.Text = "Password must be atleast 12 characters long, must contain atleast 1 special character and 1 uppercase letter.";
+            // 
             // AddUserForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(384, 281);
+            ClientSize = new Size(384, 329);
+            Controls.Add(label1);
             Controls.Add(btnCancel);
             Controls.Add(btnSave);
             Controls.Add(lblRole);
@@ -184,5 +196,6 @@
         private Label lblRole;
         private Button btnSave;
         private Button btnCancel;
+        private Label label1;
     }
 }
