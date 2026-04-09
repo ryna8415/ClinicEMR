@@ -14,6 +14,7 @@ namespace ClinicEMR.UserControls
             InitializeComponent();
             _user = user;
             dtpDate.Value = DateTime.Today;
+            GridViewService.MakeReadOnly(dgvReport);
         }
 
         private void btnGenerate_Click(object sender, EventArgs e)
@@ -22,11 +23,7 @@ namespace ClinicEMR.UserControls
             int count = ReportService.GetDailyVisitCount(d);
             lblCount.Text = $"Patients seen on {d:MMMM dd, yyyy}: {count}";
             dgvReport.DataSource = ReportService.GetDailySummary(d);
-            dgvReport.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvReport.ReadOnly = true;
-            dgvReport.AllowUserToAddRows = false;
-            dgvReport.AllowUserToDeleteRows = false;
-            dgvReport.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            GridViewService.ShowOnly(dgvReport, "Patient Code", "Patient Name", "Diagnosis", "Doctor", "Time");
         }
     }
 }

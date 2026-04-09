@@ -11,6 +11,7 @@ namespace ClinicEMR.UserControls
         {
             InitializeComponent();
             _user = user;
+            GridViewService.MakeReadOnly(dgvTodayAppts);
         }
 
         private void NurseDashboardControl_Load(object sender, EventArgs e)
@@ -20,23 +21,18 @@ namespace ClinicEMR.UserControls
             var appts = AppointmentService.GetByDate(DateTime.Today);
             lblApptCount.Text = $"{appts.Count} appointments scheduled today";
             dgvTodayAppts.DataSource = appts;
-
-            lblApptCount.Text = "Appointments load in Week 2";
-
-            // Hide columns users don't need to see
-            HideColumn("AppointmentId");
-            HideColumn("PatientId");
-            HideColumn("DoctorId");
-            HideColumn("CreatedBy");
+            GridViewService.ShowOnly(dgvTodayAppts, "ApptTime", "PatientName", "DoctorName", "Purpose", "Status");
+            GridViewService.SetHeaders(dgvTodayAppts, new Dictionary<string, string>
+            {
+                ["ApptTime"] = "Time",
+                ["PatientName"] = "Patient",
+                ["DoctorName"] = "Doctor",
+                ["Purpose"] = "Purpose",
+                ["Status"] = "Status"
+            });
 
             var patients = PatientService.GetAll();
             lblPatientCount.Text = $"{patients.Count} patients registered";
-        }
-
-        private void HideColumn(string name)
-        {
-            if (dgvTodayAppts.Columns[name] != null)
-                dgvTodayAppts.Columns[name].Visible = false;
         }
     }
 }

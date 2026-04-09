@@ -21,6 +21,7 @@ namespace ClinicEMR.UserControls
             InitializeComponent();
             _user = user;
             _shell = shell;
+            GridViewService.MakeReadOnly(dgvPatients);
         }
 
         private void PatientListControl_Load(object sender, EventArgs e)
@@ -34,14 +35,17 @@ namespace ClinicEMR.UserControls
 
         private void FormatGrid()
         {
-            string[] hide = { "PatientId", "IsActive", "Address", "EmergencyContact" };
-            foreach (var col in hide)
-                if (dgvPatients.Columns[col] != null)
-                    dgvPatients.Columns[col].Visible = false;
-            if (dgvPatients.Columns["PatientCode"] != null)
-                dgvPatients.Columns["PatientCode"].HeaderText = "ID";
-            if (dgvPatients.Columns["FullName"] != null)
-                dgvPatients.Columns["FullName"].HeaderText = "Name";
+            GridViewService.ShowOnly(dgvPatients, "PatientId", "PatientCode", "FullName", "Sex", "ContactNumber");
+            GridViewService.SetHeaders(dgvPatients, new Dictionary<string, string>
+            {
+                ["PatientCode"] = "Patient ID",
+                ["FullName"] = "Name",
+                ["Sex"] = "Sex",
+                ["ContactNumber"] = "Contact No."
+            });
+
+            if (dgvPatients.Columns["PatientId"] != null)
+                dgvPatients.Columns["PatientId"].Visible = false;
         }
 
         private void btnSearch_Click(object sender, EventArgs e)

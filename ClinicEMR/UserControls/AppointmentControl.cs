@@ -15,6 +15,7 @@ namespace ClinicEMR.Forms
             InitializeComponent();
             _user = user;
             _shell = shell;
+            GridViewService.MakeReadOnly(dgvAppointments);
 
             dtpDate.Value = DateTime.Today;
 
@@ -70,16 +71,27 @@ namespace ClinicEMR.Forms
             dgvAppointments.DataSource = null;
             dgvAppointments.DataSource = data;
 
-            // 🧹 Clean columns
-            HideCol("AppointmentId");
-            HideCol("PatientId");
-            HideCol("DoctorId");
-            HideCol("CreatedBy");
+            GridViewService.ShowOnly(
+                dgvAppointments,
+                "AppointmentId",
+                "ApptDate",
+                "ApptTime",
+                "PatientName",
+                "DoctorName",
+                "Purpose",
+                "Status");
 
-            SetHeader("PatientName", "Patient");
-            SetHeader("DoctorName", "Doctor");
-            SetHeader("ApptTime", "Time");
-            SetHeader("ApptDate", "Date");
+            GridViewService.SetHeaders(dgvAppointments, new Dictionary<string, string>
+            {
+                ["ApptDate"] = "Date",
+                ["ApptTime"] = "Time",
+                ["PatientName"] = "Patient",
+                ["DoctorName"] = "Doctor",
+                ["Purpose"] = "Purpose",
+                ["Status"] = "Status"
+            });
+
+            HideCol("AppointmentId");
         }
 
         private void btnLoad_Click(object s, EventArgs e)

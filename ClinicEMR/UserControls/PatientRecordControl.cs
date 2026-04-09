@@ -128,12 +128,7 @@ namespace ClinicEMR.UserControls
         private void ConfigureGrid(DataGridView grid)
         {
             grid.AutoGenerateColumns = true;
-            grid.ReadOnly = true;
-            grid.AllowUserToAddRows = false;
-            grid.AllowUserToDeleteRows = false;
-            grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            grid.MultiSelect = false;
-            grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            GridViewService.MakeReadOnly(grid);
         }
 
         private void SetHistoryReadOnly()
@@ -164,32 +159,62 @@ namespace ClinicEMR.UserControls
 
         private void FormatVitalsGrid()
         {
-            string[] hide = { "VitalId", "PatientId", "RecordedBy" };
-            foreach (var c in hide)
-                if (dgvVitals.Columns[c] != null)
-                    dgvVitals.Columns[c].Visible = false;
+            GridViewService.ShowOnly(
+                dgvVitals,
+                "RecordedAt",
+                "BloodPressure",
+                "HeartRate",
+                "Temperature",
+                "Bmi",
+                "RecordedByName");
 
-            if (dgvVitals.Columns["RecordedAt"] != null)
-                dgvVitals.Columns["RecordedAt"].HeaderText = "Date / Time";
+            GridViewService.SetHeaders(dgvVitals, new System.Collections.Generic.Dictionary<string, string>
+            {
+                ["RecordedAt"] = "Date / Time",
+                ["BloodPressure"] = "BP",
+                ["HeartRate"] = "HR",
+                ["Temperature"] = "Temp",
+                ["Bmi"] = "BMI",
+                ["RecordedByName"] = "Recorded By"
+            });
         }
 
         private void FormatConsultGrid()
         {
-            string[] hide = { "ConsultationId", "PatientId", "DoctorId", "IsLocked", "VitalId" };
-            foreach (var c in hide)
-                if (dgvConsultations.Columns[c] != null)
-                    dgvConsultations.Columns[c].Visible = false;
+            GridViewService.ShowOnly(
+                dgvConsultations,
+                "ConsultDate",
+                "DoctorName",
+                "ChiefComplaint",
+                "Diagnosis");
 
-            if (dgvConsultations.Columns["ConsultDate"] != null)
-                dgvConsultations.Columns["ConsultDate"].DisplayIndex = 0;
+            GridViewService.SetHeaders(dgvConsultations, new System.Collections.Generic.Dictionary<string, string>
+            {
+                ["ConsultDate"] = "Date",
+                ["DoctorName"] = "Doctor",
+                ["ChiefComplaint"] = "Chief Complaint",
+                ["Diagnosis"] = "Diagnosis"
+            });
         }
 
         private void FormatRxGrid()
         {
-            string[] hide = { "PrescriptionId", "ConsultationId", "PatientId" };
-            foreach (var c in hide)
-                if (dgvPrescriptions.Columns[c] != null)
-                    dgvPrescriptions.Columns[c].Visible = false;
+            GridViewService.ShowOnly(
+                dgvPrescriptions,
+                "MedicationName",
+                "Dosage",
+                "Frequency",
+                "Duration",
+                "Instructions");
+
+            GridViewService.SetHeaders(dgvPrescriptions, new System.Collections.Generic.Dictionary<string, string>
+            {
+                ["MedicationName"] = "Medication",
+                ["Dosage"] = "Dosage",
+                ["Frequency"] = "Frequency",
+                ["Duration"] = "Duration",
+                ["Instructions"] = "Instructions"
+            });
         }
 
         private void btnEditHistory_Click(object sender, EventArgs e)

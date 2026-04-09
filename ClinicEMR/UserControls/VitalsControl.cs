@@ -22,6 +22,7 @@ namespace ClinicEMR.UserControls
         {
             InitializeComponent(); 
             _user = user;
+            GridViewService.MakeReadOnly(dgvHistory);
 
             LoadPatients();
 
@@ -131,15 +132,24 @@ namespace ClinicEMR.UserControls
             int patientId = (int)cmbPatients.SelectedValue;
 
             dgvHistory.DataSource = VitalsService.GetByPatient(patientId);
-            dgvHistory.AutoGenerateColumns = false;
+            GridViewService.ShowOnly(
+                dgvHistory,
+                "RecordedAt",
+                "BloodPressure",
+                "HeartRate",
+                "Temperature",
+                "Bmi",
+                "RecordedByName");
 
-            dgvHistory.Columns["VitalId"].Visible = false;
-            dgvHistory.Columns["PatientId"].Visible = false;
-            dgvHistory.Columns["RecordedBy"].Visible = false;
-
-            dgvHistory.Columns["PatientName"].HeaderText = "Patient";
-            dgvHistory.Columns["RecordedByName"].HeaderText = "Recorded By";
-            dgvHistory.Columns["RecordedAt"].HeaderText = "Date";
+            GridViewService.SetHeaders(dgvHistory, new Dictionary<string, string>
+            {
+                ["RecordedAt"] = "Date",
+                ["BloodPressure"] = "BP",
+                ["HeartRate"] = "HR",
+                ["Temperature"] = "Temp",
+                ["Bmi"] = "BMI",
+                ["RecordedByName"] = "Recorded By"
+            });
         }
 
         private void LoadPatients()
