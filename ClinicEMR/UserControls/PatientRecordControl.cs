@@ -3,6 +3,8 @@ using ClinicEMR.Models;
 using ClinicEMR.Services;
 using System;
 using System.Drawing;
+using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ClinicEMR.UserControls
@@ -243,8 +245,34 @@ namespace ClinicEMR.UserControls
             _shell.NavigateTo("medhistory", _patientId);
         }
 
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            if (_patientId <= 0)
+            {
+                MessageBox.Show("Please select a patient first.");
+                return;
+            }
+
+            var patient = PatientService.GetById(_patientId);
+            if (patient == null)
+            {
+                MessageBox.Show("The selected patient could not be loaded.");
+                return;
+            }
+
+            var vitals = VitalsService.GetByPatient(_patientId);
+            var consultations = ConsultService.GetByPatient(_patientId);
+            var prescriptions = PrescriptionService.GetByPatient(_patientId);
+
+            PrintService.ShowPrintPreview(
+                this,
+                $"Patient Record - {patient.FullName}",
+                BuildPrintableRecord(patient, vitals, consultations, prescriptions));
+        }
+
         private Label CreateGridPlaceholder(Control parent, string text)
         {
+            Control container = parent;
             var placeholder = new Label
             {
                 Dock = DockStyle.Fill,
@@ -257,7 +285,7 @@ namespace ClinicEMR.UserControls
                 Visible = false
             };
 
-            parent.Controls.Add(placeholder);
+            container.Controls.Add(placeholder);
             placeholder.BringToFront();
             return placeholder;
         }
@@ -268,6 +296,80 @@ namespace ClinicEMR.UserControls
             placeholder.Text = message ?? string.Empty;
             placeholder.Visible = showPlaceholder;
             grid.Visible = !showPlaceholder;
+        }
+
+        private string BuildPrintableRecord(
+            Patient patient,
+            System.Collections.Generic.IReadOnlyList<VitalSigns> vitals,
+            System.Collections.Generic.IReadOnlyList<Consultation> consultations,
+            System.Collections.Generic.IReadOnlyList<Prescription> prescriptions)
+        {
+            var builder = new StringBuilder();
+            int age = CalculateAge(patient.DateOfBirth);
+
+            builder.AppendLine("CLINIC EMR PATIENT RECORD");
+            builder.AppendLine($"Printed On: {DateTime.Now:MMMM dd, yyyy hh:mm tt}");
+            builder.AppendLine($"Prepared by: {_user.FullName}");
+            builder.AppendLine();
+
+            PrintService.AppendSection(builder, "Patient Information", new[]
+            {
+                $"Patient Code: {PrintService.DisplayValue(patient.PatientCode)}",
+                $"Name: {patient.FullName}",
+                $"Date of Birth: {patient.DateOfBirth:MMMM dd, yyyy}",
+                $"Age / Sex: {age} years old / {PrintService.DisplayValue(patient.Sex)}",
+                $"Contact No.: {PrintService.DisplayValue(patient.ContactNumber)}",
+                $"Address: {PrintService.DisplayValue(patient.Address)}",
+                $"Emergency Contact: {patient.EmergencyContact?.ToString() ?? "N/A"}"
+            });
+
+            PrintService.AppendSection(builder, "Medical History", new[]
+            {
+                $"Allergies: {PrintService.DisplayValue(patient.KnownAllergies)}",
+                $"Chronic Conditions: {PrintService.DisplayValue(patient.ChronicConditions)}",
+                $"Past Surgeries: {PrintService.DisplayValue(patient.PastSurgeries)}",
+                $"Family History: {PrintService.DisplayValue(patient.FamilyHistory)}",
+                $"Current Medications: {PrintService.DisplayValue(patient.CurrentMedications)}"
+            });
+
+            var latestVitals = vitals.Count > 0 ? vitals[0] : null;
+            PrintService.AppendSection(builder, "Latest Vital Signs", latestVitals == null
+                ? Array.Empty<string>()
+                : new[]
+                {
+                    $"Recorded At: {latestVitals.RecordedAt:MMMM dd, yyyy hh:mm tt}",
+                    $"Blood Pressure: {PrintService.DisplayValue(latestVitals.BloodPressure)}",
+                    $"Heart Rate: {latestVitals.HeartRate} bpm",
+                    $"Temperature: {latestVitals.Temperature:0.0} C",
+                    $"Height / Weight: {latestVitals.HeightCm:0.#} cm / {latestVitals.WeightKg:0.#} kg",
+                    $"BMI: {latestVitals.Bmi:0.0} {PrintService.DisplayValue(latestVitals.BmiCategory, string.Empty)}".Trim(),
+                    $"Recorded By: {PrintService.DisplayValue(latestVitals.RecordedByName)}"
+                });
+
+            PrintService.AppendSection(
+                builder,
+                "Consultations",
+                consultations.Select((consultation, index) =>
+                    $"{index + 1}. {consultation.ConsultDate:MMM dd, yyyy hh:mm tt} | Doctor: {PrintService.DisplayValue(consultation.DoctorName)} | Chief Complaint: {PrintService.DisplayValue(consultation.ChiefComplaint)} | Diagnosis: {PrintService.DisplayValue(consultation.Diagnosis)}"));
+
+            PrintService.AppendSection(
+                builder,
+                "Prescriptions",
+                prescriptions.Select((prescription, index) =>
+                    $"{index + 1}. {PrintService.DisplayValue(prescription.MedicationName)} | Dosage: {PrintService.DisplayValue(prescription.Dosage)} | Frequency: {PrintService.DisplayValue(prescription.Frequency)} | Duration: {PrintService.DisplayValue(prescription.Duration)} | Instructions: {PrintService.DisplayValue(prescription.Instructions)}"));
+
+            return builder.ToString();
+        }
+
+        private static int CalculateAge(DateTime dateOfBirth)
+        {
+            int age = DateTime.Today.Year - dateOfBirth.Year;
+            if (dateOfBirth.Date > DateTime.Today.AddYears(-age))
+            {
+                age--;
+            }
+
+            return age;
         }
     }
 }

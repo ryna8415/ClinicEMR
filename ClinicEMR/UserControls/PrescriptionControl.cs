@@ -2,6 +2,8 @@
 using ClinicEMR.Models;
 using ClinicEMR.Services;
 using System;
+using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ClinicEMR.UserControls
@@ -21,6 +23,7 @@ namespace ClinicEMR.UserControls
         {
             InitializeComponent();
             _user = user;
+            lstDrugs.DisplayMember = nameof(Prescription.Summary);
 
             // Load all patients into the combo once on startup
             LoadPatients();
@@ -40,7 +43,7 @@ namespace ClinicEMR.UserControls
             // Pre-load any drugs already saved under this consultation
             lstDrugs.Items.Clear();
             foreach (var rx in PrescriptionService.GetByConsultation(consultId))
-                lstDrugs.Items.Add(rx.Summary);
+                lstDrugs.Items.Add(rx);
 
             // Find the patient linked to this consultation
             var consult = ConsultService.GetById(consultId);
@@ -159,7 +162,7 @@ namespace ClinicEMR.UserControls
 
             // ── Save and update the list ─────────────────────────────────────
             PrescriptionService.Add(rx);
-            lstDrugs.Items.Add(rx.Summary);
+            lstDrugs.Items.Add(rx);
 
             // Clear input fields and move focus back for the next drug
             ClearDrugFields();
@@ -201,6 +204,58 @@ namespace ClinicEMR.UserControls
             _patientId = 0;
 
             SetConsultDateNow(); // reset date
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            if (_patientId <= 0)
+            {
+                MessageBox.Show("Please select a patient first.");
+                return;
+            }
+
+            var patient = PatientService.GetById(_patientId);
+            if (patient == null)
+            {
+                MessageBox.Show("The selected patient could not be loaded.");
+                return;
+            }
+
+            var prescriptions = lstDrugs.Items.OfType<Prescription>().ToList();
+            if (prescriptions.Count == 0)
+            {
+                MessageBox.Show("Add at least one medication before printing.");
+                return;
+            }
+
+            PrintService.ShowPrintPreview(
+                this,
+                $"Prescription - {patient.FullName}",
+                BuildPrintablePrescription(patient, prescriptions));
+        }
+
+        private string BuildPrintablePrescription(Patient patient, System.Collections.Generic.IReadOnlyList<Prescription> prescriptions)
+        {
+            var builder = new StringBuilder();
+            builder.AppendLine("CLINIC EMR PRESCRIPTION");
+            builder.AppendLine($"Date: {DateTime.Now:MMMM dd, yyyy hh:mm tt}");
+            builder.AppendLine($"Prescribed by: {_user.FullName}");
+            builder.AppendLine();
+
+            PrintService.AppendSection(builder, "Patient Information", new[]
+            {
+                $"Patient Code: {PrintService.DisplayValue(patient.PatientCode)}",
+                $"Name: {patient.FullName}",
+                $"Allergies: {PrintService.DisplayValue(patient.KnownAllergies)}"
+            });
+
+            PrintService.AppendSection(
+                builder,
+                "Medications",
+                prescriptions.Select((prescription, index) =>
+                    $"{index + 1}. {PrintService.DisplayValue(prescription.MedicationName)} | Dosage: {PrintService.DisplayValue(prescription.Dosage)} | Frequency: {PrintService.DisplayValue(prescription.Frequency)} | Duration: {PrintService.DisplayValue(prescription.Duration)} | Instructions: {PrintService.DisplayValue(prescription.Instructions)}"));
+
+            return builder.ToString();
         }
     }
 }

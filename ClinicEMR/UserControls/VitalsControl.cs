@@ -30,6 +30,7 @@ namespace ClinicEMR.UserControls
 
             LoadPatients();
             ShowGridPlaceholder("Choose a patient to display previous readings.");
+            
 
         }
 
@@ -215,20 +216,30 @@ namespace ClinicEMR.UserControls
 
         private Label CreateGridPlaceholder(DataGridView grid, string text)
         {
+            Control parent = grid.Parent ?? this;
             var placeholder = new Label
             {
+                Dock = DockStyle.Fill,
                 BackColor = Color.FromArgb(248, 249, 250),
                 BorderStyle = BorderStyle.FixedSingle,
                 ForeColor = Color.FromArgb(108, 117, 125),
                 TextAlign = ContentAlignment.MiddleCenter,
                 Font = new Font("Segoe UI", 10F, FontStyle.Italic),
                 Text = text,
-                Visible = false,
-                Bounds = grid.Bounds,
-                Anchor = grid.Anchor
+                Margin = grid.Margin,
+                Visible = false
             };
 
-            Controls.Add(placeholder);
+            if (parent is TableLayoutPanel layout)
+            {
+                var position = layout.GetPositionFromControl(grid);
+                layout.Controls.Add(placeholder, position.Column, position.Row);
+            }
+            else
+            {
+                parent.Controls.Add(placeholder);
+            }
+
             placeholder.BringToFront();
             return placeholder;
         }

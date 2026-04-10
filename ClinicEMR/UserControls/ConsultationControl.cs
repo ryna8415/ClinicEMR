@@ -3,6 +3,8 @@ using ClinicEMR.Models;
 using ClinicEMR.Services;
 using System;
 using System.Drawing;
+using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ClinicEMR.UserControls
@@ -13,6 +15,7 @@ namespace ClinicEMR.UserControls
         private int _patientId = 0;
         private int _savedConsultId = 0;
         private bool _isLoadingPatients = false;
+        private DateTime _consultationDate = DateTime.Now;
 
         private readonly User _user;
         private readonly MainShellForm _shell;
@@ -58,6 +61,7 @@ namespace ClinicEMR.UserControls
 
             _patientId = consult.PatientId;
             _savedConsultId = consultId;
+            _consultationDate = consult.ConsultDate;
 
             // Fill the form fields
             txtChief.Text = consult.ChiefComplaint;
@@ -130,6 +134,7 @@ namespace ClinicEMR.UserControls
         {
             _patientId = patientId;
             _savedConsultId = 0;           // new session — no saved consult yet
+            _consultationDate = DateTime.Now;
 
             btnSave.Enabled = true;
             btnAddRx.Enabled = false;
@@ -209,6 +214,7 @@ namespace ClinicEMR.UserControls
             };
 
             _savedConsultId = ConsultService.Save(c);
+            _consultationDate = DateTime.Now;
             btnSave.Enabled = false;    // prevent double-saving
             btnAddRx.Enabled = true;     // unlock prescription entry
 
@@ -220,6 +226,29 @@ namespace ClinicEMR.UserControls
         private void btnAddRx_Click(object sender, EventArgs e)
         {
             _shell.NavigateTo("prescription", _savedConsultId);
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            if (_patientId <= 0)
+            {
+                MessageBox.Show("Please select a patient first.");
+                return;
+            }
+
+            var patient = PatientService.GetById(_patientId);
+            if (patient == null)
+            {
+                MessageBox.Show("The selected patient could not be loaded.");
+                return;
+            }
+
+            var latestVitals = VitalsService.GetByPatient(_patientId).FirstOrDefault();
+
+            PrintService.ShowPrintPreview(
+                this,
+                $"Consultation - {patient.FullName}",
+                BuildPrintableConsultation(patient, latestVitals));
         }
 
         // ════════════════════════════════════════════════════════════════════
@@ -237,19 +266,29 @@ namespace ClinicEMR.UserControls
 
         private Label CreatePlaceholder()
         {
+            Control parent = gbPatientInfo.Parent ?? this;
             var placeholder = new Label
             {
+                Dock = DockStyle.Fill,
                 BackColor = Color.FromArgb(248, 249, 250),
                 BorderStyle = BorderStyle.FixedSingle,
                 ForeColor = Color.FromArgb(108, 117, 125),
                 TextAlign = ContentAlignment.MiddleCenter,
                 Font = new Font("Segoe UI", 10F, FontStyle.Italic),
-                Bounds = gbPatientInfo.Bounds,
-                Anchor = gbPatientInfo.Anchor,
+                Margin = gbPatientInfo.Margin,
                 Visible = false
             };
 
-            Controls.Add(placeholder);
+            if (parent is TableLayoutPanel layout)
+            {
+                var position = layout.GetPositionFromControl(gbPatientInfo);
+                layout.Controls.Add(placeholder, position.Column, position.Row);
+            }
+            else
+            {
+                parent.Controls.Add(placeholder);
+            }
+
             placeholder.BringToFront();
             return placeholder;
         }
@@ -260,6 +299,60 @@ namespace ClinicEMR.UserControls
             _consultationPlaceholder.Text = message ?? string.Empty;
             _consultationPlaceholder.Visible = showPlaceholder;
             gbPatientInfo.Visible = !showPlaceholder;
+        }
+
+        private string BuildPrintableConsultation(Patient patient, VitalSigns? latestVitals)
+        {
+            var builder = new StringBuilder();
+            int age = CalculateAge(patient.DateOfBirth);
+
+            builder.AppendLine("CLINIC EMR CONSULTATION");
+            builder.AppendLine($"Date: {_consultationDate:MMMM dd, yyyy hh:mm tt}");
+            builder.AppendLine($"Doctor: {_user.FullName}");
+            builder.AppendLine(_savedConsultId > 0
+                ? $"Consultation No.: {_savedConsultId}"
+                : "Consultation Status: Draft / Not yet saved");
+            builder.AppendLine();
+
+            PrintService.AppendSection(builder, "Patient Information", new[]
+            {
+                $"Patient Code: {PrintService.DisplayValue(patient.PatientCode)}",
+                $"Name: {patient.FullName}",
+                $"Age / Sex: {age} years old / {PrintService.DisplayValue(patient.Sex)}",
+                $"Allergies: {PrintService.DisplayValue(patient.KnownAllergies)}"
+            });
+
+            PrintService.AppendSection(builder, "Latest Vital Signs", latestVitals == null
+                ? Array.Empty<string>()
+                : new[]
+                {
+                    $"Recorded At: {latestVitals.RecordedAt:MMMM dd, yyyy hh:mm tt}",
+                    $"Blood Pressure: {PrintService.DisplayValue(latestVitals.BloodPressure)}",
+                    $"Heart Rate: {latestVitals.HeartRate} bpm",
+                    $"Temperature: {latestVitals.Temperature:0.0} C",
+                    $"BMI: {latestVitals.Bmi:0.0} {PrintService.DisplayValue(latestVitals.BmiCategory, string.Empty)}".Trim()
+                });
+
+            PrintService.AppendSection(builder, "Consultation Notes", new[]
+            {
+                $"Chief Complaint: {PrintService.DisplayValue(txtChief.Text)}",
+                $"Findings: {PrintService.DisplayValue(txtFindings.Text)}",
+                $"Diagnosis: {PrintService.DisplayValue(txtDiagnosis.Text)}",
+                $"Doctor Notes: {PrintService.DisplayValue(txtNotes.Text)}"
+            });
+
+            return builder.ToString();
+        }
+
+        private static int CalculateAge(DateTime dateOfBirth)
+        {
+            int age = DateTime.Today.Year - dateOfBirth.Year;
+            if (dateOfBirth.Date > DateTime.Today.AddYears(-age))
+            {
+                age--;
+            }
+
+            return age;
         }
     }
 }

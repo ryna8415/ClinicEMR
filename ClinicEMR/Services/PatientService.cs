@@ -68,7 +68,7 @@ namespace ClinicEMR.Services
                 cmd.Parameters.AddWithValue("@sex", p.Sex ?? "");
                 cmd.Parameters.AddWithValue("@cn", p.ContactNumber ?? "");
                 cmd.Parameters.AddWithValue("@addr", p.Address ?? "");
-                cmd.Parameters.AddWithValue("@ec", p.EmergencyContact ?? "");
+                cmd.Parameters.AddWithValue("@ec", p.EmergencyContact.HasValue ? p.EmergencyContact.Value : DBNull.Value);
                 cmd.Parameters.AddWithValue("@al", p.KnownAllergies ?? "");
                 cmd.ExecuteNonQuery();
             }
@@ -120,7 +120,7 @@ namespace ClinicEMR.Services
             Sex = r["sex"].ToString(),
             ContactNumber = r["contact_number"].ToString(),
             Address = r["address"].ToString(),
-            EmergencyContact = r["emergency_contact"].ToString(),
+            EmergencyContact = GetNullableInt64(r, "emergency_contact"),
             KnownAllergies = r["known_allergies"].ToString(),
             ChronicConditions = HasColumn(r, "chronic_conditions") ? r["chronic_conditions"]?.ToString() : "",
             PastSurgeries = HasColumn(r, "past_surgeries") ? r["past_surgeries"]?.ToString() : "",
@@ -138,6 +138,24 @@ namespace ClinicEMR.Services
             }
 
             return false;
+        }
+
+        private static long? GetNullableInt64(MySqlDataReader reader, string columnName)
+        {
+            if (!HasColumn(reader, columnName))
+            {
+                return null;
+            }
+
+            var value = reader[columnName];
+            if (value == DBNull.Value)
+            {
+                return null;
+            }
+
+            return long.TryParse(value.ToString(), out var parsedValue)
+                ? parsedValue
+                : null;
         }
 
     }

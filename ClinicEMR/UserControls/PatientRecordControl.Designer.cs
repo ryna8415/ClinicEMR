@@ -49,6 +49,7 @@ namespace ClinicEMR.UserControls
             txtHxConditions = new TextBox();
             txtHxSurgeries = new TextBox();
             btnEditHistory = new Button();
+            btnPrint = new Button();
             tblHeader.SuspendLayout();
             tblLayout.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -70,9 +71,10 @@ namespace ClinicEMR.UserControls
             lblPatientInfo.Size = new Size(47, 15);
             lblPatientInfo.TabIndex = 0;
             lblPatientInfo.Text = "Patient:";
-            tblHeader.ColumnCount = 2;
+            tblHeader.ColumnCount = 3;
             tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14F));
-            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 86F));
+            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 68F));
+            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 18F));
             tblHeader.Controls.Add(cboPatient, 1, 0);
             tblHeader.Controls.Add(lblPatientInfo, 0, 0);
             tblHeader.Controls.Add(lblPatient, 0, 1);
@@ -81,6 +83,7 @@ namespace ClinicEMR.UserControls
             tblHeader.Controls.Add(lblMeta, 1, 2);
             tblHeader.Controls.Add(lblAllergies, 0, 3);
             tblHeader.Controls.Add(lblAllergy, 1, 3);
+            tblHeader.Controls.Add(btnPrint, 2, 0);
             tblHeader.Dock = DockStyle.Fill;
             tblHeader.Location = new Point(20, 20);
             tblHeader.Margin = new Padding(20, 20, 20, 3);
@@ -92,6 +95,7 @@ namespace ClinicEMR.UserControls
             tblHeader.RowStyles.Add(new RowStyle());
             tblHeader.Size = new Size(739, 117);
             tblHeader.TabIndex = 0;
+            tblHeader.SetRowSpan(btnPrint, 4);
             cboPatient.Dock = DockStyle.Fill;
             cboPatient.DropDownStyle = ComboBoxStyle.DropDownList;
             cboPatient.FormattingEnabled = true;
@@ -134,6 +138,14 @@ namespace ClinicEMR.UserControls
             lblAllergy.Name = "lblAllergy";
             lblAllergy.Size = new Size(0, 15);
             lblAllergy.TabIndex = 7;
+            btnPrint.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnPrint.Location = new Point(621, 3);
+            btnPrint.Name = "btnPrint";
+            btnPrint.Size = new Size(115, 32);
+            btnPrint.TabIndex = 8;
+            btnPrint.Text = "Print Record";
+            btnPrint.UseVisualStyleBackColor = true;
+            btnPrint.Click += btnPrint_Click;
             tblLayout.ColumnCount = 1;
             tblLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tblLayout.Controls.Add(tblHeader, 0, 0);
@@ -373,5 +385,6 @@ namespace ClinicEMR.UserControls
         private TextBox txtHxConditions;
         private TextBox txtHxSurgeries;
         private Button btnEditHistory;
+        private Button btnPrint;
     }
 }

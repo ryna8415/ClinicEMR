@@ -12,7 +12,20 @@ namespace ClinicEMR.Services
 
         public static List<string> ValidateNewUser(string username, string password, string fullName, string role)
         {
+            var errorsByField = ValidateNewUserByField(username, password, fullName, role);
             var errors = new List<string>();
+
+            foreach (var fieldErrors in errorsByField.Values)
+            {
+                errors.AddRange(fieldErrors);
+            }
+
+            return errors;
+        }
+
+        public static Dictionary<string, List<string>> ValidateNewUserByField(string username, string password, string fullName, string role)
+        {
+            var errors = new Dictionary<string, List<string>>();
 
             username = username?.Trim() ?? string.Empty;
             fullName = fullName?.Trim() ?? string.Empty;
@@ -20,80 +33,91 @@ namespace ClinicEMR.Services
 
             if (string.IsNullOrWhiteSpace(fullName))
             {
-                errors.Add("Full name is required.");
+                AddError(errors, "FullName", "Full name is required.");
             }
 
             if (string.IsNullOrWhiteSpace(role))
             {
-                errors.Add("Role is required.");
+                AddError(errors, "Role", "Role is required.");
             }
 
             if (string.IsNullOrWhiteSpace(username))
             {
-                errors.Add("Username is required.");
+                AddError(errors, "Username", "Username is required.");
             }
             else
             {
                 if (username.Length < MinUsernameLength || username.Length > MaxUsernameLength)
                 {
-                    errors.Add($"Username must be {MinUsernameLength}-{MaxUsernameLength} characters long.");
+                    AddError(errors, "Username", $"Username must be {MinUsernameLength}-{MaxUsernameLength} characters long.");
                 }
 
                 if (username.Contains(' '))
                 {
-                    errors.Add("Username must not contain spaces.");
+                    AddError(errors, "Username", "Username must not contain spaces.");
                 }
 
                 if (!UsernameRegex().IsMatch(username))
                 {
-                    errors.Add("Username may only contain letters, numbers, underscores, dots, and hyphens.");
+                    AddError(errors, "Username", "Username may only contain letters, numbers, underscores, dots, and hyphens.");
                 }
             }
 
             if (string.IsNullOrEmpty(password))
             {
-                errors.Add("Password is required.");
+                AddError(errors, "Password", "Password is required.");
             }
             else
             {
                 if (password.Length < MinPasswordLength || password.Length > MaxPasswordLength)
                 {
-                    errors.Add($"Password must be {MinPasswordLength}-{MaxPasswordLength} characters long.");
+                    AddError(errors, "Password", $"Password must be {MinPasswordLength}-{MaxPasswordLength} characters long.");
                 }
 
                 if (!UppercaseRegex().IsMatch(password))
                 {
-                    errors.Add("Password must include at least one uppercase letter.");
+                    AddError(errors, "Password", "Password must include at least one uppercase letter.");
                 }
 
                 if (!LowercaseRegex().IsMatch(password))
                 {
-                    errors.Add("Password must include at least one lowercase letter.");
+                    AddError(errors, "Password", "Password must include at least one lowercase letter.");
                 }
 
                 if (!DigitRegex().IsMatch(password))
                 {
-                    errors.Add("Password must include at least one number.");
+                    AddError(errors, "Password", "Password must include at least one number.");
                 }
 
                 if (!SpecialCharacterRegex().IsMatch(password))
                 {
-                    errors.Add("Password must include at least one special character.");
+                    AddError(errors, "Password", "Password must include at least one special character.");
                 }
 
                 if (password.Contains(' '))
                 {
-                    errors.Add("Password must not contain spaces.");
+                    AddError(errors, "Password", "Password must not contain spaces.");
                 }
 
                 if (!string.IsNullOrWhiteSpace(username) &&
                     password.Contains(username, System.StringComparison.OrdinalIgnoreCase))
                 {
-                    errors.Add("Password must not contain the username.");
+                    AddError(errors, "Password", "Password must not contain the username.");
                 }
             }
 
             return errors;
+        }
+
+        private static void AddError(Dictionary<string, List<string>> errors, string fieldName, string message)
+        {
+            if (!errors.TryGetValue(fieldName, out var fieldErrors))
+            {
+                fieldErrors = new List<string>();
+                errors[fieldName] = fieldErrors;
+            }
+
+            fieldErrors.Add(message);
         }
 
         [GeneratedRegex("^[A-Za-z0-9._-]+$")]

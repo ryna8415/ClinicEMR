@@ -28,6 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            lblPatientInfo = new Label();
+            tblHeader = new TableLayoutPanel();
+            cmbPatients = new ComboBox();
+            tblLayout = new TableLayoutPanel();
             gbPatientInfo = new GroupBox();
             lblMeta = new Label();
             btnSave = new Button();
@@ -49,10 +53,68 @@
             lblPatient = new Label();
             lblPatientName = new Label();
             lblConsultation = new Label();
-            cmbPatients = new ComboBox();
-            lblSearchName = new Label();
+            btnPrint = new Button();
+            tblHeader.SuspendLayout();
+            tblLayout.SuspendLayout();
             gbPatientInfo.SuspendLayout();
             SuspendLayout();
+            // 
+            // lblPatientInfo
+            // 
+            lblPatientInfo.Anchor = AnchorStyles.Left;
+            lblPatientInfo.AutoSize = true;
+            lblPatientInfo.Location = new Point(3, 6);
+            lblPatientInfo.Name = "lblPatientInfo";
+            lblPatientInfo.Size = new Size(47, 15);
+            lblPatientInfo.TabIndex = 5;
+            lblPatientInfo.Text = "Patient:";
+            lblPatientInfo.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // tblHeader
+            // 
+            tblHeader.ColumnCount = 2;
+            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.3958025F));
+            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 91.6041946F));
+            tblHeader.Controls.Add(cmbPatients, 1, 0);
+            tblHeader.Controls.Add(lblPatientInfo, 0, 0);
+            tblHeader.Dock = DockStyle.Fill;
+            tblHeader.Location = new Point(20, 20);
+            tblHeader.Margin = new Padding(20, 20, 20, 3);
+            tblHeader.Name = "tblHeader";
+            tblHeader.RowCount = 2;
+            tblHeader.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tblHeader.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tblHeader.Size = new Size(697, 57);
+            tblHeader.TabIndex = 0;
+            // 
+            // cmbPatients
+            // 
+            cmbPatients.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cmbPatients.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cmbPatients.Dock = DockStyle.Fill;
+            cmbPatients.FormattingEnabled = true;
+            cmbPatients.Location = new Point(61, 3);
+            cmbPatients.Name = "cmbPatients";
+            cmbPatients.Size = new Size(633, 23);
+            cmbPatients.TabIndex = 10;
+            cmbPatients.SelectedIndexChanged += cmbPatients_SelectedIndexChanged;
+            // 
+            // tblLayout
+            // 
+            tblLayout.ColumnCount = 1;
+            tblLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tblLayout.Controls.Add(gbPatientInfo, 0, 1);
+            tblLayout.Controls.Add(tblHeader, 0, 0);
+            tblLayout.Dock = DockStyle.Fill;
+            tblLayout.Location = new Point(0, 0);
+            tblLayout.Margin = new Padding(20);
+            tblLayout.Name = "tblLayout";
+            tblLayout.RowCount = 3;
+            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 80F));
+            tblLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 80F));
+            tblLayout.Size = new Size(737, 676);
+            tblLayout.TabIndex = 1;
             // 
             // gbPatientInfo
             // 
@@ -76,10 +138,13 @@
             gbPatientInfo.Controls.Add(lblPatient);
             gbPatientInfo.Controls.Add(lblPatientName);
             gbPatientInfo.Controls.Add(lblConsultation);
-            gbPatientInfo.Location = new Point(41, 94);
+            gbPatientInfo.Controls.Add(btnPrint);
+            gbPatientInfo.Dock = DockStyle.Fill;
+            gbPatientInfo.Location = new Point(20, 83);
+            gbPatientInfo.Margin = new Padding(20, 3, 20, 3);
             gbPatientInfo.Name = "gbPatientInfo";
-            gbPatientInfo.Size = new Size(676, 541);
-            gbPatientInfo.TabIndex = 0;
+            gbPatientInfo.Size = new Size(697, 510);
+            gbPatientInfo.TabIndex = 9;
             gbPatientInfo.TabStop = false;
             // 
             // lblMeta
@@ -92,31 +157,29 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(464, 444);
+            btnSave.Location = new Point(489, 444);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(92, 34);
             btnSave.TabIndex = 19;
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = true;
-            btnSave.Click += btnSave_Click;
             // 
             // btnAddRx
             // 
             btnAddRx.Enabled = false;
-            btnAddRx.Location = new Point(562, 444);
+            btnAddRx.Location = new Point(596, 444);
             btnAddRx.Name = "btnAddRx";
             btnAddRx.Size = new Size(92, 34);
             btnAddRx.TabIndex = 18;
             btnAddRx.Text = "Add Rx";
             btnAddRx.UseVisualStyleBackColor = true;
-            btnAddRx.Click += btnAddRx_Click;
             // 
             // txtNotes
             // 
             txtNotes.Location = new Point(20, 383);
             txtNotes.Multiline = true;
             txtNotes.Name = "txtNotes";
-            txtNotes.Size = new Size(634, 45);
+            txtNotes.Size = new Size(668, 45);
             txtNotes.TabIndex = 17;
             // 
             // lblNotes
@@ -134,7 +197,7 @@
             txtDiagnosis.Location = new Point(20, 317);
             txtDiagnosis.Multiline = true;
             txtDiagnosis.Name = "txtDiagnosis";
-            txtDiagnosis.Size = new Size(634, 45);
+            txtDiagnosis.Size = new Size(668, 45);
             txtDiagnosis.TabIndex = 15;
             // 
             // lblDiagnosis
@@ -153,7 +216,7 @@
             txtFindings.Multiline = true;
             txtFindings.Name = "txtFindings";
             txtFindings.ScrollBars = ScrollBars.Vertical;
-            txtFindings.Size = new Size(634, 45);
+            txtFindings.Size = new Size(668, 45);
             txtFindings.TabIndex = 13;
             // 
             // lblFindings
@@ -170,7 +233,7 @@
             // 
             txtChief.Location = new Point(124, 201);
             txtChief.Name = "txtChief";
-            txtChief.Size = new Size(530, 23);
+            txtChief.Size = new Size(564, 23);
             txtChief.TabIndex = 11;
             // 
             // lblChiefComp
@@ -188,9 +251,9 @@
             label2.AutoSize = true;
             label2.Location = new Point(6, 169);
             label2.Name = "label2";
-            label2.Size = new Size(667, 15);
+            label2.Size = new Size(682, 15);
             label2.TabIndex = 8;
-            label2.Text = "------------------------------------------------------------------------------------------------------------------------------------";
+            label2.Text = "---------------------------------------------------------------------------------------------------------------------------------------";
             // 
             // lblVitals
             // 
@@ -216,9 +279,9 @@
             label1.AutoSize = true;
             label1.Location = new Point(6, 116);
             label1.Name = "label1";
-            label1.Size = new Size(667, 15);
+            label1.Size = new Size(682, 15);
             label1.TabIndex = 5;
-            label1.Text = "------------------------------------------------------------------------------------------------------------------------------------";
+            label1.Text = "---------------------------------------------------------------------------------------------------------------------------------------";
             // 
             // lblAllergy
             // 
@@ -267,68 +330,59 @@
             lblConsultation.TabIndex = 0;
             lblConsultation.Text = "Patient Information";
             // 
-            // cmbPatients
+            // btnPrint
             // 
-            cmbPatients.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            cmbPatients.AutoCompleteSource = AutoCompleteSource.ListItems;
-            cmbPatients.FormattingEnabled = true;
-            cmbPatients.Location = new Point(108, 47);
-            cmbPatients.Name = "cmbPatients";
-            cmbPatients.Size = new Size(609, 23);
-            cmbPatients.TabIndex = 3;
-            cmbPatients.SelectedIndexChanged += cmbPatients_SelectedIndexChanged;
-            // 
-            // lblSearchName
-            // 
-            lblSearchName.AutoSize = true;
-            lblSearchName.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblSearchName.Location = new Point(41, 48);
-            lblSearchName.Name = "lblSearchName";
-            lblSearchName.Size = new Size(54, 17);
-            lblSearchName.TabIndex = 7;
-            lblSearchName.Text = "Patient:";
+            btnPrint.Location = new Point(382, 444);
+            btnPrint.Name = "btnPrint";
+            btnPrint.Size = new Size(92, 34);
+            btnPrint.TabIndex = 21;
+            btnPrint.Text = "Print";
+            btnPrint.UseVisualStyleBackColor = true;
+            btnPrint.Click += btnPrint_Click;
             // 
             // ConsultationControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
-            Controls.Add(lblSearchName);
-            Controls.Add(cmbPatients);
-            Controls.Add(gbPatientInfo);
+            Controls.Add(tblLayout);
             Name = "ConsultationControl";
             Size = new Size(737, 676);
+            tblHeader.ResumeLayout(false);
+            tblHeader.PerformLayout();
+            tblLayout.ResumeLayout(false);
             gbPatientInfo.ResumeLayout(false);
             gbPatientInfo.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
+        private Label label4;
+        private Label lblPatientInfo;
+        private TableLayoutPanel tblHeader;
+        private TableLayoutPanel tblLayout;
+        private ComboBox cmbPatients;
         private GroupBox gbPatientInfo;
-        private Label lblAllergy;
-        private Label lblAllergies;
-        private Label lblPatient;
-        private Label lblPatientName;
-        private Label lblChiefComp;
-        private Label label2;
-        private Label lblVitals;
-        private Label lblVtl;
-        private Label label1;
-        private TextBox txtChief;
+        private Label lblMeta;
+        private Button btnSave;
+        private Button btnAddRx;
+        private TextBox txtNotes;
         private Label lblNotes;
         private TextBox txtDiagnosis;
         private Label lblDiagnosis;
         private TextBox txtFindings;
         private Label lblFindings;
-        private TextBox txtNotes;
-        private Button btnSave;
-        private Button btnAddRx;
-        private ComboBox cmbPatients;
-        private Label lblMeta;
-        private Label lblSearchName;
+        private TextBox txtChief;
+        private Label lblChiefComp;
+        private Label label2;
+        private Label lblVitals;
+        private Label lblVtl;
+        private Label label1;
+        private Label lblAllergy;
+        private Label lblAllergies;
+        private Label lblPatient;
+        private Label lblPatientName;
         private Label lblConsultation;
-        private Label label4;
+        private Button btnPrint;
     }
 }

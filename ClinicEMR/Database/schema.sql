@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS patients (
   sex               ENUM('Male','Female','Other'),
   contact_number    VARCHAR(20),
   address           TEXT,
-  emergency_contact VARCHAR(120),
+  emergency_contact BIGINT UNSIGNED,
   known_allergies   TEXT,
   chronic_conditions TEXT,
   past_surgeries     TEXT,
