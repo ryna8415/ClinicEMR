@@ -18,6 +18,7 @@ namespace ClinicEMR.UserControls
         {
             InitializeComponent();
             _user = user;
+            GridViewService.MakeReadOnly(dgvMyAppts);
         }
 
         private void DoctorDashboardControl_Load(object sender, EventArgs e)
@@ -27,9 +28,14 @@ namespace ClinicEMR.UserControls
              var appts = AppointmentService.GetByDateAndDoctor(DateTime.Today, _user.UserId);
              lblMyPatients.Text = $"{appts.Count} patients scheduled for you today";
              dgvMyAppts.DataSource = appts;
-
-            // Placeholder until Week 2
-            lblMyPatients.Text = "Schedule loads in Week 2";
+             GridViewService.ShowOnly(dgvMyAppts, "ApptTime", "PatientName", "Purpose", "Status");
+             GridViewService.SetHeaders(dgvMyAppts, new Dictionary<string, string>
+             {
+                 ["ApptTime"] = "Time",
+                 ["PatientName"] = "Patient",
+                 ["Purpose"] = "Purpose",
+                 ["Status"] = "Status"
+             });
 
             // Lock yesterday's consultations every time doctor logs in
             // Week 2: uncomment when ConsultService exists

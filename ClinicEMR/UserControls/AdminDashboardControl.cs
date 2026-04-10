@@ -18,6 +18,7 @@ namespace ClinicEMR.UserControls
         {
             InitializeComponent();
             _user = user;
+            GridViewService.MakeReadOnly(dgvRecentLogins);
         }
 
         private void AdminDashboardControl_Load(object sender, EventArgs e)
@@ -31,12 +32,7 @@ namespace ClinicEMR.UserControls
                 lblTodayVisits.Text = $"{ReportService.GetDailyVisitCount(DateTime.Today)} visits today";
 
                 dgvRecentLogins.DataSource = UserService.GetRecentLogins();
-                dgvRecentLogins.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                dgvRecentLogins.ReadOnly = true;
-                dgvRecentLogins.AllowUserToAddRows = false;
-                dgvRecentLogins.AllowUserToDeleteRows = false;
-                dgvRecentLogins.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                dgvRecentLogins.MultiSelect = false;
+                GridViewService.ShowOnly(dgvRecentLogins, "Full Name", "Role", "Last Login");
             }
             catch
             {

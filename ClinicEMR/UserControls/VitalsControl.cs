@@ -16,14 +16,21 @@ namespace ClinicEMR.UserControls
         private int _selectedPatientId = 0;
         private readonly User _user;
         private bool _isLoadingPatients = false;
+        private readonly Label _historyPlaceholder;
 
 
         public VitalsControl(User user, MainShellForm shell)
         {
             InitializeComponent(); 
             _user = user;
+            GridViewService.MakeReadOnly(dgvHistory);
+            _historyPlaceholder = CreateGridPlaceholder(
+                dgvHistory,
+                "Choose a patient to display previous readings.");
 
             LoadPatients();
+            ShowGridPlaceholder("Choose a patient to display previous readings.");
+            
 
         }
 
@@ -125,21 +132,34 @@ namespace ClinicEMR.UserControls
             if (cmbPatients.SelectedIndex == -1)
             {
                 dgvHistory.DataSource = null;
+                ShowGridPlaceholder("Choose a patient to display previous readings.");
                 return;
             }
 
             int patientId = (int)cmbPatients.SelectedValue;
+            var history = VitalsService.GetByPatient(patientId);
 
-            dgvHistory.DataSource = VitalsService.GetByPatient(patientId);
-            dgvHistory.AutoGenerateColumns = false;
+            dgvHistory.DataSource = history;
+            GridViewService.ShowOnly(
+                dgvHistory,
+                "RecordedAt",
+                "BloodPressure",
+                "HeartRate",
+                "Temperature",
+                "Bmi",
+                "RecordedByName");
 
-            dgvHistory.Columns["VitalId"].Visible = false;
-            dgvHistory.Columns["PatientId"].Visible = false;
-            dgvHistory.Columns["RecordedBy"].Visible = false;
+            GridViewService.SetHeaders(dgvHistory, new Dictionary<string, string>
+            {
+                ["RecordedAt"] = "Date",
+                ["BloodPressure"] = "BP",
+                ["HeartRate"] = "HR",
+                ["Temperature"] = "Temp",
+                ["Bmi"] = "BMI",
+                ["RecordedByName"] = "Recorded By"
+            });
 
-            dgvHistory.Columns["PatientName"].HeaderText = "Patient";
-            dgvHistory.Columns["RecordedByName"].HeaderText = "Recorded By";
-            dgvHistory.Columns["RecordedAt"].HeaderText = "Date";
+            ShowGridPlaceholder(history.Count == 0 ? "No vitals to show for this patient yet." : null);
         }
 
         private void LoadPatients()
@@ -192,6 +212,44 @@ namespace ClinicEMR.UserControls
             lblPatientName.Text = selected.FullName;
 
             LoadHistory();
+        }
+
+        private Label CreateGridPlaceholder(DataGridView grid, string text)
+        {
+            Control parent = grid.Parent ?? this;
+            var placeholder = new Label
+            {
+                Dock = DockStyle.Fill,
+                BackColor = Color.FromArgb(248, 249, 250),
+                BorderStyle = BorderStyle.FixedSingle,
+                ForeColor = Color.FromArgb(108, 117, 125),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Segoe UI", 10F, FontStyle.Italic),
+                Text = text,
+                Margin = grid.Margin,
+                Visible = false
+            };
+
+            if (parent is TableLayoutPanel layout)
+            {
+                var position = layout.GetPositionFromControl(grid);
+                layout.Controls.Add(placeholder, position.Column, position.Row);
+            }
+            else
+            {
+                parent.Controls.Add(placeholder);
+            }
+
+            placeholder.BringToFront();
+            return placeholder;
+        }
+
+        private void ShowGridPlaceholder(string? message)
+        {
+            bool showPlaceholder = !string.IsNullOrWhiteSpace(message);
+            _historyPlaceholder.Text = message ?? string.Empty;
+            _historyPlaceholder.Visible = showPlaceholder;
+            dgvHistory.Visible = !showPlaceholder;
         }
     }
 

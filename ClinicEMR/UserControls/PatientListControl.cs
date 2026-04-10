@@ -21,6 +21,7 @@ namespace ClinicEMR.UserControls
             InitializeComponent();
             _user = user;
             _shell = shell;
+            GridViewService.MakeReadOnly(dgvPatients);
         }
 
         private void PatientListControl_Load(object sender, EventArgs e)
@@ -34,14 +35,32 @@ namespace ClinicEMR.UserControls
 
         private void FormatGrid()
         {
-            string[] hide = { "PatientId", "IsActive", "Address", "EmergencyContact" };
-            foreach (var col in hide)
-                if (dgvPatients.Columns[col] != null)
-                    dgvPatients.Columns[col].Visible = false;
+            GridViewService.ShowOnly(dgvPatients, "PatientId", "PatientCode", "FullName", "Sex", "DateOfBirth", "ContactNumber");
+            GridViewService.SetHeaders(dgvPatients, new Dictionary<string, string>
+            {
+                ["PatientCode"] = "Patient ID",
+                ["FullName"] = "Name",
+                ["Sex"] = "Sex",
+                ["DateOfBirth"] = "Date of Birth",
+                ["ContactNumber"] = "Contact No."
+            });
+
+            if (dgvPatients.Columns["PatientId"] != null)
+                dgvPatients.Columns["PatientId"].Visible = false;
+
             if (dgvPatients.Columns["PatientCode"] != null)
-                dgvPatients.Columns["PatientCode"].HeaderText = "ID";
+                dgvPatients.Columns["PatientCode"].DisplayIndex = 0;
             if (dgvPatients.Columns["FullName"] != null)
-                dgvPatients.Columns["FullName"].HeaderText = "Name";
+                dgvPatients.Columns["FullName"].DisplayIndex = 1;
+            if (dgvPatients.Columns["Sex"] != null)
+                dgvPatients.Columns["Sex"].DisplayIndex = 2;
+            if (dgvPatients.Columns["DateOfBirth"] != null)
+            {
+                dgvPatients.Columns["DateOfBirth"].DisplayIndex = 3;
+                dgvPatients.Columns["DateOfBirth"].DefaultCellStyle.Format = "MMM dd, yyyy";
+            }
+            if (dgvPatients.Columns["ContactNumber"] != null)
+                dgvPatients.Columns["ContactNumber"].DisplayIndex = 4;
         }
 
         private void btnSearch_Click(object sender, EventArgs e)

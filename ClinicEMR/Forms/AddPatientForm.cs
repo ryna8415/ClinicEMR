@@ -15,31 +15,136 @@ namespace ClinicEMR.Forms
         public AddPatientForm()
         {
             InitializeComponent();
+            cboSex.DropDownStyle = ComboBoxStyle.DropDownList;
+            dtpDOB.MaxDate = DateTime.Today;
+            txtContact.MaxLength = 16;
+            txtContact.PlaceholderText = "09XXXXXXXXX or +639XXXXXXXXX";
+            txtEmergency.MaxLength = 11;
+            txtEmergency.PlaceholderText = "Numbers only";
+            txtEmergency.KeyPress += txtEmergency_KeyPress;
+            txtFirstName.TextChanged += (_, _) => ClearError(lblFirstNameError);
+            txtLastName.TextChanged += (_, _) => ClearError(lblLastNameError);
+            cboSex.SelectedIndexChanged += (_, _) => ClearError(lblSexError);
+            dtpDOB.ValueChanged += (_, _) => ClearError(lblDobError);
+            txtContact.TextChanged += (_, _) => ClearError(lblContactError);
+            txtEmergency.TextChanged += (_, _) => ClearError(lblEmergencyError);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtFirstName.Text) || string.IsNullOrEmpty(txtLastName.Text))
+            DialogResult = DialogResult.None;
+            ClearAllErrors();
+
+            var firstName = txtFirstName.Text.Trim();
+            var lastName = txtLastName.Text.Trim();
+            var sex = cboSex.SelectedItem?.ToString() ?? string.Empty;
+            var contactNumber = txtContact.Text.Trim();
+            var emergencyContactText = txtEmergency.Text.Trim();
+
+            var validationErrors = PatientValidationService.ValidateNewPatientByField(
+                firstName,
+                lastName,
+                dtpDOB.Value,
+                sex,
+                contactNumber,
+                emergencyContactText);
+
+            if (validationErrors.Count > 0)
             {
-                MessageBox.Show("First name and last name are required.");
+                ShowError(lblFirstNameError, validationErrors, "FirstName");
+                ShowError(lblLastNameError, validationErrors, "LastName");
+                ShowError(lblSexError, validationErrors, "Sex");
+                ShowError(lblDobError, validationErrors, "DateOfBirth");
+                ShowError(lblContactError, validationErrors, "ContactNumber");
+                ShowError(lblEmergencyError, validationErrors, "EmergencyContact");
+                FocusFirstInvalidField(validationErrors);
                 return;
             }
+
+            PatientValidationService.TryNormalizePhilippineContactNumber(contactNumber, out var normalizedContactNumber);
+            PatientValidationService.TryParseEmergencyContact(emergencyContactText, out var emergencyContact);
+
             var p = new Patient
             {
-                FirstName = txtFirstName.Text.Trim(),
-                LastName = txtLastName.Text.Trim(),
+                FirstName = firstName,
+                LastName = lastName,
                 DateOfBirth = dtpDOB.Value,
-                Sex = cboSex.SelectedItem?.ToString(),
-                ContactNumber = txtContact.Text.Trim(),
+                Sex = sex,
+                ContactNumber = normalizedContactNumber,
                 Address = txtAddress.Text.Trim(),
-                EmergencyContact = txtEmergency.Text.Trim(),
+                EmergencyContact = emergencyContact,
                 KnownAllergies = txtAllergies.Text.Trim()
             };
+
             PatientService.Add(p);
             MessageBox.Show("Patient registered successfully!");
             DialogResult = DialogResult.OK;
-            this.Close();
-            
+            Close();
+        }
+
+        private void txtEmergency_KeyPress(object? sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void ClearAllErrors()
+        {
+            ClearError(lblFirstNameError);
+            ClearError(lblLastNameError);
+            ClearError(lblSexError);
+            ClearError(lblDobError);
+            ClearError(lblContactError);
+            ClearError(lblEmergencyError);
+        }
+
+        private static void ShowError(Label label, Dictionary<string, List<string>> errors, string fieldName)
+        {
+            if (errors.TryGetValue(fieldName, out var fieldErrors))
+            {
+                label.Text = string.Join(Environment.NewLine, fieldErrors);
+                label.Visible = true;
+                return;
+            }
+
+            label.Text = string.Empty;
+            label.Visible = false;
+        }
+
+        private static void ClearError(Label label)
+        {
+            label.Text = string.Empty;
+            label.Visible = false;
+        }
+
+        private void FocusFirstInvalidField(Dictionary<string, List<string>> errors)
+        {
+            if (errors.ContainsKey("FirstName"))
+            {
+                txtFirstName.Focus();
+            }
+            else if (errors.ContainsKey("LastName"))
+            {
+                txtLastName.Focus();
+            }
+            else if (errors.ContainsKey("Sex"))
+            {
+                cboSex.Focus();
+            }
+            else if (errors.ContainsKey("DateOfBirth"))
+            {
+                dtpDOB.Focus();
+            }
+            else if (errors.ContainsKey("ContactNumber"))
+            {
+                txtContact.Focus();
+            }
+            else if (errors.ContainsKey("EmergencyContact"))
+            {
+                txtEmergency.Focus();
+            }
         }
     }
 }

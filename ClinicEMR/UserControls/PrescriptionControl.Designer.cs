@@ -50,6 +50,7 @@
             lstDrugs = new ListBox();
             lblPrescription = new Label();
             tableLayoutPanel2 = new TableLayoutPanel();
+            btnPrint = new Button();
             btnDone = new Button();
             tblLayout.SuspendLayout();
             tblHeader.SuspendLayout();
@@ -97,6 +98,8 @@
             // 
             // cboPatient
             // 
+            cboPatient.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cboPatient.AutoCompleteSource = AutoCompleteSource.ListItems;
             cboPatient.Dock = DockStyle.Fill;
             cboPatient.DropDownStyle = ComboBoxStyle.DropDownList;
             cboPatient.FormattingEnabled = true;
@@ -127,9 +130,9 @@
             // 
             // lblPatientInfo
             // 
-            lblPatientInfo.Anchor = AnchorStyles.Right;
+            lblPatientInfo.Anchor = AnchorStyles.Left;
             lblPatientInfo.AutoSize = true;
-            lblPatientInfo.Location = new Point(7, 6);
+            lblPatientInfo.Location = new Point(3, 6);
             lblPatientInfo.Name = "lblPatientInfo";
             lblPatientInfo.Size = new Size(47, 15);
             lblPatientInfo.TabIndex = 4;
@@ -196,8 +199,9 @@
             // 
             // lblInstructions
             // 
+            lblInstructions.Anchor = AnchorStyles.Left;
             lblInstructions.AutoSize = true;
-            lblInstructions.Location = new Point(3, 116);
+            lblInstructions.Location = new Point(3, 141);
             lblInstructions.Name = "lblInstructions";
             lblInstructions.Size = new Size(72, 15);
             lblInstructions.TabIndex = 8;
@@ -205,8 +209,9 @@
             // 
             // lblDuration
             // 
+            lblDuration.Anchor = AnchorStyles.Left;
             lblDuration.AutoSize = true;
-            lblDuration.Location = new Point(3, 87);
+            lblDuration.Location = new Point(3, 94);
             lblDuration.Name = "lblDuration";
             lblDuration.Size = new Size(56, 15);
             lblDuration.TabIndex = 7;
@@ -214,8 +219,9 @@
             // 
             // lblFrequency
             // 
+            lblFrequency.Anchor = AnchorStyles.Left;
             lblFrequency.AutoSize = true;
-            lblFrequency.Location = new Point(3, 58);
+            lblFrequency.Location = new Point(3, 65);
             lblFrequency.Name = "lblFrequency";
             lblFrequency.Size = new Size(65, 15);
             lblFrequency.TabIndex = 6;
@@ -223,8 +229,9 @@
             // 
             // lblMedication
             // 
+            lblMedication.Anchor = AnchorStyles.Left;
             lblMedication.AutoSize = true;
-            lblMedication.Location = new Point(3, 0);
+            lblMedication.Location = new Point(3, 7);
             lblMedication.Name = "lblMedication";
             lblMedication.Size = new Size(70, 15);
             lblMedication.TabIndex = 0;
@@ -248,8 +255,9 @@
             // 
             // lblDosage
             // 
+            lblDosage.Anchor = AnchorStyles.Left;
             lblDosage.AutoSize = true;
-            lblDosage.Location = new Point(3, 29);
+            lblDosage.Location = new Point(3, 36);
             lblDosage.Name = "lblDosage";
             lblDosage.Size = new Size(49, 15);
             lblDosage.TabIndex = 1;
@@ -293,8 +301,9 @@
             // 
             // lblPrescription
             // 
+            lblPrescription.Anchor = AnchorStyles.Left;
             lblPrescription.AutoSize = true;
-            lblPrescription.Location = new Point(3, 234);
+            lblPrescription.Location = new Point(3, 238);
             lblPrescription.Name = "lblPrescription";
             lblPrescription.Size = new Size(73, 15);
             lblPrescription.TabIndex = 2;
@@ -302,11 +311,13 @@
             // 
             // tableLayoutPanel2
             // 
-            tableLayoutPanel2.ColumnCount = 3;
+            tableLayoutPanel2.ColumnCount = 4;
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
-            tableLayoutPanel2.Controls.Add(btnDone, 2, 0);
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
+            tableLayoutPanel2.Controls.Add(btnPrint, 2, 0);
+            tableLayoutPanel2.Controls.Add(btnDone, 3, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(20, 495);
             tableLayoutPanel2.Margin = new Padding(20, 3, 20, 20);
@@ -315,6 +326,17 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel2.Size = new Size(694, 57);
             tableLayoutPanel2.TabIndex = 2;
+            // 
+            // btnPrint
+            // 
+            btnPrint.Anchor = AnchorStyles.Right;
+            btnPrint.Location = new Point(441, 8);
+            btnPrint.Name = "btnPrint";
+            btnPrint.Size = new Size(120, 40);
+            btnPrint.TabIndex = 1;
+            btnPrint.Text = "Print";
+            btnPrint.UseVisualStyleBackColor = true;
+            btnPrint.Click += btnPrint_Click;
             // 
             // btnDone
             // 
@@ -365,6 +387,7 @@
         private Button btnAddDrug;
         private TableLayoutPanel tableLayoutPanel2;
         private Button btnDone;
+        private Button btnPrint;
         private ListBox lstDrugs;
         private Label lblPrescription;
         private Label lblModeInfo;

@@ -28,6 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            tblLayout = new TableLayoutPanel();
+            tblHeader = new TableLayoutPanel();
+            cmbPatients = new ComboBox();
+            lblPatientInfo = new Label();
+            lblPatientName = new Label();
+            tblContent = new TableLayoutPanel();
+            dgvHistory = new DataGridView();
+            lblPrevReadings = new Label();
             gbVitals = new GroupBox();
             txtBP = new TextBox();
             lblBmi = new Label();
@@ -42,19 +50,127 @@
             nudWeight = new NumericUpDown();
             nudHR = new NumericUpDown();
             nudHeight = new NumericUpDown();
-            lblPatient = new Label();
-            dgvHistory = new DataGridView();
-            lblPrevReadings = new Label();
             lblVitals = new Label();
-            lblPatientName = new Label();
-            cmbPatients = new ComboBox();
+            tblLayout.SuspendLayout();
+            tblHeader.SuspendLayout();
+            tblContent.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvHistory).BeginInit();
             gbVitals.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudTemp).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudWeight).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudHR).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudHeight).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dgvHistory).BeginInit();
             SuspendLayout();
+            // 
+            // tblLayout
+            // 
+            tblLayout.ColumnCount = 1;
+            tblLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tblLayout.Controls.Add(tblHeader, 0, 0);
+            tblLayout.Controls.Add(tblContent, 0, 1);
+            tblLayout.Dock = DockStyle.Fill;
+            tblLayout.Location = new Point(0, 0);
+            tblLayout.Margin = new Padding(20);
+            tblLayout.Name = "tblLayout";
+            tblLayout.RowCount = 3;
+            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 80F));
+            tblLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 80F));
+            tblLayout.Size = new Size(698, 582);
+            tblLayout.TabIndex = 1;
+            // 
+            // tblHeader
+            // 
+            tblHeader.ColumnCount = 2;
+            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.3958025F));
+            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 91.6041946F));
+            tblHeader.Controls.Add(cmbPatients, 1, 0);
+            tblHeader.Controls.Add(lblPatientInfo, 0, 0);
+            tblHeader.Controls.Add(lblPatientName, 1, 1);
+            tblHeader.Dock = DockStyle.Fill;
+            tblHeader.Location = new Point(20, 20);
+            tblHeader.Margin = new Padding(20, 20, 20, 3);
+            tblHeader.Name = "tblHeader";
+            tblHeader.RowCount = 2;
+            tblHeader.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tblHeader.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tblHeader.Size = new Size(658, 57);
+            tblHeader.TabIndex = 0;
+            // 
+            // cmbPatients
+            // 
+            cmbPatients.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cmbPatients.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cmbPatients.Dock = DockStyle.Fill;
+            cmbPatients.FormattingEnabled = true;
+            cmbPatients.Location = new Point(58, 3);
+            cmbPatients.Name = "cmbPatients";
+            cmbPatients.Size = new Size(597, 23);
+            cmbPatients.TabIndex = 20;
+            cmbPatients.SelectedIndexChanged += cmbPatients_SelectedIndexChanged;
+            // 
+            // lblPatientInfo
+            // 
+            lblPatientInfo.Anchor = AnchorStyles.Left;
+            lblPatientInfo.AutoSize = true;
+            lblPatientInfo.Location = new Point(3, 6);
+            lblPatientInfo.Name = "lblPatientInfo";
+            lblPatientInfo.Size = new Size(47, 15);
+            lblPatientInfo.TabIndex = 5;
+            lblPatientInfo.Text = "Patient:";
+            lblPatientInfo.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // lblPatientName
+            // 
+            lblPatientName.Anchor = AnchorStyles.Left;
+            lblPatientName.AutoSize = true;
+            lblPatientName.Location = new Point(58, 35);
+            lblPatientName.Name = "lblPatientName";
+            lblPatientName.Size = new Size(0, 15);
+            lblPatientName.TabIndex = 21;
+            lblPatientName.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // tblContent
+            // 
+            tblContent.ColumnCount = 1;
+            tblContent.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tblContent.Controls.Add(dgvHistory, 0, 3);
+            tblContent.Controls.Add(lblPrevReadings, 0, 2);
+            tblContent.Controls.Add(gbVitals, 0, 1);
+            tblContent.Controls.Add(lblVitals, 0, 0);
+            tblContent.Dock = DockStyle.Fill;
+            tblContent.Location = new Point(20, 83);
+            tblContent.Margin = new Padding(20, 3, 20, 3);
+            tblContent.Name = "tblContent";
+            tblContent.RowCount = 4;
+            tblContent.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
+            tblContent.RowStyles.Add(new RowStyle(SizeType.Percent, 40F));
+            tblContent.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
+            tblContent.RowStyles.Add(new RowStyle(SizeType.Percent, 40F));
+            tblContent.Size = new Size(658, 416);
+            tblContent.TabIndex = 1;
+            // 
+            // dgvHistory
+            // 
+            dgvHistory.AllowUserToResizeColumns = false;
+            dgvHistory.AllowUserToResizeRows = false;
+            dgvHistory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvHistory.Dock = DockStyle.Fill;
+            dgvHistory.Location = new Point(3, 251);
+            dgvHistory.Name = "dgvHistory";
+            dgvHistory.Size = new Size(652, 162);
+            dgvHistory.TabIndex = 21;
+            // 
+            // lblPrevReadings
+            // 
+            lblPrevReadings.Anchor = AnchorStyles.Left;
+            lblPrevReadings.AutoSize = true;
+            lblPrevReadings.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblPrevReadings.Location = new Point(3, 219);
+            lblPrevReadings.Name = "lblPrevReadings";
+            lblPrevReadings.Size = new Size(129, 16);
+            lblPrevReadings.TabIndex = 20;
+            lblPrevReadings.Text = "Previous Readings:";
             // 
             // gbVitals
             // 
@@ -71,10 +187,11 @@
             gbVitals.Controls.Add(nudWeight);
             gbVitals.Controls.Add(nudHR);
             gbVitals.Controls.Add(nudHeight);
-            gbVitals.Location = new Point(57, 93);
+            gbVitals.Dock = DockStyle.Fill;
+            gbVitals.Location = new Point(3, 44);
             gbVitals.Name = "gbVitals";
-            gbVitals.Size = new Size(586, 182);
-            gbVitals.TabIndex = 6;
+            gbVitals.Size = new Size(652, 160);
+            gbVitals.TabIndex = 19;
             gbVitals.TabStop = false;
             // 
             // txtBP
@@ -188,108 +305,64 @@
             nudHeight.Size = new Size(120, 23);
             nudHeight.TabIndex = 1;
             // 
-            // lblPatient
-            // 
-            lblPatient.AutoSize = true;
-            lblPatient.Font = new Font("Arial", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblPatient.Location = new Point(57, 49);
-            lblPatient.Name = "lblPatient";
-            lblPatient.Size = new Size(61, 17);
-            lblPatient.TabIndex = 7;
-            lblPatient.Text = "Patient: ";
-            // 
-            // dgvHistory
-            // 
-            dgvHistory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvHistory.Location = new Point(57, 307);
-            dgvHistory.Name = "dgvHistory";
-            dgvHistory.Size = new Size(586, 194);
-            dgvHistory.TabIndex = 8;
-            // 
-            // lblPrevReadings
-            // 
-            lblPrevReadings.AutoSize = true;
-            lblPrevReadings.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblPrevReadings.Location = new Point(57, 288);
-            lblPrevReadings.Name = "lblPrevReadings";
-            lblPrevReadings.Size = new Size(129, 16);
-            lblPrevReadings.TabIndex = 9;
-            lblPrevReadings.Text = "Previous Readings:";
-            // 
             // lblVitals
             // 
+            lblVitals.Anchor = AnchorStyles.Left;
             lblVitals.AutoSize = true;
             lblVitals.Font = new Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblVitals.Location = new Point(57, 84);
+            lblVitals.Location = new Point(3, 12);
             lblVitals.Name = "lblVitals";
             lblVitals.Size = new Size(95, 16);
-            lblVitals.TabIndex = 10;
+            lblVitals.TabIndex = 18;
             lblVitals.Text = "Vitals Record:";
-            // 
-            // lblPatientName
-            // 
-            lblPatientName.AutoSize = true;
-            lblPatientName.Location = new Point(124, 51);
-            lblPatientName.Name = "lblPatientName";
-            lblPatientName.Size = new Size(0, 15);
-            lblPatientName.TabIndex = 11;
-            // 
-            // cmbPatients
-            // 
-            cmbPatients.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            cmbPatients.AutoCompleteSource = AutoCompleteSource.ListItems;
-            cmbPatients.FormattingEnabled = true;
-            cmbPatients.Location = new Point(115, 43);
-            cmbPatients.Name = "cmbPatients";
-            cmbPatients.Size = new Size(528, 23);
-            cmbPatients.TabIndex = 12;
             // 
             // VitalsControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(cmbPatients);
-            Controls.Add(lblPatientName);
-            Controls.Add(lblVitals);
-            Controls.Add(lblPrevReadings);
-            Controls.Add(dgvHistory);
-            Controls.Add(lblPatient);
-            Controls.Add(gbVitals);
+            Controls.Add(tblLayout);
             Name = "VitalsControl";
             Size = new Size(698, 582);
+            tblLayout.ResumeLayout(false);
+            tblHeader.ResumeLayout(false);
+            tblHeader.PerformLayout();
+            tblContent.ResumeLayout(false);
+            tblContent.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvHistory).EndInit();
             gbVitals.ResumeLayout(false);
             gbVitals.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)nudTemp).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudWeight).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudHR).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudHeight).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dgvHistory).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
         private TextBox txtSearch;
+        private TableLayoutPanel tblLayout;
+        private TableLayoutPanel tblHeader;
+        private Label lblPatientInfo;
+        private ComboBox cmbPatients;
+        private TableLayoutPanel tblContent;
+        private Label lblVitals;
         private GroupBox gbVitals;
-        private Label lblPatient;
-        private DataGridView dgvHistory;
-        private Label lblPrevReadings;
+        private TextBox txtBP;
+        private Label lblBmi;
+        private Button btnSave;
+        private Label lblBMIAuto;
+        private Label lblWeight;
+        private Label lblHeight;
+        private Label lblTemp;
+        private Label lblHeartRate;
         private Label lblBloopPressure;
         private NumericUpDown nudTemp;
         private NumericUpDown nudWeight;
         private NumericUpDown nudHR;
         private NumericUpDown nudHeight;
-        private Label lblVitals;
-        private Label lblWeight;
-        private Label lblHeight;
-        private Label lblTemp;
-        private Label lblHeartRate;
-        private Label lblBMIAuto;
-        private Label lblBmi;
-        private Button btnSave;
+        private Label lblPrevReadings;
+        private DataGridView dgvHistory;
         private Label lblPatientName;
-        private TextBox txtBP;
-        private ComboBox cmbPatients;
     }
 }

@@ -19,6 +19,7 @@ namespace ClinicEMR.UserControls
         {
             InitializeComponent();
             _user = user;
+            GridViewService.MakeReadOnly(dgvUsers);
         }
 
         private void UserManagementControl_Load(object sender, EventArgs e)
@@ -27,9 +28,14 @@ namespace ClinicEMR.UserControls
         private void LoadUsers()
         {
             dgvUsers.DataSource = UserService.GetAll();
-            // Hide password hash column
-            if (dgvUsers.Columns["UserId"] != null)
-                dgvUsers.Columns["UserId"].Visible = false;
+            GridViewService.ShowOnly(dgvUsers, "FullName", "Username", "Role", "IsActive");
+            GridViewService.SetHeaders(dgvUsers, new Dictionary<string, string>
+            {
+                ["FullName"] = "Name",
+                ["Username"] = "Username",
+                ["Role"] = "Role",
+                ["IsActive"] = "Active"
+            });
         }
 
         private void btnAddUser_Click(object sender, EventArgs e)

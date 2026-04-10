@@ -39,6 +39,10 @@
             lblRole = new Label();
             btnSave = new Button();
             btnCancel = new Button();
+            lblFullNameError = new Label();
+            lblUsernameError = new Label();
+            lblRoleError = new Label();
+            lblPasswordError = new Label();
             SuspendLayout();
             // 
             // lblNewUser
@@ -72,7 +76,7 @@
             // lblUsername
             // 
             lblUsername.AutoSize = true;
-            lblUsername.Location = new Point(12, 131);
+            lblUsername.Location = new Point(12, 164);
             lblUsername.Name = "lblUsername";
             lblUsername.Size = new Size(63, 15);
             lblUsername.TabIndex = 9;
@@ -80,7 +84,7 @@
             // 
             // txtUsername
             // 
-            txtUsername.Location = new Point(12, 149);
+            txtUsername.Location = new Point(12, 182);
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(237, 23);
             txtUsername.TabIndex = 10;
@@ -88,7 +92,7 @@
             // lblPassword
             // 
             lblPassword.AutoSize = true;
-            lblPassword.Location = new Point(12, 184);
+            lblPassword.Location = new Point(12, 245);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new Size(60, 15);
             lblPassword.TabIndex = 11;
@@ -96,9 +100,10 @@
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(12, 202);
+            txtPassword.Location = new Point(12, 263);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
+            txtPassword.PlaceholderText = "\"At least 12 chars, 1 uppercase and 1 special character.\"";
             txtPassword.Size = new Size(360, 23);
             txtPassword.TabIndex = 12;
             // 
@@ -106,7 +111,7 @@
             // 
             cboRole.FormattingEnabled = true;
             cboRole.Items.AddRange(new object[] { "doctor", "nurse", "admin" });
-            cboRole.Location = new Point(255, 149);
+            cboRole.Location = new Point(255, 182);
             cboRole.Name = "cboRole";
             cboRole.Size = new Size(117, 23);
             cboRole.TabIndex = 13;
@@ -114,7 +119,7 @@
             // lblRole
             // 
             lblRole.AutoSize = true;
-            lblRole.Location = new Point(255, 131);
+            lblRole.Location = new Point(255, 164);
             lblRole.Name = "lblRole";
             lblRole.Size = new Size(33, 15);
             lblRole.TabIndex = 14;
@@ -123,7 +128,7 @@
             // btnSave
             // 
             btnSave.DialogResult = DialogResult.OK;
-            btnSave.Location = new Point(279, 238);
+            btnSave.Location = new Point(279, 349);
             btnSave.Name = "btnSave";
             btnSave.RightToLeft = RightToLeft.No;
             btnSave.Size = new Size(93, 31);
@@ -137,7 +142,7 @@
             btnCancel.BackColor = SystemColors.ControlLightLight;
             btnCancel.DialogResult = DialogResult.Cancel;
             btnCancel.ForeColor = SystemColors.ControlText;
-            btnCancel.Location = new Point(180, 238);
+            btnCancel.Location = new Point(180, 349);
             btnCancel.Name = "btnCancel";
             btnCancel.RightToLeft = RightToLeft.No;
             btnCancel.Size = new Size(93, 31);
@@ -145,11 +150,51 @@
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = false;
             // 
+            // lblFullNameError
+            // 
+            lblFullNameError.ForeColor = Color.Firebrick;
+            lblFullNameError.Location = new Point(12, 122);
+            lblFullNameError.Name = "lblFullNameError";
+            lblFullNameError.Size = new Size(360, 32);
+            lblFullNameError.TabIndex = 24;
+            lblFullNameError.Visible = false;
+            // 
+            // lblUsernameError
+            // 
+            lblUsernameError.ForeColor = Color.Firebrick;
+            lblUsernameError.Location = new Point(12, 208);
+            lblUsernameError.Name = "lblUsernameError";
+            lblUsernameError.Size = new Size(237, 32);
+            lblUsernameError.TabIndex = 25;
+            lblUsernameError.Visible = false;
+            // 
+            // lblRoleError
+            // 
+            lblRoleError.ForeColor = Color.Firebrick;
+            lblRoleError.Location = new Point(255, 208);
+            lblRoleError.Name = "lblRoleError";
+            lblRoleError.Size = new Size(117, 32);
+            lblRoleError.TabIndex = 26;
+            lblRoleError.Visible = false;
+            // 
+            // lblPasswordError
+            // 
+            lblPasswordError.ForeColor = Color.Firebrick;
+            lblPasswordError.Location = new Point(12, 289);
+            lblPasswordError.Name = "lblPasswordError";
+            lblPasswordError.Size = new Size(360, 45);
+            lblPasswordError.TabIndex = 27;
+            lblPasswordError.Visible = false;
+            // 
             // AddUserForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(384, 281);
+            ClientSize = new Size(384, 394);
+            Controls.Add(lblPasswordError);
+            Controls.Add(lblRoleError);
+            Controls.Add(lblUsernameError);
+            Controls.Add(lblFullNameError);
             Controls.Add(btnCancel);
             Controls.Add(btnSave);
             Controls.Add(lblRole);
@@ -184,5 +229,9 @@
         private Label lblRole;
         private Button btnSave;
         private Button btnCancel;
+        private Label lblFullNameError;
+        private Label lblUsernameError;
+        private Label lblRoleError;
+        private Label lblPasswordError;
     }
 }

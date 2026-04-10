@@ -3,6 +3,8 @@ using ClinicEMR.Models;
 using ClinicEMR.Services;
 using System;
 using System.Drawing;
+using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ClinicEMR.UserControls
@@ -13,12 +15,18 @@ namespace ClinicEMR.UserControls
         private readonly User _user;
         private readonly MainShellForm _shell;
         private bool _isLoadingPatients = false;
+        private readonly Label _vitalsPlaceholder;
+        private readonly Label _consultationsPlaceholder;
+        private readonly Label _prescriptionsPlaceholder;
 
         public PatientRecordControl(User user, MainShellForm shell)
         {
             InitializeComponent();
             _user = user;
             _shell = shell;
+            _vitalsPlaceholder = CreateGridPlaceholder(tabVitals, "Choose a patient to display vital signs.");
+            _consultationsPlaceholder = CreateGridPlaceholder(tabConsultations, "Choose a patient to display consultations.");
+            _prescriptionsPlaceholder = CreateGridPlaceholder(tabPrescriptions, "Choose a patient to display prescriptions.");
 
             LoadPatients();
             ConfigureGrid(dgvVitals);
@@ -106,13 +114,16 @@ namespace ClinicEMR.UserControls
             }
 
             dgvVitals.DataSource = null;
-            dgvVitals.DataSource = VitalsService.GetByPatient(_patientId);
+            var vitals = VitalsService.GetByPatient(_patientId);
+            dgvVitals.DataSource = vitals;
 
             dgvConsultations.DataSource = null;
-            dgvConsultations.DataSource = ConsultService.GetByPatient(_patientId);
+            var consultations = ConsultService.GetByPatient(_patientId);
+            dgvConsultations.DataSource = consultations;
 
             dgvPrescriptions.DataSource = null;
-            dgvPrescriptions.DataSource = PrescriptionService.GetByPatient(_patientId);
+            var prescriptions = PrescriptionService.GetByPatient(_patientId);
+            dgvPrescriptions.DataSource = prescriptions;
 
             txtHxAllergies.Text = p.KnownAllergies ?? "";
             txtHxConditions.Text = p.ChronicConditions ?? "";
@@ -123,17 +134,15 @@ namespace ClinicEMR.UserControls
             FormatVitalsGrid();
             FormatConsultGrid();
             FormatRxGrid();
+            ShowPlaceholder(_vitalsPlaceholder, dgvVitals, vitals.Count == 0 ? "No vital signs to show for this patient yet." : null);
+            ShowPlaceholder(_consultationsPlaceholder, dgvConsultations, consultations.Count == 0 ? "No consultations to show for this patient yet." : null);
+            ShowPlaceholder(_prescriptionsPlaceholder, dgvPrescriptions, prescriptions.Count == 0 ? "No prescriptions to show for this patient yet." : null);
         }
 
         private void ConfigureGrid(DataGridView grid)
         {
             grid.AutoGenerateColumns = true;
-            grid.ReadOnly = true;
-            grid.AllowUserToAddRows = false;
-            grid.AllowUserToDeleteRows = false;
-            grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            grid.MultiSelect = false;
-            grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            GridViewService.MakeReadOnly(grid);
         }
 
         private void SetHistoryReadOnly()
@@ -155,6 +164,9 @@ namespace ClinicEMR.UserControls
             dgvVitals.DataSource = null;
             dgvConsultations.DataSource = null;
             dgvPrescriptions.DataSource = null;
+            ShowPlaceholder(_vitalsPlaceholder, dgvVitals, "Choose a patient to display vital signs.");
+            ShowPlaceholder(_consultationsPlaceholder, dgvConsultations, "Choose a patient to display consultations.");
+            ShowPlaceholder(_prescriptionsPlaceholder, dgvPrescriptions, "Choose a patient to display prescriptions.");
             txtHxAllergies.Clear();
             txtHxConditions.Clear();
             txtHxSurgeries.Clear();
@@ -164,32 +176,62 @@ namespace ClinicEMR.UserControls
 
         private void FormatVitalsGrid()
         {
-            string[] hide = { "VitalId", "PatientId", "RecordedBy" };
-            foreach (var c in hide)
-                if (dgvVitals.Columns[c] != null)
-                    dgvVitals.Columns[c].Visible = false;
+            GridViewService.ShowOnly(
+                dgvVitals,
+                "RecordedAt",
+                "BloodPressure",
+                "HeartRate",
+                "Temperature",
+                "Bmi",
+                "RecordedByName");
 
-            if (dgvVitals.Columns["RecordedAt"] != null)
-                dgvVitals.Columns["RecordedAt"].HeaderText = "Date / Time";
+            GridViewService.SetHeaders(dgvVitals, new System.Collections.Generic.Dictionary<string, string>
+            {
+                ["RecordedAt"] = "Date / Time",
+                ["BloodPressure"] = "BP",
+                ["HeartRate"] = "HR",
+                ["Temperature"] = "Temp",
+                ["Bmi"] = "BMI",
+                ["RecordedByName"] = "Recorded By"
+            });
         }
 
         private void FormatConsultGrid()
         {
-            string[] hide = { "ConsultationId", "PatientId", "DoctorId", "IsLocked", "VitalId" };
-            foreach (var c in hide)
-                if (dgvConsultations.Columns[c] != null)
-                    dgvConsultations.Columns[c].Visible = false;
+            GridViewService.ShowOnly(
+                dgvConsultations,
+                "ConsultDate",
+                "DoctorName",
+                "ChiefComplaint",
+                "Diagnosis");
 
-            if (dgvConsultations.Columns["ConsultDate"] != null)
-                dgvConsultations.Columns["ConsultDate"].DisplayIndex = 0;
+            GridViewService.SetHeaders(dgvConsultations, new System.Collections.Generic.Dictionary<string, string>
+            {
+                ["ConsultDate"] = "Date",
+                ["DoctorName"] = "Doctor",
+                ["ChiefComplaint"] = "Chief Complaint",
+                ["Diagnosis"] = "Diagnosis"
+            });
         }
 
         private void FormatRxGrid()
         {
-            string[] hide = { "PrescriptionId", "ConsultationId", "PatientId" };
-            foreach (var c in hide)
-                if (dgvPrescriptions.Columns[c] != null)
-                    dgvPrescriptions.Columns[c].Visible = false;
+            GridViewService.ShowOnly(
+                dgvPrescriptions,
+                "MedicationName",
+                "Dosage",
+                "Frequency",
+                "Duration",
+                "Instructions");
+
+            GridViewService.SetHeaders(dgvPrescriptions, new System.Collections.Generic.Dictionary<string, string>
+            {
+                ["MedicationName"] = "Medication",
+                ["Dosage"] = "Dosage",
+                ["Frequency"] = "Frequency",
+                ["Duration"] = "Duration",
+                ["Instructions"] = "Instructions"
+            });
         }
 
         private void btnEditHistory_Click(object sender, EventArgs e)
@@ -201,6 +243,133 @@ namespace ClinicEMR.UserControls
             }
 
             _shell.NavigateTo("medhistory", _patientId);
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            if (_patientId <= 0)
+            {
+                MessageBox.Show("Please select a patient first.");
+                return;
+            }
+
+            var patient = PatientService.GetById(_patientId);
+            if (patient == null)
+            {
+                MessageBox.Show("The selected patient could not be loaded.");
+                return;
+            }
+
+            var vitals = VitalsService.GetByPatient(_patientId);
+            var consultations = ConsultService.GetByPatient(_patientId);
+            var prescriptions = PrescriptionService.GetByPatient(_patientId);
+
+            PrintService.ShowPrintPreview(
+                this,
+                $"Patient Record - {patient.FullName}",
+                BuildPrintableRecord(patient, vitals, consultations, prescriptions));
+        }
+
+        private Label CreateGridPlaceholder(Control parent, string text)
+        {
+            Control container = parent;
+            var placeholder = new Label
+            {
+                Dock = DockStyle.Fill,
+                BackColor = Color.FromArgb(248, 249, 250),
+                BorderStyle = BorderStyle.FixedSingle,
+                ForeColor = Color.FromArgb(108, 117, 125),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Segoe UI", 10F, FontStyle.Italic),
+                Text = text,
+                Visible = false
+            };
+
+            container.Controls.Add(placeholder);
+            placeholder.BringToFront();
+            return placeholder;
+        }
+
+        private void ShowPlaceholder(Label placeholder, DataGridView grid, string? message)
+        {
+            bool showPlaceholder = !string.IsNullOrWhiteSpace(message);
+            placeholder.Text = message ?? string.Empty;
+            placeholder.Visible = showPlaceholder;
+            grid.Visible = !showPlaceholder;
+        }
+
+        private string BuildPrintableRecord(
+            Patient patient,
+            System.Collections.Generic.IReadOnlyList<VitalSigns> vitals,
+            System.Collections.Generic.IReadOnlyList<Consultation> consultations,
+            System.Collections.Generic.IReadOnlyList<Prescription> prescriptions)
+        {
+            var builder = new StringBuilder();
+            int age = CalculateAge(patient.DateOfBirth);
+
+            builder.AppendLine("CLINIC EMR PATIENT RECORD");
+            builder.AppendLine($"Printed On: {DateTime.Now:MMMM dd, yyyy hh:mm tt}");
+            builder.AppendLine($"Prepared by: {_user.FullName}");
+            builder.AppendLine();
+
+            PrintService.AppendSection(builder, "Patient Information", new[]
+            {
+                $"Patient Code: {PrintService.DisplayValue(patient.PatientCode)}",
+                $"Name: {patient.FullName}",
+                $"Date of Birth: {patient.DateOfBirth:MMMM dd, yyyy}",
+                $"Age / Sex: {age} years old / {PrintService.DisplayValue(patient.Sex)}",
+                $"Contact No.: {PrintService.DisplayValue(patient.ContactNumber)}",
+                $"Address: {PrintService.DisplayValue(patient.Address)}",
+                $"Emergency Contact: {patient.EmergencyContact?.ToString() ?? "N/A"}"
+            });
+
+            PrintService.AppendSection(builder, "Medical History", new[]
+            {
+                $"Allergies: {PrintService.DisplayValue(patient.KnownAllergies)}",
+                $"Chronic Conditions: {PrintService.DisplayValue(patient.ChronicConditions)}",
+                $"Past Surgeries: {PrintService.DisplayValue(patient.PastSurgeries)}",
+                $"Family History: {PrintService.DisplayValue(patient.FamilyHistory)}",
+                $"Current Medications: {PrintService.DisplayValue(patient.CurrentMedications)}"
+            });
+
+            var latestVitals = vitals.Count > 0 ? vitals[0] : null;
+            PrintService.AppendSection(builder, "Latest Vital Signs", latestVitals == null
+                ? Array.Empty<string>()
+                : new[]
+                {
+                    $"Recorded At: {latestVitals.RecordedAt:MMMM dd, yyyy hh:mm tt}",
+                    $"Blood Pressure: {PrintService.DisplayValue(latestVitals.BloodPressure)}",
+                    $"Heart Rate: {latestVitals.HeartRate} bpm",
+                    $"Temperature: {latestVitals.Temperature:0.0} C",
+                    $"Height / Weight: {latestVitals.HeightCm:0.#} cm / {latestVitals.WeightKg:0.#} kg",
+                    $"BMI: {latestVitals.Bmi:0.0} {PrintService.DisplayValue(latestVitals.BmiCategory, string.Empty)}".Trim(),
+                    $"Recorded By: {PrintService.DisplayValue(latestVitals.RecordedByName)}"
+                });
+
+            PrintService.AppendSection(
+                builder,
+                "Consultations",
+                consultations.Select((consultation, index) =>
+                    $"{index + 1}. {consultation.ConsultDate:MMM dd, yyyy hh:mm tt} | Doctor: {PrintService.DisplayValue(consultation.DoctorName)} | Chief Complaint: {PrintService.DisplayValue(consultation.ChiefComplaint)} | Diagnosis: {PrintService.DisplayValue(consultation.Diagnosis)}"));
+
+            PrintService.AppendSection(
+                builder,
+                "Prescriptions",
+                prescriptions.Select((prescription, index) =>
+                    $"{index + 1}. {PrintService.DisplayValue(prescription.MedicationName)} | Dosage: {PrintService.DisplayValue(prescription.Dosage)} | Frequency: {PrintService.DisplayValue(prescription.Frequency)} | Duration: {PrintService.DisplayValue(prescription.Duration)} | Instructions: {PrintService.DisplayValue(prescription.Instructions)}"));
+
+            return builder.ToString();
+        }
+
+        private static int CalculateAge(DateTime dateOfBirth)
+        {
+            int age = DateTime.Today.Year - dateOfBirth.Year;
+            if (dateOfBirth.Date > DateTime.Today.AddYears(-age))
+            {
+                age--;
+            }
+
+            return age;
         }
     }
 }

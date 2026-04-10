@@ -16,7 +16,7 @@ namespace ClinicEMR.Models
         public string KnownAllergies { get; set; }
         public bool IsActive { get; set; }
         public string Address { get; set; }
-        public string EmergencyContact { get; set; }
+        public long? EmergencyContact { get; set; }
         public DateTime RegisteredAt { get; set; }
         public string ChronicConditions { get; set; }
         public string PastSurgeries { get; set; }

@@ -247,9 +247,9 @@
             // 
             // lblPatientInfo
             // 
-            lblPatientInfo.Anchor = AnchorStyles.Right;
+            lblPatientInfo.Anchor = AnchorStyles.Left;
             lblPatientInfo.AutoSize = true;
-            lblPatientInfo.Location = new Point(6, 6);
+            lblPatientInfo.Location = new Point(3, 6);
             lblPatientInfo.Name = "lblPatientInfo";
             lblPatientInfo.Size = new Size(47, 15);
             lblPatientInfo.TabIndex = 5;
