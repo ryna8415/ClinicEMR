@@ -92,6 +92,7 @@
             cmbPatients.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cmbPatients.AutoCompleteSource = AutoCompleteSource.ListItems;
             cmbPatients.Dock = DockStyle.Fill;
+            cmbPatients.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbPatients.FormattingEnabled = true;
             cmbPatients.Location = new Point(61, 3);
             cmbPatients.Name = "cmbPatients";

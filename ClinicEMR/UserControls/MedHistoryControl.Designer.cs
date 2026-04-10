@@ -236,6 +236,8 @@
             // 
             // cboPatient
             // 
+            cboPatient.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cboPatient.AutoCompleteSource = AutoCompleteSource.ListItems;
             cboPatient.Dock = DockStyle.Fill;
             cboPatient.DropDownStyle = ComboBoxStyle.DropDownList;
             cboPatient.FormattingEnabled = true;
