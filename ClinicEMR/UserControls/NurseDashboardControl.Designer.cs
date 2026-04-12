@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             tblHeader = new TableLayoutPanel();
-            tblLayout = new TableLayoutPanel();
             lblWelcome = new Label();
-            tblCards = new TableLayoutPanel();
-            lblApptCount = new Label();
-            lblPatientCount = new Label();
+            tblLayout = new TableLayoutPanel();
             dgvTodayAppts = new DataGridView();
+            tblCards = new TableLayoutPanel();
+            lblPatientCount = new Label();
+            lblApptCount = new Label();
             tblHeader.SuspendLayout();
             tblLayout.SuspendLayout();
-            tblCards.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvTodayAppts).BeginInit();
+            tblCards.SuspendLayout();
             SuspendLayout();
             // 
             // tblHeader
@@ -57,6 +57,17 @@
             tblHeader.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tblHeader.Size = new Size(742, 57);
             tblHeader.TabIndex = 0;
+            // 
+            // lblWelcome
+            // 
+            lblWelcome.Anchor = AnchorStyles.Left;
+            lblWelcome.FlatStyle = FlatStyle.System;
+            lblWelcome.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblWelcome.ForeColor = SystemColors.ControlText;
+            lblWelcome.Location = new Point(3, 8);
+            lblWelcome.Name = "lblWelcome";
+            lblWelcome.Size = new Size(331, 40);
+            lblWelcome.TabIndex = 5;
             // 
             // tblLayout
             // 
@@ -77,16 +88,17 @@
             tblLayout.Size = new Size(782, 507);
             tblLayout.TabIndex = 1;
             // 
-            // lblWelcome
+            // dgvTodayAppts
             // 
-            lblWelcome.Anchor = AnchorStyles.Left;
-            lblWelcome.FlatStyle = FlatStyle.System;
-            lblWelcome.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblWelcome.ForeColor = SystemColors.ControlText;
-            lblWelcome.Location = new Point(3, 8);
-            lblWelcome.Name = "lblWelcome";
-            lblWelcome.Size = new Size(331, 40);
-            lblWelcome.TabIndex = 5;
+            dgvTodayAppts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvTodayAppts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvTodayAppts.Dock = DockStyle.Fill;
+            dgvTodayAppts.Location = new Point(20, 203);
+            dgvTodayAppts.Margin = new Padding(20, 3, 20, 3);
+            dgvTodayAppts.Name = "dgvTodayAppts";
+            dgvTodayAppts.ReadOnly = true;
+            dgvTodayAppts.Size = new Size(742, 281);
+            dgvTodayAppts.TabIndex = 7;
             // 
             // tblCards
             // 
@@ -105,17 +117,6 @@
             tblCards.Size = new Size(742, 114);
             tblCards.TabIndex = 1;
             // 
-            // lblApptCount
-            // 
-            lblApptCount.Anchor = AnchorStyles.Left;
-            lblApptCount.FlatStyle = FlatStyle.System;
-            lblApptCount.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblApptCount.ForeColor = SystemColors.ControlText;
-            lblApptCount.Location = new Point(3, 12);
-            lblApptCount.Name = "lblApptCount";
-            lblApptCount.Size = new Size(100, 90);
-            lblApptCount.TabIndex = 6;
-            // 
             // lblPatientCount
             // 
             lblPatientCount.Anchor = AnchorStyles.Left;
@@ -127,17 +128,16 @@
             lblPatientCount.Size = new Size(100, 90);
             lblPatientCount.TabIndex = 8;
             // 
-            // dgvTodayAppts
+            // lblApptCount
             // 
-            dgvTodayAppts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvTodayAppts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvTodayAppts.Dock = DockStyle.Fill;
-            dgvTodayAppts.Location = new Point(20, 203);
-            dgvTodayAppts.Margin = new Padding(20, 3, 20, 3);
-            dgvTodayAppts.Name = "dgvTodayAppts";
-            dgvTodayAppts.ReadOnly = true;
-            dgvTodayAppts.Size = new Size(742, 281);
-            dgvTodayAppts.TabIndex = 7;
+            lblApptCount.Anchor = AnchorStyles.Left;
+            lblApptCount.FlatStyle = FlatStyle.System;
+            lblApptCount.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblApptCount.ForeColor = SystemColors.ControlText;
+            lblApptCount.Location = new Point(3, 12);
+            lblApptCount.Name = "lblApptCount";
+            lblApptCount.Size = new Size(100, 90);
+            lblApptCount.TabIndex = 6;
             // 
             // NurseDashboardControl
             // 
@@ -149,8 +149,8 @@
             Load += NurseDashboardControl_Load;
             tblHeader.ResumeLayout(false);
             tblLayout.ResumeLayout(false);
-            tblCards.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvTodayAppts).EndInit();
+            tblCards.ResumeLayout(false);
             ResumeLayout(false);
         }
 
