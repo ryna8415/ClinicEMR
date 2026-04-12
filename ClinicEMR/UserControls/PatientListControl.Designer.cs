@@ -56,18 +56,18 @@ namespace ClinicEMR.UserControls
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
             tableLayoutPanel2.Controls.Add(btnOpen, 2, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(20, 444);
+            tableLayoutPanel2.Location = new Point(20, 446);
             tableLayoutPanel2.Margin = new Padding(20, 3, 20, 20);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.Size = new Size(705, 57);
+            tableLayoutPanel2.Size = new Size(707, 57);
             tableLayoutPanel2.TabIndex = 2;
             // 
             // btnOpen
             // 
             btnOpen.Anchor = AnchorStyles.Right;
-            btnOpen.Location = new Point(609, 13);
+            btnOpen.Location = new Point(611, 13);
             btnOpen.Margin = new Padding(0);
             btnOpen.Name = "btnOpen";
             btnOpen.Size = new Size(96, 30);
@@ -92,7 +92,7 @@ namespace ClinicEMR.UserControls
             tblHeader.RowCount = 2;
             tblHeader.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tblHeader.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            tblHeader.Size = new Size(705, 47);
+            tblHeader.Size = new Size(707, 47);
             tblHeader.TabIndex = 0;
             // 
             // txtSearch
@@ -103,13 +103,13 @@ namespace ClinicEMR.UserControls
             txtSearch.Multiline = true;
             txtSearch.Name = "txtSearch";
             txtSearch.PlaceholderText = "Search: Name/Patient Code";
-            txtSearch.Size = new Size(492, 25);
+            txtSearch.Size = new Size(493, 25);
             txtSearch.TabIndex = 9;
             // 
             // btnSearch
             // 
             btnSearch.Anchor = AnchorStyles.Right;
-            btnSearch.Location = new Point(505, 16);
+            btnSearch.Location = new Point(506, 16);
             btnSearch.Margin = new Padding(0);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(96, 30);
@@ -121,7 +121,7 @@ namespace ClinicEMR.UserControls
             // btnAddNew
             // 
             btnAddNew.Anchor = AnchorStyles.Right;
-            btnAddNew.Location = new Point(609, 16);
+            btnAddNew.Location = new Point(611, 16);
             btnAddNew.Margin = new Padding(0);
             btnAddNew.Name = "btnAddNew";
             btnAddNew.Size = new Size(96, 30);
@@ -144,7 +144,7 @@ namespace ClinicEMR.UserControls
             tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
             tblLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 80F));
-            tblLayout.Size = new Size(745, 521);
+            tblLayout.Size = new Size(747, 523);
             tblLayout.TabIndex = 1;
             // 
             // dgvPatients
@@ -157,17 +157,16 @@ namespace ClinicEMR.UserControls
             dgvPatients.Name = "dgvPatients";
             dgvPatients.ReadOnly = true;
             dgvPatients.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPatients.Size = new Size(705, 375);
+            dgvPatients.Size = new Size(707, 377);
             dgvPatients.TabIndex = 12;
             // 
             // PatientListControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BorderStyle = BorderStyle.FixedSingle;
             Controls.Add(tblLayout);
             Name = "PatientListControl";
-            Size = new Size(745, 521);
+            Size = new Size(747, 523);
             Load += PatientListControl_Load;
             tableLayoutPanel2.ResumeLayout(false);
             tblHeader.ResumeLayout(false);

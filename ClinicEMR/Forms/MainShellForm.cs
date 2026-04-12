@@ -1,6 +1,6 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using ClinicEMR.Models;
 using ClinicEMR.UserControls;
@@ -10,7 +10,10 @@ namespace ClinicEMR.Forms
 
     public partial class MainShellForm : Form
     {
-        private Dictionary<string, Button> _navButtons;
+        private Dictionary<string, Button> _navButtons = new();
+        private readonly Color _sidebarButtonColor = Color.FromArgb(225, 238, 248);
+        private readonly Color _sidebarButtonHoverColor = Color.FromArgb(82, 124, 164);
+        private readonly Color _sidebarButtonActiveColor = Color.FromArgb(64, 109, 151);
 
         private void NavButton_Click(object sender, EventArgs e)
         {
@@ -31,22 +34,22 @@ namespace ClinicEMR.Forms
 
         private readonly User _currentUser;
 
-        private NurseDashboardControl _nurseDash;
-        private DoctorDashboardControl _doctorDash;
-        private AdminDashboardControl _adminDash;
+        private NurseDashboardControl? _nurseDash;
+        private DoctorDashboardControl? _doctorDash;
+        private AdminDashboardControl? _adminDash;
 
-        private PatientListControl _patients;
-        private UserManagementControl _userMgmt;
-        private AppointmentControl _appointments;
-        private VitalsControl _vitals;
-        private PrescriptionControl _prescription;
-        private ConsultationControl _consultation;
-        private MedHistoryControl _medHistory;
-        private PatientRecordControl _patientRecord;
-        private ReportControl _report;
+        private PatientListControl? _patients;
+        private UserManagementControl? _userMgmt;
+        private AppointmentControl? _appointments;
+        private VitalsControl? _vitals;
+        private PrescriptionControl? _prescription;
+        private ConsultationControl? _consultation;
+        private MedHistoryControl? _medHistory;
+        private PatientRecordControl? _patientRecord;
+        private ReportControl? _report;
 
-        private Control _activeControl;
-        private Button _activeButton;
+        private Control? _activeControl;
+        private Button? _activeButton;
 
         public MainShellForm(User user)
         {
@@ -60,161 +63,45 @@ namespace ClinicEMR.Forms
 
         private void BuildSidebar()
         {
-            pnlSidebar.Controls.Clear();
-            pnlSidebar.Width = 210;
-            pnlSidebar.Dock = DockStyle.Left;
-            pnlSidebar.BackColor = Color.FromArgb(13, 43, 69);
-
-            var sep = new Panel
+            _navButtons = new Dictionary<string, Button>
             {
-                Location = new Point(16, 86),
-                Height = 1,
-                Margin = new Padding(10, 8, 16, 8),
-                BackColor = Color.FromArgb(255, 255, 255, 20)
+                ["btnDashboard"] = btnDashboard,
+                ["btnPatients"] = btnPatients,
+                ["btnAppts"] = btnAppts,
+                ["btnVitals"] = btnVitals,
+                ["btnConsult"] = btnConsult,
+                ["btnRx"] = btnRx,
+                ["btnMedHistory"] = btnMedHistory,
+                ["btnReports"] = btnReports,
+                ["btnUsers"] = btnUsers
             };
 
-            var sep2 = new Panel
+            lblUserName.Text = _currentUser.FullName;
+            lblUserRole.Text = char.ToUpper(_currentUser.Role[0]) + _currentUser.Role.Substring(1);
+
+            foreach (var button in _navButtons.Values)
             {
-                Dock = DockStyle.Top,
-                Height = 1,
-                Margin = new Padding(10, 8, 16, 8),
-                BackColor = Color.FromArgb(255, 255, 255, 20)
-            };
-
-            var sep3 = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 1,
-                Margin = new Padding(10, 8, 16, 8),
-                BackColor = Color.FromArgb(255, 255, 255, 20)
-            };
-
-            var lblSubtitle = new Label
-            {
-                Text = "Small Clinic EMR",
-                Font = new Font("Segoe UI", 8f),
-                ForeColor = Color.FromArgb(100, 160, 200),
-                AutoSize = false,
-                Size = new Size(210, 22),
-                Location = new Point(0, 56),
-                Padding = new Padding(16, 0, 0, 0),
-                TextAlign = ContentAlignment.MiddleLeft
-            };
-
-            var spacer = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 12,
-                BackColor = Color.Transparent
-            };
-
-            var spacer2 = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 120,
-                BackColor = Color.Transparent
-            };
-
-            var lblTitle = new Label
-            {
-                Text = "ClinicEMR",
-                Font = new Font("Segoe UI", 13f, FontStyle.Bold),
-                ForeColor = Color.White,
-                AutoSize = false,
-                Size = new Size(210, 40),
-                Location = new Point(0, 16),
-                Padding = new Padding(16, 16, 0, 0),
-                TextAlign = ContentAlignment.MiddleLeft
-            };
-
-            pnlSidebar.Controls.AddRange(new Control[] {
-                lblTitle,
-                lblSubtitle,
-                sep,
-                spacer
-            });
-
-            var navItems = new[] {
-                ("btnDashboard", "  Dashboard",    210),
-                ("btnPatients",  "  Patients",     238),
-                ("btnAppts",     "  Appointments", 280),
-                ("btnVitals",    "  Vital Signs",  322),
-                ("btnConsult",   "  Consultation", 364),
-                ("btnMedHistory", "  Med History", 390),
-                ("btnRx",        "  Prescription", 406),
-                ("btnReports",   "  Reports",      448),
-                ("btnUsers",     "  User Accounts",90),
-            };
-
-            _navButtons = new Dictionary<string, Button>();
-
-            foreach (var (name, text, y) in navItems)
-            {
-                var btn = new Button
-                {
-                    Name = name,
-                    Text = text,
-                    Size = new Size(210, 40),
-                    Location = new Point(0, y),
-                    FlatStyle = FlatStyle.Flat,
-                    BackColor = Color.Transparent,
-                    ForeColor = Color.FromArgb(160, 190, 220),
-                    Font = new Font("Segoe UI", 9.5f),
-                    TextAlign = ContentAlignment.MiddleLeft,
-                    Cursor = Cursors.Hand,
-                    UseVisualStyleBackColor = false,
-                    Visible = false
-                };
-                btn.FlatAppearance.BorderSize = 0;
-                btn.Click += NavButton_Click;
-                _navButtons[name] = btn;
-                pnlSidebar.Controls.Add(btn);
+                button.Visible = false;
+                button.BackColor = Color.Transparent;
+                button.ForeColor = _sidebarButtonColor;
+                button.Click -= NavButton_Click;
+                button.Click += NavButton_Click;
+                button.MouseEnter -= NavButton_MouseEnter;
+                button.MouseEnter += NavButton_MouseEnter;
+                button.MouseLeave -= NavButton_MouseLeave;
+                button.MouseLeave += NavButton_MouseLeave;
             }
 
-            var lblUserName = new Label
-            {
-                Text = _currentUser.FullName,
-                Font = new Font("Segoe UI", 9f, FontStyle.Bold),
-                ForeColor = Color.White,
-                AutoSize = false,
-                Size = new Size(210, 22),
-                Location = new Point(0, 290),
-                Padding = new Padding(16, 0, 0, 0),
-                Anchor = AnchorStyles.Bottom | AnchorStyles.Left
-            };
-
-            var lblUserRole = new Label
-            {
-                Text = char.ToUpper(_currentUser.Role[0]) + _currentUser.Role.Substring(1),
-                Font = new Font("Segoe UI", 8f),
-                ForeColor = Color.FromArgb(100, 160, 200),
-                AutoSize = false,
-                Size = new Size(210, 20),
-                Location = new Point(0, 268),
-                Padding = new Padding(16, 0, 0, 0),
-                Anchor = AnchorStyles.Bottom | AnchorStyles.Left
-            };
-
-            var btnLogout = new Button
-            {
-                Text = "  Log Out",
-                Size = new Size(210, 36),
-                Location = new Point(0, 244),
-                FlatStyle = FlatStyle.Flat,
-                BackColor = Color.Transparent,
-                ForeColor = Color.FromArgb(160, 190, 220),
-                Font = new Font("Segoe UI", 9f),
-                TextAlign = ContentAlignment.MiddleLeft,
-                Cursor = Cursors.Hand,
-                Anchor = AnchorStyles.Bottom | AnchorStyles.Left,
-                UseVisualStyleBackColor = false
-            };
-            btnLogout.FlatAppearance.BorderSize = 0;
+            btnLogout.BackColor = Color.Transparent;
+            btnLogout.ForeColor = _sidebarButtonColor;
+            btnLogout.Click -= btnLogout_Click;
             btnLogout.Click += btnLogout_Click;
+            btnLogout.MouseEnter -= LogoutButton_MouseEnter;
+            btnLogout.MouseEnter += LogoutButton_MouseEnter;
+            btnLogout.MouseLeave -= LogoutButton_MouseLeave;
+            btnLogout.MouseLeave += LogoutButton_MouseLeave;
 
-            pnlSidebar.Controls.AddRange(new Control[] {
-                spacer2, sep2, lblUserName, lblUserRole, sep3, btnLogout
-            });
+            pnlSide.Visible = false;
         }
 
         private void BuildControls()
@@ -229,13 +116,13 @@ namespace ClinicEMR.Forms
             _patients = new PatientListControl(_currentUser, this);
             _userMgmt = new UserManagementControl(_currentUser);
             _appointments = new AppointmentControl(_currentUser, this);
-            _appointments.Dock = DockStyle.Fill;
-            _appointments.Visible = false;
-            pnlContent.Controls.Add(_appointments);
+                _appointments.Dock = DockStyle.Fill;
+                _appointments.Visible = false;
+                pnlContent.Controls.Add(_appointments);
             _vitals = new VitalsControl(_currentUser, this);
-            _vitals.Dock = DockStyle.Fill;
-            _vitals.Visible = false;
-            pnlContent.Controls.Add(_vitals);
+                _vitals.Dock = DockStyle.Fill;
+                _vitals.Visible = false;
+                pnlContent.Controls.Add(_vitals);
             _consultation = new ConsultationControl(_currentUser, this);
             _consultation.Dock = DockStyle.Fill;
             _consultation.Visible = false;
@@ -307,14 +194,15 @@ namespace ClinicEMR.Forms
             if (_activeButton != null)
             {
                 _activeButton.BackColor = Color.Transparent;
-                _activeButton.ForeColor = Color.FromArgb(160, 190, 220);
+                _activeButton.ForeColor = _sidebarButtonColor;
             }
             control.Visible = true;
             control.BringToFront();
-            button.BackColor = Color.FromArgb(30, 95, 165);
+            button.BackColor = _sidebarButtonActiveColor;
             button.ForeColor = Color.White;
             _activeControl = control;
             _activeButton = button;
+            HighlightActiveButton(button);
         }
 
         private void btnDashboard_Click(object s, EventArgs e)
@@ -323,6 +211,33 @@ namespace ClinicEMR.Forms
           => ShowControl(_patients, _navButtons["btnPatients"]);
         private void btnUsers_Click(object s, EventArgs e)
           => ShowControl(_userMgmt, _navButtons["btnUsers"]);
+
+        private void NavButton_MouseEnter(object? sender, EventArgs e)
+        {
+            if (sender is not Button button) return;
+            if (button == _activeButton) return;
+            button.BackColor = _sidebarButtonHoverColor;
+        }
+
+        private void NavButton_MouseLeave(object? sender, EventArgs e)
+        {
+            if (sender is not Button button) return;
+            if (button == _activeButton) return;
+            button.BackColor = Color.Transparent;
+        }
+
+        private void LogoutButton_MouseEnter(object? sender, EventArgs e)
+            => btnLogout.BackColor = _sidebarButtonHoverColor;
+
+        private void LogoutButton_MouseLeave(object? sender, EventArgs e)
+            => btnLogout.BackColor = Color.Transparent;
+
+        private void HighlightActiveButton(Button button)
+        {
+            pnlSide.Visible = true;
+            pnlSidebar.SetRow(pnlSide, pnlSidebar.GetRow(button));
+            pnlSide.BringToFront();
+        }
 
         public void NavigateTo(string screen, int? id = null)
         {
