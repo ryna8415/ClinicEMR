@@ -28,6 +28,7 @@ namespace ClinicEMR.Forms
             dtpDOB.ValueChanged += (_, _) => ClearError(lblDobError);
             txtContact.TextChanged += (_, _) => ClearError(lblContactError);
             txtEmergency.TextChanged += (_, _) => ClearError(lblEmergencyError);
+            ThemeService.ApplyTheme(this);
         }
 
         private void btnSave_Click(object sender, EventArgs e)

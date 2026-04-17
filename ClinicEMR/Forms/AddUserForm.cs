@@ -24,6 +24,7 @@ namespace ClinicEMR.Forms
             txtUsername.TextChanged += (_, _) => ClearError(lblUsernameError);
             txtPassword.TextChanged += (_, _) => ClearError(lblPasswordError);
             cboRole.SelectedIndexChanged += (_, _) => ClearError(lblRoleError);
+            ThemeService.ApplyTheme(this);
         }
 
         private void AddUser_Load(object sender, EventArgs e)

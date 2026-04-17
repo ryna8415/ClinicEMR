@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using ClinicEMR.Models;
+using ClinicEMR.Services;
 using ClinicEMR.UserControls;
 
 namespace ClinicEMR.Forms
@@ -11,9 +12,9 @@ namespace ClinicEMR.Forms
     public partial class MainShellForm : Form
     {
         private Dictionary<string, Button> _navButtons = new();
-        private readonly Color _sidebarButtonColor = Color.FromArgb(225, 238, 248);
-        private readonly Color _sidebarButtonHoverColor = Color.FromArgb(82, 124, 164);
-        private readonly Color _sidebarButtonActiveColor = Color.FromArgb(64, 109, 151);
+        private readonly Color _sidebarButtonColor = Color.FromArgb(236, 243, 248);
+        private readonly Color _sidebarButtonHoverColor = Color.FromArgb(78, 121, 159);
+        private readonly Color _sidebarButtonActiveColor = Color.FromArgb(56, 94, 129);
 
         private void NavButton_Click(object sender, EventArgs e)
         {
@@ -55,8 +56,9 @@ namespace ClinicEMR.Forms
         {
             InitializeComponent();
             _currentUser = user;
-            BuildSidebar();
             BuildControls();
+            ThemeService.ApplyTheme(this);
+            BuildSidebar();
             ApplyRolePermissions();
             ShowStartScreen();
         }
@@ -78,6 +80,8 @@ namespace ClinicEMR.Forms
 
             lblUserName.Text = _currentUser.FullName;
             lblUserRole.Text = char.ToUpper(_currentUser.Role[0]) + _currentUser.Role.Substring(1);
+            lblUserName.ForeColor = Color.White;
+            lblUserRole.ForeColor = Color.FromArgb(202, 219, 233);
 
             foreach (var button in _navButtons.Values)
             {
@@ -101,6 +105,10 @@ namespace ClinicEMR.Forms
             btnLogout.MouseLeave -= LogoutButton_MouseLeave;
             btnLogout.MouseLeave += LogoutButton_MouseLeave;
 
+            pnlSidebar.BackColor = Color.FromArgb(43, 86, 122);
+            tblFooter.BackColor = Color.FromArgb(43, 86, 122);
+            pnlContent.BackColor = ThemeService.PageBackground;
+            pnlSide.BackColor = Color.FromArgb(167, 205, 229);
             pnlSide.Visible = false;
         }
 

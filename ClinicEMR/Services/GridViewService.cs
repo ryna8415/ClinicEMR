@@ -20,6 +20,7 @@ namespace ClinicEMR.Services
             grid.RowHeadersVisible = false;
             grid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             grid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            ThemeService.StyleGrid(grid);
         }
 
         public static void ShowOnly(DataGridView grid, params string[] visibleColumns)
