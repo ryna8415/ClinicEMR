@@ -9,6 +9,7 @@ namespace ClinicEMR
         public LoginForm()
         {
             InitializeComponent();
+            ThemeService.ApplyTheme(this);
         }
 
         private int _failCount = 0;

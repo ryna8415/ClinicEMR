@@ -153,6 +153,7 @@ namespace ClinicEMR.Forms
             dialog.Controls.Add(cbo);
             dialog.Controls.Add(btnOk);
             dialog.AcceptButton = btnOk;
+            ThemeService.ApplyTheme(dialog);
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {

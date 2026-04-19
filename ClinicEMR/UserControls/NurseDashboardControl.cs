@@ -30,6 +30,7 @@ namespace ClinicEMR.UserControls
                 ["Purpose"] = "Purpose",
                 ["Status"] = "Status"
             });
+            GridViewService.ClearSelection(dgvTodayAppts);
 
             var patients = PatientService.GetAll();
             lblPatientCount.Text = $"{patients.Count} patients registered";

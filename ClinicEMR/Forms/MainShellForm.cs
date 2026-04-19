@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using ClinicEMR.Helpers;
 using ClinicEMR.Models;
+using ClinicEMR.Services;
 using ClinicEMR.UserControls;
 
 namespace ClinicEMR.Forms
@@ -11,10 +13,9 @@ namespace ClinicEMR.Forms
     public partial class MainShellForm : Form
     {
         private Dictionary<string, Button> _navButtons = new();
-        private readonly Color _sidebarButtonColor = Color.FromArgb(225, 238, 248);
-        private readonly Color _sidebarButtonHoverColor = Color.FromArgb(82, 124, 164);
-        private readonly Color _sidebarButtonActiveColor = Color.FromArgb(64, 109, 151);
-
+        private readonly Color _sidebarButtonColor = UITheme.SidebarText;
+        private readonly Color _sidebarButtonHoverColor = UITheme.SidebarHover;
+        private readonly Color _sidebarButtonActiveColor = UITheme.SidebarActive;
         private void NavButton_Click(object sender, EventArgs e)
         {
             var btn = (Button)sender;
@@ -55,10 +56,13 @@ namespace ClinicEMR.Forms
         {
             InitializeComponent();
             _currentUser = user;
-            BuildSidebar();
             BuildControls();
+            ThemeService.ApplyTheme(this);
+            BuildSidebar();
             ApplyRolePermissions();
             ShowStartScreen();
+            ThemeService.ApplyRoundedCorners(pnlContent, 10);
+
         }
 
         private void BuildSidebar()
@@ -78,11 +82,13 @@ namespace ClinicEMR.Forms
 
             lblUserName.Text = _currentUser.FullName;
             lblUserRole.Text = char.ToUpper(_currentUser.Role[0]) + _currentUser.Role.Substring(1);
+            lblUserName.ForeColor = Color.White;
+            lblUserRole.ForeColor = Color.FromArgb(202, 219, 233);
 
             foreach (var button in _navButtons.Values)
             {
                 button.Visible = false;
-                button.BackColor = Color.Transparent;
+                ThemeService.StyleSidebarButton(button);
                 button.ForeColor = _sidebarButtonColor;
                 button.Click -= NavButton_Click;
                 button.Click += NavButton_Click;
@@ -92,7 +98,7 @@ namespace ClinicEMR.Forms
                 button.MouseLeave += NavButton_MouseLeave;
             }
 
-            btnLogout.BackColor = Color.Transparent;
+            ThemeService.StyleSidebarButton(btnLogout);
             btnLogout.ForeColor = _sidebarButtonColor;
             btnLogout.Click -= btnLogout_Click;
             btnLogout.Click += btnLogout_Click;
@@ -116,13 +122,13 @@ namespace ClinicEMR.Forms
             _patients = new PatientListControl(_currentUser, this);
             _userMgmt = new UserManagementControl(_currentUser);
             _appointments = new AppointmentControl(_currentUser, this);
-                _appointments.Dock = DockStyle.Fill;
-                _appointments.Visible = false;
-                pnlContent.Controls.Add(_appointments);
+            _appointments.Dock = DockStyle.Fill;
+            _appointments.Visible = false;
+            pnlContent.Controls.Add(_appointments);
             _vitals = new VitalsControl(_currentUser, this);
-                _vitals.Dock = DockStyle.Fill;
-                _vitals.Visible = false;
-                pnlContent.Controls.Add(_vitals);
+            _vitals.Dock = DockStyle.Fill;
+            _vitals.Visible = false;
+            pnlContent.Controls.Add(_vitals);
             _consultation = new ConsultationControl(_currentUser, this);
             _consultation.Dock = DockStyle.Fill;
             _consultation.Visible = false;
@@ -179,6 +185,7 @@ namespace ClinicEMR.Forms
 
         private void ShowStartScreen()
         {
+            SetHeaderContent(GetDashboardHeaderText(), btnDashboard.Image);
             switch (_currentUser.Role)
             {
                 case "nurse": ShowControl(_nurseDash, _navButtons["btnDashboard"]); break;
@@ -193,16 +200,54 @@ namespace ClinicEMR.Forms
             if (_activeControl != null) _activeControl.Visible = false;
             if (_activeButton != null)
             {
+                _activeButton.Tag = ThemeService.SidebarButtonTag;
                 _activeButton.BackColor = Color.Transparent;
                 _activeButton.ForeColor = _sidebarButtonColor;
             }
             control.Visible = true;
             control.BringToFront();
+            button.Tag = ThemeService.ActiveSidebarButtonTag;
             button.BackColor = _sidebarButtonActiveColor;
             button.ForeColor = Color.White;
             _activeControl = control;
             _activeButton = button;
             HighlightActiveButton(button);
+            UpdateHeaderForButton(button);
+        }
+
+        private void UpdateHeaderForButton(Button button)
+        {
+            if (button == btnDashboard)
+            {
+                SetHeaderContent(GetDashboardHeaderText(), null);
+                return;
+            }
+
+            SetHeaderContent($"      {button.Text.Trim()}", button.Image);
+        }
+
+        private string GetDashboardHeaderText()
+        {
+            return $"  Hello, {_currentUser.FullName}";
+        }
+
+        private void SetHeaderContent(string headerText, Image? headerImage)
+        {
+            btnHeader.Text = headerText;
+            btnHeader.Image = headerImage != null
+            ? AddImagePadding(headerImage, 10)
+            : null;
+        }
+
+        private Image AddImagePadding(Image img, int padding)
+        {
+            Bitmap padded = new Bitmap(img.Width + padding, img.Height);
+            using (Graphics g = Graphics.FromImage(padded))
+            {
+                g.Clear(Color.Transparent);
+                g.DrawImage(img, new Rectangle(padding, 0, img.Width, img.Height));
+            }
+            return padded;
         }
 
         private void btnDashboard_Click(object s, EventArgs e)
@@ -286,5 +331,6 @@ namespace ClinicEMR.Forms
                 this.Close();
             }
         }
+
     }
 }

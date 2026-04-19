@@ -25,6 +25,7 @@ namespace ClinicEMR.Forms
             cboDoctor.DataSource = UserService.GetByRole("doctor");
             cboDoctor.DisplayMember = "FullName";
             cboDoctor.ValueMember = "UserId";
+            ThemeService.ApplyTheme(this);
         }
 
         private void btnConfirm_Click(object sender, EventArgs e)
