@@ -22,6 +22,9 @@ namespace ClinicEMR.UserControls
             GridViewService.MakeReadOnly(dgvReport);
             _reportPlaceholder = CreatePlaceholder();
             ShowPlaceholder("Choose a date and click Generate to display the report.");
+            ThemeService.ApplyRoundedCorners(tblLayout, 10);
+            ThemeService.TryRoundGrid(dgvReport, 4);
+
         }
 
         private void btnGenerate_Click(object sender, EventArgs e)
@@ -87,6 +90,7 @@ namespace ClinicEMR.UserControls
 
         private void ShowPlaceholder(string? message)
         {
+
             bool showPlaceholder = !string.IsNullOrWhiteSpace(message);
             _reportPlaceholder.Text = message ?? string.Empty;
             _reportPlaceholder.Visible = showPlaceholder;

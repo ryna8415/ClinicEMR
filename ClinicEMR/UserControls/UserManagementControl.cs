@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using ClinicEMR.Models;
 using ClinicEMR.Services;
 using ClinicEMR.Forms;
+using ClinicEMR.Helpers;
 
 namespace ClinicEMR.UserControls
 {
@@ -20,6 +21,8 @@ namespace ClinicEMR.UserControls
             InitializeComponent();
             _user = user;
             GridViewService.MakeReadOnly(dgvUsers);
+            ThemeService.TryRoundGrid(dgvUsers, 4);
+
         }
 
         private void UserManagementControl_Load(object sender, EventArgs e)
@@ -34,8 +37,9 @@ namespace ClinicEMR.UserControls
                 ["FullName"] = "Name",
                 ["Username"] = "Username",
                 ["Role"] = "Role",
-                ["IsActive"] = "Active"
+                ["IsActive"] = "User Access Enabled"
             });
+            GridViewService.ClearSelection(dgvUsers);
         }
 
         private void btnAddUser_Click(object sender, EventArgs e)

@@ -36,6 +36,7 @@ namespace ClinicEMR.UserControls
                  ["Purpose"] = "Purpose",
                  ["Status"] = "Status"
              });
+             GridViewService.ClearSelection(dgvMyAppts);
 
             // Lock yesterday's consultations every time doctor logs in
             // Week 2: uncomment when ConsultService exists
