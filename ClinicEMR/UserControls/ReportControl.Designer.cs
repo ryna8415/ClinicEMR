@@ -84,9 +84,9 @@ namespace ClinicEMR.UserControls
             // 
             tblHeader.ColumnCount = 4;
             tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.6777248F));
-            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 29.85782F));
-            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.772666F));
-            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45.6021652F));
+            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 31.042654F));
+            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.0331755F));
+            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 43.2464447F));
             tblHeader.Controls.Add(btnPrint, 3, 0);
             tblHeader.Controls.Add(dtpDate, 1, 0);
             tblHeader.Controls.Add(lblDate, 0, 0);
@@ -113,12 +113,12 @@ namespace ClinicEMR.UserControls
             btnPrint.Image = null;
             btnPrint.ImageAlign = ContentAlignment.MiddleLeft;
             btnPrint.InactiveColor = Color.FromArgb(92, 102, 114);
-            btnPrint.Location = new Point(750, 14);
+            btnPrint.Location = new Point(741, 14);
             btnPrint.Margin = new Padding(3, 4, 3, 4);
             btnPrint.Name = "btnPrint";
             btnPrint.PressedBorderColor = Color.FromArgb(108, 111, 127);
             btnPrint.PressedColor = Color.FromArgb(108, 111, 127);
-            btnPrint.Size = new Size(91, 40);
+            btnPrint.Size = new Size(100, 40);
             btnPrint.TabIndex = 21;
             btnPrint.Text = "Print";
             btnPrint.TextAlignment = StringAlignment.Center;
@@ -126,7 +126,7 @@ namespace ClinicEMR.UserControls
             // 
             // dtpDate
             // 
-            dtpDate.Anchor = AnchorStyles.Left;
+            dtpDate.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             dtpDate.CalendarForeColor = Color.FromArgb(92, 102, 114);
             dtpDate.CalendarMonthBackground = Color.FromArgb(49, 62, 80);
             dtpDate.CalendarTitleBackColor = Color.FromArgb(58, 67, 94);
@@ -137,7 +137,7 @@ namespace ClinicEMR.UserControls
             dtpDate.Margin = new Padding(3, 4, 3, 4);
             dtpDate.MaximumSize = new Size(434, 30);
             dtpDate.Name = "dtpDate";
-            dtpDate.Size = new Size(246, 27);
+            dtpDate.Size = new Size(256, 27);
             dtpDate.TabIndex = 5;
             // 
             // lblDate
@@ -165,12 +165,12 @@ namespace ClinicEMR.UserControls
             btnGenerate.Image = null;
             btnGenerate.ImageAlign = ContentAlignment.MiddleLeft;
             btnGenerate.InactiveColor = Color.FromArgb(26, 35, 48);
-            btnGenerate.Location = new Point(362, 14);
+            btnGenerate.Location = new Point(372, 14);
             btnGenerate.Margin = new Padding(3, 4, 3, 4);
             btnGenerate.Name = "btnGenerate";
             btnGenerate.PressedBorderColor = Color.FromArgb(108, 111, 127);
             btnGenerate.PressedColor = Color.FromArgb(108, 111, 127);
-            btnGenerate.Size = new Size(91, 40);
+            btnGenerate.Size = new Size(100, 40);
             btnGenerate.TabIndex = 20;
             btnGenerate.Text = "Generate";
             btnGenerate.TextAlignment = StringAlignment.Center;

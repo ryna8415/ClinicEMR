@@ -585,11 +585,12 @@ namespace ClinicEMR.Forms
             Controls.Add(tblBackground);
             Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
+            MaximumSize = new Size(2200, 1600);
             MinimumSize = new Size(1100, 800);
             Name = "MainShellForm";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "themeForm1";
+            Text = "ClinicKa";
             TransparencyKey = Color.Fuchsia;
             pnlContentbg.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
