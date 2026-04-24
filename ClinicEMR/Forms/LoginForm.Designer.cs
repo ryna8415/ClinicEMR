@@ -2,15 +2,8 @@
 {
     partial class LoginForm
     {
-        /// <summary>
-        ///  Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        ///  Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,117 +13,167 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        private Panel pnlBackground;
+        private Panel pnlContainer;
+        private Label lblTitle;
+        private PictureBox pictureBox1;
 
-        /// <summary>
-        ///  Required method for Designer support - do not modify
-        ///  the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-            lblClinicEMR = new Label();
-            lblUsername = new Label();
-            txtUsername = new TextBox();
-            lblPassword = new Label();
-            txtPassword = new TextBox();
-            btnLogIn = new Button();
-            lblError = new Label();
-            SuspendLayout();
-            // 
-            // lblClinicEMR
-            // 
-            lblClinicEMR.AutoSize = true;
-            lblClinicEMR.Font = new Font("Nirmala UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblClinicEMR.ImageAlign = ContentAlignment.TopCenter;
-            lblClinicEMR.Location = new Point(79, 49);
-            lblClinicEMR.Name = "lblClinicEMR";
-            lblClinicEMR.Size = new Size(145, 37);
-            lblClinicEMR.TabIndex = 1;
-            lblClinicEMR.Text = "ClinicEMR";
-            // 
-            // lblUsername
-            // 
-            lblUsername.AutoSize = true;
-            lblUsername.Location = new Point(45, 140);
-            lblUsername.Name = "lblUsername";
-            lblUsername.Size = new Size(66, 15);
-            lblUsername.TabIndex = 2;
-            lblUsername.Text = "Username: ";
-            // 
-            // txtUsername
-            // 
-            txtUsername.Location = new Point(117, 132);
-            txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(123, 23);
-            txtUsername.TabIndex = 3;
-            // 
-            // lblPassword
-            // 
-            lblPassword.AutoSize = true;
-            lblPassword.Location = new Point(45, 176);
-            lblPassword.Name = "lblPassword";
-            lblPassword.Size = new Size(63, 15);
-            lblPassword.TabIndex = 4;
-            lblPassword.Text = "Password: ";
-            // 
-            // txtPassword
-            // 
-            txtPassword.Location = new Point(117, 168);
-            txtPassword.Name = "txtPassword";
-            txtPassword.PasswordChar = '*';
-            txtPassword.Size = new Size(123, 23);
-            txtPassword.TabIndex = 5;
-            // 
-            // btnLogIn
-            // 
-            btnLogIn.Location = new Point(165, 209);
-            btnLogIn.Name = "btnLogIn";
-            btnLogIn.Size = new Size(75, 23);
-            btnLogIn.TabIndex = 6;
-            btnLogIn.Text = "Log In";
-            btnLogIn.UseVisualStyleBackColor = true;
-            btnLogIn.Click += btnLogIn_Click;
-            // 
-            // lblError
-            // 
-            lblError.AutoSize = true;
-            lblError.ForeColor = Color.Red;
-            lblError.Location = new Point(64, 254);
-            lblError.Name = "lblError";
-            lblError.Size = new Size(0, 15);
-            lblError.TabIndex = 7;
-            lblError.Visible = false;
-            // 
-            // LoginForm
-            // 
-            AcceptButton = btnLogIn;
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(303, 323);
-            Controls.Add(lblError);
-            Controls.Add(btnLogIn);
-            Controls.Add(txtPassword);
-            Controls.Add(lblPassword);
-            Controls.Add(txtUsername);
-            Controls.Add(lblUsername);
-            Controls.Add(lblClinicEMR);
-            FormBorderStyle = FormBorderStyle.FixedDialog;
-            MaximizeBox = false;
-            Name = "LoginForm";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "EMRClinic";
-            Load += LoginForm_Load;
-            ResumeLayout(false);
-            PerformLayout();
-        }
-
-        #endregion
-        private Label lblClinicEMR;
         private Label lblUsername;
         private TextBox txtUsername;
         private Label lblPassword;
         private TextBox txtPassword;
-        private Button btnLogIn;
         private Label lblError;
+
+        private ReaLTaiizor.Controls.Button btnLogin;
+
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
+            pnlBackground = new Panel();
+            pictureBox1 = new PictureBox();
+            lblTitle = new Label();
+            pnlContainer = new Panel();
+            lblUsername = new Label();
+            txtUsername = new TextBox();
+            lblPassword = new Label();
+            txtPassword = new TextBox();
+            lblError = new Label();
+            btnLogin = new ReaLTaiizor.Controls.Button();
+            pnlBackground.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            pnlContainer.SuspendLayout();
+            SuspendLayout();
+            // 
+            // pnlBackground
+            // 
+            pnlBackground.BackColor = Color.FromArgb(49, 62, 80);
+            pnlBackground.Controls.Add(pictureBox1);
+            pnlBackground.Controls.Add(lblTitle);
+            pnlBackground.Controls.Add(pnlContainer);
+            pnlBackground.Dock = DockStyle.Fill;
+            pnlBackground.Location = new Point(0, 0);
+            pnlBackground.Name = "pnlBackground";
+            pnlBackground.Size = new Size(300, 363);
+            pnlBackground.TabIndex = 0;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(100, 20);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(100, 90);
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
+            // 
+            // lblTitle
+            // 
+            lblTitle.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            lblTitle.ForeColor = Color.White;
+            lblTitle.Location = new Point(0, 110);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(300, 40);
+            lblTitle.TabIndex = 1;
+            lblTitle.Text = "ClinicEMR";
+            lblTitle.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // pnlContainer
+            // 
+            pnlContainer.BackColor = Color.FromArgb(226, 230, 237);
+            pnlContainer.Controls.Add(lblUsername);
+            pnlContainer.Controls.Add(txtUsername);
+            pnlContainer.Controls.Add(lblPassword);
+            pnlContainer.Controls.Add(txtPassword);
+            pnlContainer.Controls.Add(lblError);
+            pnlContainer.Controls.Add(btnLogin);
+            pnlContainer.Location = new Point(20, 160);
+            pnlContainer.Name = "pnlContainer";
+            pnlContainer.Size = new Size(260, 184);
+            pnlContainer.TabIndex = 2;
+            // 
+            // lblUsername
+            // 
+            lblUsername.Font = new Font("Segoe UI", 9F);
+            lblUsername.ForeColor = Color.FromArgb(49, 62, 80);
+            lblUsername.Location = new Point(10, 14);
+            lblUsername.Name = "lblUsername";
+            lblUsername.Size = new Size(100, 17);
+            lblUsername.TabIndex = 0;
+            lblUsername.Text = "Username:";
+            // 
+            // txtUsername
+            // 
+            txtUsername.Font = new Font("Segoe UI", 9F);
+            txtUsername.Location = new Point(10, 34);
+            txtUsername.Name = "txtUsername";
+            txtUsername.Size = new Size(230, 23);
+            txtUsername.TabIndex = 1;
+            // 
+            // lblPassword
+            // 
+            lblPassword.Font = new Font("Segoe UI", 9F);
+            lblPassword.ForeColor = Color.FromArgb(49, 62, 80);
+            lblPassword.Location = new Point(10, 64);
+            lblPassword.Name = "lblPassword";
+            lblPassword.Size = new Size(100, 17);
+            lblPassword.TabIndex = 2;
+            lblPassword.Text = "Password:";
+            // 
+            // txtPassword
+            // 
+            txtPassword.Font = new Font("Segoe UI", 9F);
+            txtPassword.Location = new Point(10, 84);
+            txtPassword.Name = "txtPassword";
+            txtPassword.PasswordChar = '*';
+            txtPassword.Size = new Size(230, 23);
+            txtPassword.TabIndex = 3;
+            // 
+            // lblError
+            // 
+            lblError.Font = new Font("Segoe UI", 8.5F, FontStyle.Italic);
+            lblError.ForeColor = Color.Firebrick;
+            lblError.Location = new Point(10, 109);
+            lblError.Name = "lblError";
+            lblError.Size = new Size(230, 30);
+            lblError.TabIndex = 4;
+            lblError.Visible = false;
+            // 
+            // btnLogin
+            // 
+            btnLogin.BackColor = Color.Transparent;
+            btnLogin.BorderColor = Color.FromArgb(32, 34, 37);
+            btnLogin.EnteredBorderColor = Color.FromArgb(165, 37, 37);
+            btnLogin.EnteredColor = Color.FromArgb(32, 34, 37);
+            btnLogin.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
+            btnLogin.Image = null;
+            btnLogin.ImageAlign = ContentAlignment.MiddleLeft;
+            btnLogin.InactiveColor = Color.FromArgb(32, 34, 37);
+            btnLogin.Location = new Point(140, 140);
+            btnLogin.Name = "btnLogin";
+            btnLogin.PressedBorderColor = Color.FromArgb(165, 37, 37);
+            btnLogin.PressedColor = Color.FromArgb(165, 37, 37);
+            btnLogin.Size = new Size(100, 30);
+            btnLogin.TabIndex = 5;
+            btnLogin.Text = "Log In";
+            btnLogin.TextAlignment = StringAlignment.Center;
+            btnLogin.Click += btnLogIn_Click;
+            // 
+            // LoginForm
+            // 
+            ClientSize = new Size(300, 363);
+            Controls.Add(pnlBackground);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            KeyPreview = true;
+            MaximizeBox = false;
+            Name = "LoginForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "ClinicEMR Login";
+            Load += LoginForm_Load;
+            KeyDown += LoginForm_KeyDown;
+            pnlBackground.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            pnlContainer.ResumeLayout(false);
+            pnlContainer.PerformLayout();
+            ResumeLayout(false);
+        }
     }
 }
