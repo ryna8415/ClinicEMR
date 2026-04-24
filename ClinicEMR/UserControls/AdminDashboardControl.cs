@@ -32,6 +32,7 @@ namespace ClinicEMR.UserControls
             ThemeService.TryRoundGrid(dgvRecentLogins, 4);
 
         }
+
         private void ApplyHover(Control parent)
         {
             parent.MouseEnter += Card_MouseEnter;
@@ -45,6 +46,8 @@ namespace ClinicEMR.UserControls
                 ApplyHover(child);
             }
         }
+
+
         private void AdminDashboardControl_Load(object sender, EventArgs e)
         {
             ApplyHover(card1);

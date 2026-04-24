@@ -40,9 +40,9 @@ namespace ClinicEMR.UserControls
             // 
             lblCount.AutoSize = true;
             lblCount.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblCount.Location = new Point(32, 68);
+            lblCount.Location = new Point(37, 91);
             lblCount.Name = "lblCount";
-            lblCount.Size = new Size(0, 19);
+            lblCount.Size = new Size(0, 23);
             lblCount.TabIndex = 2;
             // 
             // tblLayout
@@ -55,16 +55,16 @@ namespace ClinicEMR.UserControls
             tblLayout.Controls.Add(tableLayoutPanel1, 0, 1);
             tblLayout.Dock = DockStyle.Fill;
             tblLayout.Location = new Point(0, 0);
-            tblLayout.Margin = new Padding(20);
+            tblLayout.Margin = new Padding(23, 27, 23, 27);
             tblLayout.Name = "tblLayout";
             tblLayout.RowCount = 5;
-            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 37F));
-            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 57F));
+            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 27F));
+            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 49F));
+            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 76F));
             tblLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 80F));
-            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tblLayout.Size = new Size(779, 592);
+            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 107F));
+            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 27F));
+            tblLayout.Size = new Size(890, 789);
             tblLayout.TabIndex = 3;
             // 
             // dgvReport
@@ -73,17 +73,18 @@ namespace ClinicEMR.UserControls
             dgvReport.BorderStyle = BorderStyle.None;
             dgvReport.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvReport.Dock = DockStyle.Fill;
-            dgvReport.Location = new Point(20, 117);
-            dgvReport.Margin = new Padding(20, 3, 20, 3);
+            dgvReport.Location = new Point(23, 156);
+            dgvReport.Margin = new Padding(23, 4, 23, 4);
             dgvReport.Name = "dgvReport";
-            dgvReport.Size = new Size(739, 392);
+            dgvReport.RowHeadersWidth = 51;
+            dgvReport.Size = new Size(844, 522);
             dgvReport.TabIndex = 7;
             // 
             // tblHeader
             // 
             tblHeader.ColumnCount = 4;
-            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.6373482F));
-            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30.9878216F));
+            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.6777248F));
+            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 29.85782F));
             tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.772666F));
             tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45.6021652F));
             tblHeader.Controls.Add(btnPrint, 3, 0);
@@ -91,13 +92,13 @@ namespace ClinicEMR.UserControls
             tblHeader.Controls.Add(lblDate, 0, 0);
             tblHeader.Controls.Add(btnGenerate, 2, 0);
             tblHeader.Dock = DockStyle.Fill;
-            tblHeader.Location = new Point(20, 60);
-            tblHeader.Margin = new Padding(20, 3, 20, 3);
+            tblHeader.Location = new Point(23, 80);
+            tblHeader.Margin = new Padding(23, 4, 23, 4);
             tblHeader.Name = "tblHeader";
             tblHeader.RowCount = 1;
-            tblHeader.RowStyles.Add(new RowStyle(SizeType.Absolute, 17F));
-            tblHeader.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tblHeader.Size = new Size(739, 51);
+            tblHeader.RowStyles.Add(new RowStyle(SizeType.Absolute, 68F));
+            tblHeader.RowStyles.Add(new RowStyle(SizeType.Absolute, 68F));
+            tblHeader.Size = new Size(844, 68);
             tblHeader.TabIndex = 0;
             // 
             // btnPrint
@@ -112,11 +113,12 @@ namespace ClinicEMR.UserControls
             btnPrint.Image = null;
             btnPrint.ImageAlign = ContentAlignment.MiddleLeft;
             btnPrint.InactiveColor = Color.FromArgb(92, 102, 114);
-            btnPrint.Location = new Point(656, 10);
+            btnPrint.Location = new Point(750, 14);
+            btnPrint.Margin = new Padding(3, 4, 3, 4);
             btnPrint.Name = "btnPrint";
             btnPrint.PressedBorderColor = Color.FromArgb(108, 111, 127);
             btnPrint.PressedColor = Color.FromArgb(108, 111, 127);
-            btnPrint.Size = new Size(80, 30);
+            btnPrint.Size = new Size(91, 40);
             btnPrint.TabIndex = 21;
             btnPrint.Text = "Print";
             btnPrint.TextAlignment = StringAlignment.Center;
@@ -131,10 +133,11 @@ namespace ClinicEMR.UserControls
             dtpDate.CalendarTitleForeColor = Color.FromArgb(226, 230, 237);
             dtpDate.CalendarTrailingForeColor = Color.FromArgb(69, 85, 97);
             dtpDate.Cursor = Cursors.Hand;
-            dtpDate.Location = new Point(89, 14);
-            dtpDate.MaximumSize = new Size(380, 30);
+            dtpDate.Location = new Point(110, 20);
+            dtpDate.Margin = new Padding(3, 4, 3, 4);
+            dtpDate.MaximumSize = new Size(434, 30);
             dtpDate.Name = "dtpDate";
-            dtpDate.Size = new Size(223, 23);
+            dtpDate.Size = new Size(246, 27);
             dtpDate.TabIndex = 5;
             // 
             // lblDate
@@ -143,10 +146,10 @@ namespace ClinicEMR.UserControls
             lblDate.AutoSize = true;
             lblDate.Font = new Font("TT Intrphss Pr Trl Cnd", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblDate.ForeColor = Color.FromArgb(92, 102, 114);
-            lblDate.Location = new Point(3, 16);
+            lblDate.Location = new Point(3, 23);
             lblDate.Margin = new Padding(3, 0, 0, 0);
             lblDate.Name = "lblDate";
-            lblDate.Size = new Size(82, 18);
+            lblDate.Size = new Size(99, 21);
             lblDate.TabIndex = 6;
             lblDate.Text = "Report Date:";
             // 
@@ -162,11 +165,12 @@ namespace ClinicEMR.UserControls
             btnGenerate.Image = null;
             btnGenerate.ImageAlign = ContentAlignment.MiddleLeft;
             btnGenerate.InactiveColor = Color.FromArgb(26, 35, 48);
-            btnGenerate.Location = new Point(318, 10);
+            btnGenerate.Location = new Point(362, 14);
+            btnGenerate.Margin = new Padding(3, 4, 3, 4);
             btnGenerate.Name = "btnGenerate";
             btnGenerate.PressedBorderColor = Color.FromArgb(108, 111, 127);
             btnGenerate.PressedColor = Color.FromArgb(108, 111, 127);
-            btnGenerate.Size = new Size(80, 30);
+            btnGenerate.Size = new Size(91, 40);
             btnGenerate.TabIndex = 20;
             btnGenerate.Text = "Generate";
             btnGenerate.TextAlignment = StringAlignment.Center;
@@ -180,12 +184,12 @@ namespace ClinicEMR.UserControls
             tableLayoutPanel1.Controls.Add(pictureBox3, 0, 0);
             tableLayoutPanel1.Controls.Add(label1, 1, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(20, 23);
-            tableLayoutPanel1.Margin = new Padding(20, 3, 20, 3);
+            tableLayoutPanel1.Location = new Point(23, 31);
+            tableLayoutPanel1.Margin = new Padding(23, 4, 23, 4);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(739, 31);
+            tableLayoutPanel1.Size = new Size(844, 41);
             tableLayoutPanel1.TabIndex = 19;
             // 
             // pictureBox3
@@ -195,7 +199,7 @@ namespace ClinicEMR.UserControls
             pictureBox3.Location = new Point(0, 0);
             pictureBox3.Margin = new Padding(0);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(31, 31);
+            pictureBox3.Size = new Size(35, 41);
             pictureBox3.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox3.TabIndex = 0;
             pictureBox3.TabStop = false;
@@ -206,20 +210,21 @@ namespace ClinicEMR.UserControls
             label1.AutoSize = true;
             label1.Font = new Font("Panton-Trial ExtraBold", 14F, FontStyle.Bold);
             label1.ForeColor = Color.FromArgb(26, 35, 48);
-            label1.Location = new Point(34, 3);
+            label1.Location = new Point(39, 5);
             label1.Name = "label1";
-            label1.Size = new Size(308, 24);
+            label1.Size = new Size(392, 31);
             label1.TabIndex = 1;
             label1.Text = "Generate Patient Report Summary";
             // 
             // ReportControl
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(tblLayout);
             Controls.Add(lblCount);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "ReportControl";
-            Size = new Size(779, 592);
+            Size = new Size(890, 789);
             tblLayout.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvReport).EndInit();
             tblHeader.ResumeLayout(false);
