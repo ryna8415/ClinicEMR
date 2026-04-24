@@ -32,7 +32,7 @@ namespace ClinicEMR
                 _failCount++;
                 if (_failCount >= 5)
                 {
-                    btnLogIn.Enabled = false;
+                    btnLogin.Enabled = false;
                     lblError.Text = "Too many failed attempts. Please restart the app.";
                     lblError.Visible = true;
                     return;
@@ -54,6 +54,14 @@ namespace ClinicEMR
         private void LoginForm_Load(object sender, EventArgs e)
         {
             lblError.Visible = false;
+        }
+
+        private void LoginForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnLogIn_Click(sender, e);
+            }
         }
     }
 }

@@ -2,15 +2,8 @@
 {
     partial class AddUserForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,218 +13,283 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddUserForm));
+            pnlBackground = new Panel();
+            pictureBox1 = new PictureBox();
             lblNewUser = new Label();
-            txtFullName = new TextBox();
+            pnlContainer = new Panel();
             lblFullName = new Label();
+            txtFullName = new TextBox();
+            lblFullNameError = new Label();
             lblUsername = new Label();
             txtUsername = new TextBox();
+            lblUsernameError = new Label();
+            lblRole = new Label();
+            cboRole = new ComboBox();
+            lblRoleError = new Label();
             lblPassword = new Label();
             txtPassword = new TextBox();
-            cboRole = new ComboBox();
-            lblRole = new Label();
-            btnSave = new Button();
-            btnCancel = new Button();
-            lblFullNameError = new Label();
-            lblUsernameError = new Label();
-            lblRoleError = new Label();
             lblPasswordError = new Label();
+            btnCancel = new ReaLTaiizor.Controls.Button();
+            btnSave = new ReaLTaiizor.Controls.Button();
+            pnlBackground.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            pnlContainer.SuspendLayout();
             SuspendLayout();
+            // 
+            // pnlBackground
+            // 
+            pnlBackground.BackColor = Color.FromArgb(49, 62, 80);
+            pnlBackground.Controls.Add(pictureBox1);
+            pnlBackground.Controls.Add(lblNewUser);
+            pnlBackground.Controls.Add(pnlContainer);
+            pnlBackground.Dock = DockStyle.Fill;
+            pnlBackground.Location = new Point(0, 0);
+            pnlBackground.Name = "pnlBackground";
+            pnlBackground.Size = new Size(384, 510);
+            pnlBackground.TabIndex = 0;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(152, 23);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(105, 98);
+            pictureBox1.TabIndex = 2;
+            pictureBox1.TabStop = false;
             // 
             // lblNewUser
             // 
-            lblNewUser.AutoSize = true;
-            lblNewUser.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblNewUser.Location = new Point(142, 22);
+            lblNewUser.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            lblNewUser.BackColor = Color.FromArgb(49, 62, 80);
+            lblNewUser.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            lblNewUser.ForeColor = Color.White;
+            lblNewUser.Location = new Point(3, 124);
             lblNewUser.Name = "lblNewUser";
-            lblNewUser.Size = new Size(107, 30);
-            lblNewUser.TabIndex = 6;
-            lblNewUser.Text = "New User";
-            lblNewUser.TextAlign = ContentAlignment.TopCenter;
+            lblNewUser.Size = new Size(384, 45);
+            lblNewUser.TabIndex = 0;
+            lblNewUser.Text = "  Add New User";
+            lblNewUser.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // txtFullName
+            // pnlContainer
             // 
-            txtFullName.Location = new Point(12, 96);
-            txtFullName.Name = "txtFullName";
-            txtFullName.PlaceholderText = "Last Name, First Name, Middle Initial";
-            txtFullName.Size = new Size(360, 23);
-            txtFullName.TabIndex = 7;
+            pnlContainer.BackColor = Color.FromArgb(226, 230, 237);
+            pnlContainer.Controls.Add(lblFullName);
+            pnlContainer.Controls.Add(txtFullName);
+            pnlContainer.Controls.Add(lblFullNameError);
+            pnlContainer.Controls.Add(lblUsername);
+            pnlContainer.Controls.Add(txtUsername);
+            pnlContainer.Controls.Add(lblUsernameError);
+            pnlContainer.Controls.Add(lblRole);
+            pnlContainer.Controls.Add(cboRole);
+            pnlContainer.Controls.Add(lblRoleError);
+            pnlContainer.Controls.Add(lblPassword);
+            pnlContainer.Controls.Add(txtPassword);
+            pnlContainer.Controls.Add(lblPasswordError);
+            pnlContainer.Controls.Add(btnCancel);
+            pnlContainer.Controls.Add(btnSave);
+            pnlContainer.Location = new Point(12, 169);
+            pnlContainer.Name = "pnlContainer";
+            pnlContainer.Size = new Size(360, 329);
+            pnlContainer.TabIndex = 1;
             // 
             // lblFullName
             // 
-            lblFullName.AutoSize = true;
-            lblFullName.Location = new Point(12, 78);
+            lblFullName.Font = new Font("Segoe UI", 9F);
+            lblFullName.ForeColor = Color.FromArgb(49, 62, 80);
+            lblFullName.Location = new Point(10, 15);
             lblFullName.Name = "lblFullName";
-            lblFullName.Size = new Size(64, 15);
-            lblFullName.TabIndex = 8;
+            lblFullName.Size = new Size(100, 17);
+            lblFullName.TabIndex = 0;
             lblFullName.Text = "Full Name:";
+            // 
+            // txtFullName
+            // 
+            txtFullName.Font = new Font("Segoe UI", 9F);
+            txtFullName.Location = new Point(10, 35);
+            txtFullName.Name = "txtFullName";
+            txtFullName.Size = new Size(330, 23);
+            txtFullName.TabIndex = 1;
+            // 
+            // lblFullNameError
+            // 
+            lblFullNameError.Font = new Font("Segoe UI", 8.5F, FontStyle.Italic);
+            lblFullNameError.ForeColor = Color.Firebrick;
+            lblFullNameError.Location = new Point(10, 60);
+            lblFullNameError.Name = "lblFullNameError";
+            lblFullNameError.Size = new Size(330, 30);
+            lblFullNameError.TabIndex = 2;
+            lblFullNameError.Visible = false;
             // 
             // lblUsername
             // 
-            lblUsername.AutoSize = true;
-            lblUsername.Location = new Point(12, 164);
+            lblUsername.Font = new Font("Segoe UI", 9F);
+            lblUsername.ForeColor = Color.FromArgb(49, 62, 80);
+            lblUsername.Location = new Point(10, 90);
             lblUsername.Name = "lblUsername";
-            lblUsername.Size = new Size(63, 15);
-            lblUsername.TabIndex = 9;
+            lblUsername.Size = new Size(100, 17);
+            lblUsername.TabIndex = 3;
             lblUsername.Text = "Username:";
             // 
             // txtUsername
             // 
-            txtUsername.Location = new Point(12, 182);
+            txtUsername.Font = new Font("Segoe UI", 9F);
+            txtUsername.Location = new Point(10, 110);
             txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(237, 23);
-            txtUsername.TabIndex = 10;
+            txtUsername.Size = new Size(200, 23);
+            txtUsername.TabIndex = 4;
+            // 
+            // lblUsernameError
+            // 
+            lblUsernameError.Font = new Font("Segoe UI", 8.5F, FontStyle.Italic);
+            lblUsernameError.ForeColor = Color.Firebrick;
+            lblUsernameError.Location = new Point(10, 135);
+            lblUsernameError.Name = "lblUsernameError";
+            lblUsernameError.Size = new Size(200, 30);
+            lblUsernameError.TabIndex = 5;
+            lblUsernameError.Visible = false;
+            // 
+            // lblRole
+            // 
+            lblRole.Font = new Font("Segoe UI", 9F);
+            lblRole.ForeColor = Color.FromArgb(49, 62, 80);
+            lblRole.Location = new Point(220, 90);
+            lblRole.Name = "lblRole";
+            lblRole.Size = new Size(100, 17);
+            lblRole.TabIndex = 6;
+            lblRole.Text = "Role:";
+            // 
+            // cboRole
+            // 
+            cboRole.Font = new Font("Segoe UI", 9F);
+            cboRole.Items.AddRange(new object[] { "doctor", "nurse", "admin" });
+            cboRole.Location = new Point(220, 110);
+            cboRole.Name = "cboRole";
+            cboRole.Size = new Size(120, 23);
+            cboRole.TabIndex = 7;
+            // 
+            // lblRoleError
+            // 
+            lblRoleError.Font = new Font("Segoe UI", 8.5F, FontStyle.Italic);
+            lblRoleError.ForeColor = Color.Firebrick;
+            lblRoleError.Location = new Point(220, 135);
+            lblRoleError.Name = "lblRoleError";
+            lblRoleError.Size = new Size(120, 30);
+            lblRoleError.TabIndex = 8;
+            lblRoleError.Visible = false;
             // 
             // lblPassword
             // 
-            lblPassword.AutoSize = true;
-            lblPassword.Location = new Point(12, 245);
+            lblPassword.Font = new Font("Segoe UI", 9F);
+            lblPassword.ForeColor = Color.FromArgb(49, 62, 80);
+            lblPassword.Location = new Point(10, 165);
             lblPassword.Name = "lblPassword";
-            lblPassword.Size = new Size(60, 15);
-            lblPassword.TabIndex = 11;
+            lblPassword.Size = new Size(100, 17);
+            lblPassword.TabIndex = 9;
             lblPassword.Text = "Password:";
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(12, 263);
+            txtPassword.Font = new Font("Segoe UI", 9F);
+            txtPassword.Location = new Point(10, 185);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
-            txtPassword.PlaceholderText = "\"At least 12 chars, 1 uppercase and 1 special character.\"";
-            txtPassword.Size = new Size(360, 23);
-            txtPassword.TabIndex = 12;
-            // 
-            // cboRole
-            // 
-            cboRole.FormattingEnabled = true;
-            cboRole.Items.AddRange(new object[] { "doctor", "nurse", "admin" });
-            cboRole.Location = new Point(255, 182);
-            cboRole.Name = "cboRole";
-            cboRole.Size = new Size(117, 23);
-            cboRole.TabIndex = 13;
-            // 
-            // lblRole
-            // 
-            lblRole.AutoSize = true;
-            lblRole.Location = new Point(255, 164);
-            lblRole.Name = "lblRole";
-            lblRole.Size = new Size(33, 15);
-            lblRole.TabIndex = 14;
-            lblRole.Text = "Role:";
-            // 
-            // btnSave
-            // 
-            btnSave.DialogResult = DialogResult.OK;
-            btnSave.Location = new Point(279, 349);
-            btnSave.Name = "btnSave";
-            btnSave.RightToLeft = RightToLeft.No;
-            btnSave.Size = new Size(93, 31);
-            btnSave.TabIndex = 21;
-            btnSave.Text = "Save User";
-            btnSave.UseVisualStyleBackColor = true;
-            btnSave.Click += btnSave_Click;
-            // 
-            // btnCancel
-            // 
-            btnCancel.BackColor = SystemColors.ControlLightLight;
-            btnCancel.DialogResult = DialogResult.Cancel;
-            btnCancel.ForeColor = SystemColors.ControlText;
-            btnCancel.Location = new Point(180, 349);
-            btnCancel.Name = "btnCancel";
-            btnCancel.RightToLeft = RightToLeft.No;
-            btnCancel.Size = new Size(93, 31);
-            btnCancel.TabIndex = 22;
-            btnCancel.Text = "Cancel";
-            btnCancel.UseVisualStyleBackColor = false;
-            // 
-            // lblFullNameError
-            // 
-            lblFullNameError.ForeColor = Color.Firebrick;
-            lblFullNameError.Location = new Point(12, 122);
-            lblFullNameError.Name = "lblFullNameError";
-            lblFullNameError.Size = new Size(360, 32);
-            lblFullNameError.TabIndex = 24;
-            lblFullNameError.Visible = false;
-            // 
-            // lblUsernameError
-            // 
-            lblUsernameError.ForeColor = Color.Firebrick;
-            lblUsernameError.Location = new Point(12, 208);
-            lblUsernameError.Name = "lblUsernameError";
-            lblUsernameError.Size = new Size(237, 32);
-            lblUsernameError.TabIndex = 25;
-            lblUsernameError.Visible = false;
-            // 
-            // lblRoleError
-            // 
-            lblRoleError.ForeColor = Color.Firebrick;
-            lblRoleError.Location = new Point(255, 208);
-            lblRoleError.Name = "lblRoleError";
-            lblRoleError.Size = new Size(117, 32);
-            lblRoleError.TabIndex = 26;
-            lblRoleError.Visible = false;
+            txtPassword.Size = new Size(330, 23);
+            txtPassword.TabIndex = 10;
             // 
             // lblPasswordError
             // 
+            lblPasswordError.Font = new Font("Segoe UI", 8.5F, FontStyle.Italic);
             lblPasswordError.ForeColor = Color.Firebrick;
-            lblPasswordError.Location = new Point(12, 289);
+            lblPasswordError.Location = new Point(10, 210);
             lblPasswordError.Name = "lblPasswordError";
-            lblPasswordError.Size = new Size(360, 45);
-            lblPasswordError.TabIndex = 27;
+            lblPasswordError.Size = new Size(330, 72);
+            lblPasswordError.TabIndex = 11;
             lblPasswordError.Visible = false;
+            // 
+            // btnCancel
+            // 
+            btnCancel.BackColor = Color.FromArgb(226, 230, 237);
+            btnCancel.BorderColor = Color.FromArgb(108, 111, 127);
+            btnCancel.Cursor = Cursors.Hand;
+            btnCancel.EnteredBorderColor = Color.FromArgb(108, 111, 127);
+            btnCancel.EnteredColor = Color.FromArgb(69, 85, 97);
+            btnCancel.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
+            btnCancel.Image = null;
+            btnCancel.ImageAlign = ContentAlignment.MiddleLeft;
+            btnCancel.InactiveColor = Color.FromArgb(92, 102, 114);
+            btnCancel.Location = new Point(140, 285);
+            btnCancel.Name = "btnCancel";
+            btnCancel.PressedBorderColor = Color.FromArgb(165, 37, 37);
+            btnCancel.PressedColor = Color.FromArgb(165, 37, 37);
+            btnCancel.Size = new Size(90, 30);
+            btnCancel.TabIndex = 12;
+            btnCancel.Text = "Cancel";
+            btnCancel.TextAlignment = StringAlignment.Center;
+            // 
+            // btnSave
+            // 
+            btnSave.BackColor = Color.FromArgb(226, 230, 237);
+            btnSave.BorderColor = Color.FromArgb(108, 111, 127);
+            btnSave.Cursor = Cursors.Hand;
+            btnSave.EnteredBorderColor = Color.FromArgb(108, 111, 127);
+            btnSave.EnteredColor = Color.FromArgb(69, 85, 97);
+            btnSave.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
+            btnSave.Image = null;
+            btnSave.ImageAlign = ContentAlignment.MiddleLeft;
+            btnSave.InactiveColor = Color.FromArgb(26, 35, 48);
+            btnSave.Location = new Point(250, 285);
+            btnSave.Name = "btnSave";
+            btnSave.PressedBorderColor = Color.FromArgb(165, 37, 37);
+            btnSave.PressedColor = Color.FromArgb(165, 37, 37);
+            btnSave.Size = new Size(90, 30);
+            btnSave.TabIndex = 13;
+            btnSave.Text = "Save User";
+            btnSave.TextAlignment = StringAlignment.Center;
+            btnSave.Click += btnSave_Click;
             // 
             // AddUserForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(384, 394);
-            Controls.Add(lblPasswordError);
-            Controls.Add(lblRoleError);
-            Controls.Add(lblUsernameError);
-            Controls.Add(lblFullNameError);
-            Controls.Add(btnCancel);
-            Controls.Add(btnSave);
-            Controls.Add(lblRole);
-            Controls.Add(cboRole);
-            Controls.Add(txtPassword);
-            Controls.Add(lblPassword);
-            Controls.Add(txtUsername);
-            Controls.Add(lblUsername);
-            Controls.Add(lblFullName);
-            Controls.Add(txtFullName);
-            Controls.Add(lblNewUser);
+            ClientSize = new Size(384, 510);
+            Controls.Add(pnlBackground);
             FormBorderStyle = FormBorderStyle.FixedDialog;
-            MaximizeBox = false;
             Name = "AddUserForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "AddUser";
-            Load += AddUser_Load;
+            Text = "Add User";
+            pnlBackground.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            pnlContainer.ResumeLayout(false);
+            pnlContainer.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
+
+
         }
 
-        #endregion
+        private Panel pnlBackground;
+        private Panel pnlContainer;
 
         private Label lblNewUser;
-        private TextBox txtFullName;
+
         private Label lblFullName;
+        private TextBox txtFullName;
+        private Label lblFullNameError;
+
         private Label lblUsername;
         private TextBox txtUsername;
+        private Label lblUsernameError;
+
+        private Label lblRole;
+        private ComboBox cboRole;
+        private Label lblRoleError;
+
         private Label lblPassword;
         private TextBox txtPassword;
-        private ComboBox cboRole;
-        private Label lblRole;
-        private Button btnSave;
-        private Button btnCancel;
-        private Label lblFullNameError;
-        private Label lblUsernameError;
-        private Label lblRoleError;
         private Label lblPasswordError;
+
+        private ReaLTaiizor.Controls.Button btnSave;
+        private ReaLTaiizor.Controls.Button btnCancel;
+        private PictureBox pictureBox1;
     }
 }

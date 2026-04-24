@@ -2,15 +2,8 @@
 {
     partial class AddPatientForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,336 +13,379 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        private Panel pnlBackground;
+        private Panel pnlContainer;
+        private Label lblTitle;
+        private PictureBox pictureBox1;
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
+        private TextBox txtFirstName, txtLastName, txtAddress, txtContact, txtEmergency, txtAllergies;
+        private DateTimePicker dtpDOB;
+        private ComboBox cboSex;
+
+        private Label lblFirstName, lblLastName, lblAddress, lblContact, lblEmergency, lblAllergies, lblDOB, lblSex;
+        private Label lblFirstNameError, lblLastNameError, lblSexError, lblDobError, lblContactError, lblEmergencyError;
+
+        private ReaLTaiizor.Controls.Button btnSave, btnCancel;
+
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddPatientForm));
+            pnlBackground = new Panel();
+            pictureBox1 = new PictureBox();
+            lblTitle = new Label();
+            pnlContainer = new Panel();
+            lblFirstName = new Label();
             txtFirstName = new TextBox();
-            lblNewPatient = new Label();
+            lblFirstNameError = new Label();
+            lblLastName = new Label();
             txtLastName = new TextBox();
-            label1 = new Label();
-            txtContact = new TextBox();
+            lblLastNameError = new Label();
+            lblSex = new Label();
+            cboSex = new ComboBox();
+            lblSexError = new Label();
+            lblDOB = new Label();
+            dtpDOB = new DateTimePicker();
+            lblDobError = new Label();
             lblAddress = new Label();
             txtAddress = new TextBox();
+            lblContact = new Label();
+            txtContact = new TextBox();
+            lblContactError = new Label();
             lblEmergency = new Label();
             txtEmergency = new TextBox();
+            lblEmergencyError = new Label();
             lblAllergies = new Label();
             txtAllergies = new TextBox();
-            dtpDOB = new DateTimePicker();
-            lblDOB = new Label();
-            cboSex = new ComboBox();
-            lblSex = new Label();
-            btnSave = new Button();
-            btnCancel = new Button();
-            lblFirstName = new Label();
-            lblLastName = new Label();
-            lblFirstNameError = new Label();
-            lblLastNameError = new Label();
-            lblSexError = new Label();
-            lblDobError = new Label();
-            lblContactError = new Label();
-            lblEmergencyError = new Label();
+            btnCancel = new ReaLTaiizor.Controls.Button();
+            btnSave = new ReaLTaiizor.Controls.Button();
+            pnlBackground.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            pnlContainer.SuspendLayout();
             SuspendLayout();
             // 
-            // txtFirstName
+            // pnlBackground
             // 
-            txtFirstName.Location = new Point(12, 186);
-            txtFirstName.Name = "txtFirstName";
-            txtFirstName.Size = new Size(176, 23);
-            txtFirstName.TabIndex = 4;
+            pnlBackground.BackColor = Color.FromArgb(49, 62, 80);
+            pnlBackground.Controls.Add(pictureBox1);
+            pnlBackground.Controls.Add(lblTitle);
+            pnlBackground.Controls.Add(pnlContainer);
+            pnlBackground.Dock = DockStyle.Fill;
+            pnlBackground.Location = new Point(0, 0);
+            pnlBackground.Name = "pnlBackground";
+            pnlBackground.Size = new Size(480, 550);
+            pnlBackground.TabIndex = 0;
             // 
-            // lblNewPatient
+            // pictureBox1
             // 
-            lblNewPatient.AutoSize = true;
-            lblNewPatient.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblNewPatient.Location = new Point(137, 33);
-            lblNewPatient.Name = "lblNewPatient";
-            lblNewPatient.Size = new Size(190, 30);
-            lblNewPatient.TabIndex = 5;
-            lblNewPatient.Text = "New Patient Form";
-            lblNewPatient.TextAlign = ContentAlignment.TopCenter;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(188, 22);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(105, 95);
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
             // 
-            // txtLastName
+            // lblTitle
             // 
-            txtLastName.Location = new Point(194, 186);
-            txtLastName.Name = "txtLastName";
-            txtLastName.Size = new Size(179, 23);
-            txtLastName.TabIndex = 6;
+            lblTitle.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            lblTitle.ForeColor = Color.White;
+            lblTitle.Location = new Point(0, 120);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(480, 45);
+            lblTitle.TabIndex = 1;
+            lblTitle.Text = "Add New Patient";
+            lblTitle.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label1
+            // pnlContainer
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(12, 330);
-            label1.Name = "label1";
-            label1.Size = new Size(99, 15);
-            label1.TabIndex = 8;
-            label1.Text = "Contact Number:";
-            label1.TextAlign = ContentAlignment.TopCenter;
-            // 
-            // txtContact
-            // 
-            txtContact.Location = new Point(12, 348);
-            txtContact.Name = "txtContact";
-            txtContact.Size = new Size(219, 23);
-            txtContact.TabIndex = 9;
-            // 
-            // lblAddress
-            // 
-            lblAddress.AutoSize = true;
-            lblAddress.Location = new Point(12, 250);
-            lblAddress.Name = "lblAddress";
-            lblAddress.Size = new Size(52, 15);
-            lblAddress.TabIndex = 10;
-            lblAddress.Text = "Address:";
-            lblAddress.TextAlign = ContentAlignment.TopCenter;
-            // 
-            // txtAddress
-            // 
-            txtAddress.Location = new Point(12, 268);
-            txtAddress.Name = "txtAddress";
-            txtAddress.Size = new Size(219, 23);
-            txtAddress.TabIndex = 11;
-            // 
-            // lblEmergency
-            // 
-            lblEmergency.AutoSize = true;
-            lblEmergency.Location = new Point(237, 330);
-            lblEmergency.Name = "lblEmergency";
-            lblEmergency.Size = new Size(114, 15);
-            lblEmergency.TabIndex = 12;
-            lblEmergency.Text = "Emergency Contact:";
-            lblEmergency.TextAlign = ContentAlignment.TopCenter;
-            // 
-            // txtEmergency
-            // 
-            txtEmergency.Location = new Point(237, 348);
-            txtEmergency.Name = "txtEmergency";
-            txtEmergency.Size = new Size(223, 23);
-            txtEmergency.TabIndex = 13;
-            // 
-            // lblAllergies
-            // 
-            lblAllergies.AutoSize = true;
-            lblAllergies.Location = new Point(12, 410);
-            lblAllergies.Name = "lblAllergies";
-            lblAllergies.Size = new Size(95, 15);
-            lblAllergies.TabIndex = 14;
-            lblAllergies.Text = "Known Allergies:";
-            lblAllergies.TextAlign = ContentAlignment.TopCenter;
-            // 
-            // txtAllergies
-            // 
-            txtAllergies.Location = new Point(12, 428);
-            txtAllergies.Name = "txtAllergies";
-            txtAllergies.Size = new Size(448, 23);
-            txtAllergies.TabIndex = 15;
-            // 
-            // dtpDOB
-            // 
-            dtpDOB.Location = new Point(237, 268);
-            dtpDOB.Name = "dtpDOB";
-            dtpDOB.Size = new Size(223, 23);
-            dtpDOB.TabIndex = 16;
-            // 
-            // lblDOB
-            // 
-            lblDOB.AutoSize = true;
-            lblDOB.Location = new Point(237, 250);
-            lblDOB.Name = "lblDOB";
-            lblDOB.Size = new Size(76, 15);
-            lblDOB.TabIndex = 17;
-            lblDOB.Text = "Date of Birth:";
-            lblDOB.TextAlign = ContentAlignment.TopCenter;
-            // 
-            // cboSex
-            // 
-            cboSex.FormattingEnabled = true;
-            cboSex.Items.AddRange(new object[] { "Male", "Female", "Other" });
-            cboSex.Location = new Point(379, 186);
-            cboSex.Name = "cboSex";
-            cboSex.Size = new Size(81, 23);
-            cboSex.TabIndex = 18;
-            // 
-            // lblSex
-            // 
-            lblSex.AutoSize = true;
-            lblSex.Location = new Point(379, 168);
-            lblSex.Name = "lblSex";
-            lblSex.Size = new Size(27, 15);
-            lblSex.TabIndex = 19;
-            lblSex.Text = "Sex:";
-            lblSex.TextAlign = ContentAlignment.TopCenter;
-            // 
-            // btnSave
-            // 
-            btnSave.DialogResult = DialogResult.OK;
-            btnSave.Location = new Point(367, 474);
-            btnSave.Name = "btnSave";
-            btnSave.RightToLeft = RightToLeft.No;
-            btnSave.Size = new Size(93, 31);
-            btnSave.TabIndex = 20;
-            btnSave.Text = "Save Patient";
-            btnSave.UseVisualStyleBackColor = true;
-            btnSave.Click += btnSave_Click;
-            // 
-            // btnCancel
-            // 
-            btnCancel.BackColor = SystemColors.ControlLightLight;
-            btnCancel.DialogResult = DialogResult.Cancel;
-            btnCancel.ForeColor = SystemColors.ControlText;
-            btnCancel.Location = new Point(268, 474);
-            btnCancel.Name = "btnCancel";
-            btnCancel.RightToLeft = RightToLeft.No;
-            btnCancel.Size = new Size(93, 31);
-            btnCancel.TabIndex = 21;
-            btnCancel.Text = "Cancel";
-            btnCancel.UseVisualStyleBackColor = false;
+            pnlContainer.BackColor = Color.FromArgb(226, 230, 237);
+            pnlContainer.Controls.Add(lblFirstName);
+            pnlContainer.Controls.Add(txtFirstName);
+            pnlContainer.Controls.Add(lblFirstNameError);
+            pnlContainer.Controls.Add(lblLastName);
+            pnlContainer.Controls.Add(txtLastName);
+            pnlContainer.Controls.Add(lblLastNameError);
+            pnlContainer.Controls.Add(lblSex);
+            pnlContainer.Controls.Add(cboSex);
+            pnlContainer.Controls.Add(lblSexError);
+            pnlContainer.Controls.Add(lblDOB);
+            pnlContainer.Controls.Add(dtpDOB);
+            pnlContainer.Controls.Add(lblDobError);
+            pnlContainer.Controls.Add(lblAddress);
+            pnlContainer.Controls.Add(txtAddress);
+            pnlContainer.Controls.Add(lblContact);
+            pnlContainer.Controls.Add(txtContact);
+            pnlContainer.Controls.Add(lblContactError);
+            pnlContainer.Controls.Add(lblEmergency);
+            pnlContainer.Controls.Add(txtEmergency);
+            pnlContainer.Controls.Add(lblEmergencyError);
+            pnlContainer.Controls.Add(lblAllergies);
+            pnlContainer.Controls.Add(txtAllergies);
+            pnlContainer.Controls.Add(btnCancel);
+            pnlContainer.Controls.Add(btnSave);
+            pnlContainer.Location = new Point(20, 170);
+            pnlContainer.Name = "pnlContainer";
+            pnlContainer.Size = new Size(440, 360);
+            pnlContainer.TabIndex = 2;
             // 
             // lblFirstName
             // 
-            lblFirstName.AutoSize = true;
-            lblFirstName.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblFirstName.Location = new Point(12, 168);
+            lblFirstName.Font = new Font("Segoe UI", 9F);
+            lblFirstName.ForeColor = Color.FromArgb(49, 62, 80);
+            lblFirstName.Location = new Point(10, 10);
             lblFirstName.Name = "lblFirstName";
-            lblFirstName.Size = new Size(70, 15);
-            lblFirstName.TabIndex = 22;
+            lblFirstName.Size = new Size(100, 17);
+            lblFirstName.TabIndex = 0;
             lblFirstName.Text = "First Name:";
             // 
-            // lblLastName
+            // txtFirstName
             // 
-            lblLastName.AutoSize = true;
-            lblLastName.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblLastName.Location = new Point(194, 168);
-            lblLastName.Name = "lblLastName";
-            lblLastName.Size = new Size(68, 15);
-            lblLastName.TabIndex = 23;
-            lblLastName.Text = "Last Name:";
+            txtFirstName.Font = new Font("Segoe UI", 9F);
+            txtFirstName.Location = new Point(10, 30);
+            txtFirstName.Name = "txtFirstName";
+            txtFirstName.Size = new Size(200, 23);
+            txtFirstName.TabIndex = 1;
             // 
             // lblFirstNameError
             // 
+            lblFirstNameError.Font = new Font("Segoe UI", 8.5F, FontStyle.Italic);
             lblFirstNameError.ForeColor = Color.Firebrick;
-            lblFirstNameError.Location = new Point(12, 212);
+            lblFirstNameError.Location = new Point(10, 55);
             lblFirstNameError.Name = "lblFirstNameError";
-            lblFirstNameError.Size = new Size(176, 32);
-            lblFirstNameError.TabIndex = 24;
+            lblFirstNameError.Size = new Size(200, 25);
+            lblFirstNameError.TabIndex = 2;
             lblFirstNameError.Visible = false;
+            // 
+            // lblLastName
+            // 
+            lblLastName.Font = new Font("Segoe UI", 9F);
+            lblLastName.ForeColor = Color.FromArgb(49, 62, 80);
+            lblLastName.Location = new Point(220, 10);
+            lblLastName.Name = "lblLastName";
+            lblLastName.Size = new Size(100, 17);
+            lblLastName.TabIndex = 3;
+            lblLastName.Text = "Last Name:";
+            // 
+            // txtLastName
+            // 
+            txtLastName.Font = new Font("Segoe UI", 9F);
+            txtLastName.Location = new Point(220, 30);
+            txtLastName.Name = "txtLastName";
+            txtLastName.Size = new Size(200, 23);
+            txtLastName.TabIndex = 4;
             // 
             // lblLastNameError
             // 
+            lblLastNameError.Font = new Font("Segoe UI", 8.5F, FontStyle.Italic);
             lblLastNameError.ForeColor = Color.Firebrick;
-            lblLastNameError.Location = new Point(194, 212);
+            lblLastNameError.Location = new Point(220, 55);
             lblLastNameError.Name = "lblLastNameError";
-            lblLastNameError.Size = new Size(179, 32);
-            lblLastNameError.TabIndex = 25;
+            lblLastNameError.Size = new Size(200, 25);
+            lblLastNameError.TabIndex = 5;
             lblLastNameError.Visible = false;
+            // 
+            // lblSex
+            // 
+            lblSex.Font = new Font("Segoe UI", 9F);
+            lblSex.ForeColor = Color.FromArgb(49, 62, 80);
+            lblSex.Location = new Point(10, 80);
+            lblSex.Name = "lblSex";
+            lblSex.Size = new Size(100, 17);
+            lblSex.TabIndex = 6;
+            lblSex.Text = "Sex:";
+            // 
+            // cboSex
+            // 
+            cboSex.Font = new Font("Segoe UI", 9F);
+            cboSex.Items.AddRange(new object[] { "Male", "Female", "Other" });
+            cboSex.Location = new Point(10, 100);
+            cboSex.Name = "cboSex";
+            cboSex.Size = new Size(120, 23);
+            cboSex.TabIndex = 7;
             // 
             // lblSexError
             // 
+            lblSexError.Font = new Font("Segoe UI", 8.5F, FontStyle.Italic);
             lblSexError.ForeColor = Color.Firebrick;
-            lblSexError.Location = new Point(379, 212);
+            lblSexError.Location = new Point(10, 125);
             lblSexError.Name = "lblSexError";
-            lblSexError.Size = new Size(81, 32);
-            lblSexError.TabIndex = 26;
+            lblSexError.Size = new Size(120, 25);
+            lblSexError.TabIndex = 8;
             lblSexError.Visible = false;
+            // 
+            // lblDOB
+            // 
+            lblDOB.Font = new Font("Segoe UI", 9F);
+            lblDOB.ForeColor = Color.FromArgb(49, 62, 80);
+            lblDOB.Location = new Point(150, 80);
+            lblDOB.Name = "lblDOB";
+            lblDOB.Size = new Size(100, 17);
+            lblDOB.TabIndex = 9;
+            lblDOB.Text = "Date of Birth:";
+            // 
+            // dtpDOB
+            // 
+            dtpDOB.Font = new Font("Segoe UI", 9F);
+            dtpDOB.Location = new Point(150, 100);
+            dtpDOB.Name = "dtpDOB";
+            dtpDOB.Size = new Size(270, 23);
+            dtpDOB.TabIndex = 10;
             // 
             // lblDobError
             // 
+            lblDobError.Font = new Font("Segoe UI", 8.5F, FontStyle.Italic);
             lblDobError.ForeColor = Color.Firebrick;
-            lblDobError.Location = new Point(237, 294);
+            lblDobError.Location = new Point(150, 125);
             lblDobError.Name = "lblDobError";
-            lblDobError.Size = new Size(223, 32);
-            lblDobError.TabIndex = 27;
+            lblDobError.Size = new Size(270, 25);
+            lblDobError.TabIndex = 11;
             lblDobError.Visible = false;
+            // 
+            // lblAddress
+            // 
+            lblAddress.Font = new Font("Segoe UI", 9F);
+            lblAddress.ForeColor = Color.FromArgb(49, 62, 80);
+            lblAddress.Location = new Point(10, 150);
+            lblAddress.Name = "lblAddress";
+            lblAddress.Size = new Size(100, 17);
+            lblAddress.TabIndex = 12;
+            lblAddress.Text = "Address:";
+            // 
+            // txtAddress
+            // 
+            txtAddress.Font = new Font("Segoe UI", 9F);
+            txtAddress.Location = new Point(10, 170);
+            txtAddress.Name = "txtAddress";
+            txtAddress.Size = new Size(410, 23);
+            txtAddress.TabIndex = 13;
+            // 
+            // lblContact
+            // 
+            lblContact.Font = new Font("Segoe UI", 9F);
+            lblContact.ForeColor = Color.FromArgb(49, 62, 80);
+            lblContact.Location = new Point(10, 200);
+            lblContact.Name = "lblContact";
+            lblContact.Size = new Size(100, 17);
+            lblContact.TabIndex = 14;
+            lblContact.Text = "Contact Number:";
+            // 
+            // txtContact
+            // 
+            txtContact.Font = new Font("Segoe UI", 9F);
+            txtContact.Location = new Point(10, 220);
+            txtContact.Name = "txtContact";
+            txtContact.Size = new Size(200, 23);
+            txtContact.TabIndex = 15;
             // 
             // lblContactError
             // 
+            lblContactError.Font = new Font("Segoe UI", 8.5F, FontStyle.Italic);
             lblContactError.ForeColor = Color.Firebrick;
-            lblContactError.Location = new Point(12, 374);
+            lblContactError.Location = new Point(10, 245);
             lblContactError.Name = "lblContactError";
-            lblContactError.Size = new Size(219, 32);
-            lblContactError.TabIndex = 28;
+            lblContactError.Size = new Size(200, 25);
+            lblContactError.TabIndex = 16;
             lblContactError.Visible = false;
+            // 
+            // lblEmergency
+            // 
+            lblEmergency.Font = new Font("Segoe UI", 9F);
+            lblEmergency.ForeColor = Color.FromArgb(49, 62, 80);
+            lblEmergency.Location = new Point(220, 200);
+            lblEmergency.Name = "lblEmergency";
+            lblEmergency.Size = new Size(100, 17);
+            lblEmergency.TabIndex = 17;
+            lblEmergency.Text = "Emergency Contact:";
+            // 
+            // txtEmergency
+            // 
+            txtEmergency.Font = new Font("Segoe UI", 9F);
+            txtEmergency.Location = new Point(220, 220);
+            txtEmergency.Name = "txtEmergency";
+            txtEmergency.Size = new Size(200, 23);
+            txtEmergency.TabIndex = 18;
             // 
             // lblEmergencyError
             // 
+            lblEmergencyError.Font = new Font("Segoe UI", 8.5F, FontStyle.Italic);
             lblEmergencyError.ForeColor = Color.Firebrick;
-            lblEmergencyError.Location = new Point(237, 374);
+            lblEmergencyError.Location = new Point(220, 245);
             lblEmergencyError.Name = "lblEmergencyError";
-            lblEmergencyError.Size = new Size(223, 32);
-            lblEmergencyError.TabIndex = 29;
+            lblEmergencyError.Size = new Size(200, 25);
+            lblEmergencyError.TabIndex = 19;
             lblEmergencyError.Visible = false;
+            // 
+            // lblAllergies
+            // 
+            lblAllergies.Font = new Font("Segoe UI", 9F);
+            lblAllergies.ForeColor = Color.FromArgb(49, 62, 80);
+            lblAllergies.Location = new Point(10, 270);
+            lblAllergies.Name = "lblAllergies";
+            lblAllergies.Size = new Size(100, 17);
+            lblAllergies.TabIndex = 20;
+            lblAllergies.Text = "Known Allergies:";
+            // 
+            // txtAllergies
+            // 
+            txtAllergies.Font = new Font("Segoe UI", 9F);
+            txtAllergies.Location = new Point(10, 290);
+            txtAllergies.Name = "txtAllergies";
+            txtAllergies.Size = new Size(410, 23);
+            txtAllergies.TabIndex = 21;
+            // 
+            // btnCancel
+            // 
+            btnCancel.BackColor = Color.FromArgb(226, 230, 237);
+            btnCancel.BorderColor = Color.FromArgb(108, 111, 127);
+            btnCancel.Cursor = Cursors.Hand;
+            btnCancel.EnteredBorderColor = Color.FromArgb(108, 111, 127);
+            btnCancel.EnteredColor = Color.FromArgb(69, 85, 97);
+            btnCancel.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
+            btnCancel.Image = null;
+            btnCancel.ImageAlign = ContentAlignment.MiddleLeft;
+            btnCancel.InactiveColor = Color.FromArgb(92, 102, 114);
+            btnCancel.Location = new Point(220, 320);
+            btnCancel.Name = "btnCancel";
+            btnCancel.PressedBorderColor = Color.FromArgb(165, 37, 37);
+            btnCancel.PressedColor = Color.FromArgb(165, 37, 37);
+            btnCancel.Size = new Size(90, 30);
+            btnCancel.TabIndex = 22;
+            btnCancel.Text = "Cancel";
+            btnCancel.TextAlignment = StringAlignment.Center;
+            // 
+            // btnSave
+            // 
+            btnSave.BackColor = Color.Transparent;
+            btnSave.BorderColor = Color.FromArgb(108, 111, 127);
+            btnSave.EnteredBorderColor = Color.FromArgb(108, 111, 127);
+            btnSave.EnteredColor = Color.FromArgb(69, 85, 97);
+            btnSave.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
+            btnSave.Image = null;
+            btnSave.ImageAlign = ContentAlignment.MiddleLeft;
+            btnSave.InactiveColor = Color.FromArgb(26, 35, 48);
+            btnSave.Location = new Point(330, 320);
+            btnSave.Name = "btnSave";
+            btnSave.PressedBorderColor = Color.FromArgb(165, 37, 37);
+            btnSave.PressedColor = Color.FromArgb(165, 37, 37);
+            btnSave.Size = new Size(90, 30);
+            btnSave.TabIndex = 23;
+            btnSave.Text = "Save Patient";
+            btnSave.TextAlignment = StringAlignment.Center;
+            btnSave.Click += btnSave_Click;
             // 
             // AddPatientForm
             // 
-            AcceptButton = btnSave;
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            CancelButton = btnCancel;
-            ClientSize = new Size(472, 522);
-            Controls.Add(lblEmergencyError);
-            Controls.Add(lblContactError);
-            Controls.Add(lblDobError);
-            Controls.Add(lblSexError);
-            Controls.Add(lblLastNameError);
-            Controls.Add(lblFirstNameError);
-            Controls.Add(lblLastName);
-            Controls.Add(lblFirstName);
-            Controls.Add(btnCancel);
-            Controls.Add(btnSave);
-            Controls.Add(lblSex);
-            Controls.Add(cboSex);
-            Controls.Add(lblDOB);
-            Controls.Add(dtpDOB);
-            Controls.Add(txtAllergies);
-            Controls.Add(lblAllergies);
-            Controls.Add(txtEmergency);
-            Controls.Add(lblEmergency);
-            Controls.Add(txtAddress);
-            Controls.Add(lblAddress);
-            Controls.Add(txtContact);
-            Controls.Add(label1);
-            Controls.Add(txtLastName);
-            Controls.Add(lblNewPatient);
-            Controls.Add(txtFirstName);
+            ClientSize = new Size(480, 550);
+            Controls.Add(pnlBackground);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             Name = "AddPatientForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "AddPatientForm";
+            Text = "Add Patient";
+            pnlBackground.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            pnlContainer.ResumeLayout(false);
+            pnlContainer.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
-
-        #endregion
-
-        private TextBox txtFirstName;
-        private Label lblNewPatient;
-        private TextBox txtLastName;
-        private Label label1;
-        private TextBox txtContact;
-        private Label lblAddress;
-        private TextBox txtAddress;
-        private Label lblEmergency;
-        private TextBox txtEmergency;
-        private Label lblAllergies;
-        private TextBox txtAllergies;
-        private DateTimePicker dtpDOB;
-        private Label lblDOB;
-        private ComboBox cboSex;
-        private Label lblSex;
-        private Button btnSave;
-        private Button btnCancel;
-        private Label lblFirstName;
-        private Label lblLastName;
-        private Label lblFirstNameError;
-        private Label lblLastNameError;
-        private Label lblSexError;
-        private Label lblDobError;
-        private Label lblContactError;
-        private Label lblEmergencyError;
     }
 }
