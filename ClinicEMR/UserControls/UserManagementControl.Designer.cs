@@ -37,8 +37,8 @@
             pictureBox3 = new PictureBox();
             label1 = new Label();
             tblFooter = new TableLayoutPanel();
-            btnReEnable = new ReaLTaiizor.Controls.Button();
             btnDeactivate = new ReaLTaiizor.Controls.Button();
+            btnReEnable = new ReaLTaiizor.Controls.Button();
             tblLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsers).BeginInit();
             tblHeader.SuspendLayout();
@@ -56,13 +56,13 @@
             tblLayout.Controls.Add(tblFooter, 0, 2);
             tblLayout.Dock = DockStyle.Fill;
             tblLayout.Location = new Point(0, 0);
-            tblLayout.Margin = new Padding(20);
+            tblLayout.Margin = new Padding(23, 27, 23, 27);
             tblLayout.Name = "tblLayout";
             tblLayout.RowCount = 3;
-            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 59F));
+            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 79F));
             tblLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 140F));
-            tblLayout.Size = new Size(730, 575);
+            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 187F));
+            tblLayout.Size = new Size(834, 767);
             tblLayout.TabIndex = 1;
             // 
             // dgvUsers
@@ -70,28 +70,29 @@
             dgvUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvUsers.Dock = DockStyle.Fill;
-            dgvUsers.Location = new Point(20, 62);
-            dgvUsers.Margin = new Padding(20, 3, 20, 3);
+            dgvUsers.Location = new Point(23, 83);
+            dgvUsers.Margin = new Padding(23, 4, 23, 4);
             dgvUsers.Name = "dgvUsers";
             dgvUsers.ReadOnly = true;
+            dgvUsers.RowHeadersWidth = 51;
             dgvUsers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvUsers.Size = new Size(690, 370);
+            dgvUsers.Size = new Size(788, 493);
             dgvUsers.TabIndex = 6;
             // 
             // tblHeader
             // 
             tblHeader.ColumnCount = 2;
             tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.3958025F));
-            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 137F));
+            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 157F));
             tblHeader.Controls.Add(btnAddUser, 1, 0);
             tblHeader.Controls.Add(tableLayoutPanel1, 0, 0);
             tblHeader.Dock = DockStyle.Fill;
-            tblHeader.Location = new Point(20, 20);
-            tblHeader.Margin = new Padding(20, 20, 20, 3);
+            tblHeader.Location = new Point(23, 27);
+            tblHeader.Margin = new Padding(23, 27, 23, 4);
             tblHeader.Name = "tblHeader";
             tblHeader.RowCount = 1;
             tblHeader.RowStyles.Add(new RowStyle(SizeType.Percent, 38.5964928F));
-            tblHeader.Size = new Size(690, 36);
+            tblHeader.Size = new Size(788, 48);
             tblHeader.TabIndex = 0;
             // 
             // btnAddUser
@@ -106,11 +107,12 @@
             btnAddUser.Image = null;
             btnAddUser.ImageAlign = ContentAlignment.MiddleLeft;
             btnAddUser.InactiveColor = Color.FromArgb(26, 35, 48);
-            btnAddUser.Location = new Point(607, 3);
+            btnAddUser.Location = new Point(685, 4);
+            btnAddUser.Margin = new Padding(3, 4, 3, 4);
             btnAddUser.Name = "btnAddUser";
             btnAddUser.PressedBorderColor = Color.FromArgb(108, 111, 127);
             btnAddUser.PressedColor = Color.FromArgb(108, 111, 127);
-            btnAddUser.Size = new Size(80, 30);
+            btnAddUser.Size = new Size(100, 40);
             btnAddUser.TabIndex = 22;
             btnAddUser.Text = "New User";
             btnAddUser.TextAlignment = StringAlignment.Center;
@@ -123,11 +125,12 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 94.69836F));
             tableLayoutPanel1.Controls.Add(pictureBox3, 0, 0);
             tableLayoutPanel1.Controls.Add(label1, 1, 0);
-            tableLayoutPanel1.Location = new Point(3, 3);
+            tableLayoutPanel1.Location = new Point(3, 4);
+            tableLayoutPanel1.Margin = new Padding(3, 4, 3, 4);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(547, 30);
+            tableLayoutPanel1.Size = new Size(625, 40);
             tableLayoutPanel1.TabIndex = 20;
             // 
             // pictureBox3
@@ -137,7 +140,7 @@
             pictureBox3.Location = new Point(0, 0);
             pictureBox3.Margin = new Padding(0);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(29, 30);
+            pictureBox3.Size = new Size(33, 40);
             pictureBox3.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox3.TabIndex = 0;
             pictureBox3.TabStop = false;
@@ -148,50 +151,28 @@
             label1.AutoSize = true;
             label1.Font = new Font("Panton-Trial ExtraBold", 14F, FontStyle.Bold);
             label1.ForeColor = Color.FromArgb(26, 35, 48);
-            label1.Location = new Point(32, 3);
+            label1.Location = new Point(36, 4);
             label1.Name = "label1";
-            label1.Size = new Size(131, 24);
+            label1.Size = new Size(168, 31);
             label1.TabIndex = 1;
             label1.Text = "Manage Users";
             // 
             // tblFooter
             // 
             tblFooter.ColumnCount = 2;
-            tblFooter.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 86.95652F));
-            tblFooter.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.043478F));
+            tblFooter.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tblFooter.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 106F));
             tblFooter.Controls.Add(btnDeactivate, 1, 0);
             tblFooter.Controls.Add(btnReEnable, 0, 0);
             tblFooter.Dock = DockStyle.Fill;
-            tblFooter.Location = new Point(20, 438);
-            tblFooter.Margin = new Padding(20, 3, 20, 3);
+            tblFooter.Location = new Point(23, 584);
+            tblFooter.Margin = new Padding(23, 4, 23, 4);
             tblFooter.Name = "tblFooter";
             tblFooter.RowCount = 2;
             tblFooter.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tblFooter.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tblFooter.Size = new Size(690, 134);
+            tblFooter.Size = new Size(788, 179);
             tblFooter.TabIndex = 7;
-            // 
-            // btnReEnable
-            // 
-            btnReEnable.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnReEnable.BackColor = Color.FromArgb(226, 230, 237);
-            btnReEnable.BorderColor = Color.FromArgb(108, 111, 127);
-            btnReEnable.Cursor = Cursors.Hand;
-            btnReEnable.EnteredBorderColor = Color.FromArgb(108, 111, 127);
-            btnReEnable.EnteredColor = Color.FromArgb(69, 85, 97);
-            btnReEnable.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
-            btnReEnable.Image = null;
-            btnReEnable.ImageAlign = ContentAlignment.MiddleLeft;
-            btnReEnable.InactiveColor = Color.FromArgb(92, 102, 114);
-            btnReEnable.Location = new Point(517, 3);
-            btnReEnable.Name = "btnReEnable";
-            btnReEnable.PressedBorderColor = Color.FromArgb(108, 111, 127);
-            btnReEnable.PressedColor = Color.FromArgb(108, 111, 127);
-            btnReEnable.Size = new Size(80, 30);
-            btnReEnable.TabIndex = 23;
-            btnReEnable.Text = "Re-Enable";
-            btnReEnable.TextAlignment = StringAlignment.Center;
-            btnReEnable.Click += btnReEnable_Click;
             // 
             // btnDeactivate
             // 
@@ -205,23 +186,48 @@
             btnDeactivate.Image = null;
             btnDeactivate.ImageAlign = ContentAlignment.MiddleLeft;
             btnDeactivate.InactiveColor = Color.FromArgb(92, 102, 114);
-            btnDeactivate.Location = new Point(607, 3);
+            btnDeactivate.Location = new Point(685, 4);
+            btnDeactivate.Margin = new Padding(3, 4, 3, 4);
             btnDeactivate.Name = "btnDeactivate";
             btnDeactivate.PressedBorderColor = Color.FromArgb(108, 111, 127);
             btnDeactivate.PressedColor = Color.FromArgb(108, 111, 127);
-            btnDeactivate.Size = new Size(80, 30);
+            btnDeactivate.Size = new Size(100, 40);
             btnDeactivate.TabIndex = 24;
             btnDeactivate.Text = "Deactivate";
             btnDeactivate.TextAlignment = StringAlignment.Center;
             btnDeactivate.Click += btnDeactivate_Click;
             // 
+            // btnReEnable
+            // 
+            btnReEnable.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnReEnable.BackColor = Color.FromArgb(226, 230, 237);
+            btnReEnable.BorderColor = Color.FromArgb(108, 111, 127);
+            btnReEnable.Cursor = Cursors.Hand;
+            btnReEnable.EnteredBorderColor = Color.FromArgb(108, 111, 127);
+            btnReEnable.EnteredColor = Color.FromArgb(69, 85, 97);
+            btnReEnable.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
+            btnReEnable.Image = null;
+            btnReEnable.ImageAlign = ContentAlignment.MiddleLeft;
+            btnReEnable.InactiveColor = Color.FromArgb(92, 102, 114);
+            btnReEnable.Location = new Point(579, 4);
+            btnReEnable.Margin = new Padding(3, 4, 3, 4);
+            btnReEnable.Name = "btnReEnable";
+            btnReEnable.PressedBorderColor = Color.FromArgb(108, 111, 127);
+            btnReEnable.PressedColor = Color.FromArgb(108, 111, 127);
+            btnReEnable.Size = new Size(100, 40);
+            btnReEnable.TabIndex = 23;
+            btnReEnable.Text = "Re-Enable";
+            btnReEnable.TextAlignment = StringAlignment.Center;
+            btnReEnable.Click += btnReEnable_Click;
+            // 
             // UserManagementControl
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(tblLayout);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "UserManagementControl";
-            Size = new Size(730, 575);
+            Size = new Size(834, 767);
             Load += UserManagementControl_Load;
             tblLayout.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvUsers).EndInit();

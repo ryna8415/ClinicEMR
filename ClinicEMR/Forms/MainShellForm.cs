@@ -57,7 +57,6 @@ namespace ClinicEMR.Forms
             InitializeComponent();
             _currentUser = user;
             BuildControls();
-            ThemeService.ApplyTheme(this);
             BuildSidebar();
             ApplyRolePermissions();
             ShowStartScreen();
@@ -85,6 +84,8 @@ namespace ClinicEMR.Forms
             lblUserName.ForeColor = Color.White;
             lblUserRole.ForeColor = Color.FromArgb(202, 219, 233);
 
+            ConfigureSidebarIndicator();
+
             foreach (var button in _navButtons.Values)
             {
                 button.Visible = false;
@@ -108,6 +109,16 @@ namespace ClinicEMR.Forms
             btnLogout.MouseLeave += LogoutButton_MouseLeave;
 
             pnlSide.Visible = false;
+        }
+
+        private void ConfigureSidebarIndicator()
+        {
+            // Keep the indicator from affecting AutoSize row measurements.
+            pnlSide.Dock = DockStyle.None;
+            pnlSide.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            pnlSide.Margin = new Padding(0);
+            pnlSide.Size = new Size(6, ThemeService.Sizes.ButtonHeight);
+            pnlSide.BringToFront();
         }
 
         private void BuildControls()
@@ -281,7 +292,6 @@ namespace ClinicEMR.Forms
         {
             pnlSide.Visible = true;
             pnlSidebar.SetRow(pnlSide, pnlSidebar.GetRow(button));
-            pnlSide.BringToFront();
         }
 
         public void NavigateTo(string screen, int? id = null)

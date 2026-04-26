@@ -70,10 +70,10 @@ namespace ClinicEMR.Forms
             pnlContentbg.BackColor = Color.FromArgb(49, 62, 80);
             pnlContentbg.Controls.Add(tableLayoutPanel1);
             pnlContentbg.Dock = DockStyle.Fill;
-            pnlContentbg.Location = new Point(179, 20);
+            pnlContentbg.Location = new Point(193, 27);
             pnlContentbg.Margin = new Padding(0);
             pnlContentbg.Name = "pnlContentbg";
-            pnlContentbg.Size = new Size(801, 640);
+            pnlContentbg.Size = new Size(865, 699);
             pnlContentbg.TabIndex = 1;
             // 
             // tableLayoutPanel1
@@ -85,22 +85,23 @@ namespace ClinicEMR.Forms
             tableLayoutPanel1.Controls.Add(panel2, 0, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Margin = new Padding(3, 4, 3, 4);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 3;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 13F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(801, 640);
+            tableLayoutPanel1.Size = new Size(865, 699);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(49, 62, 80);
             panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 45);
+            panel1.Location = new Point(0, 60);
             panel1.Margin = new Padding(0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(801, 10);
+            panel1.Size = new Size(865, 13);
             panel1.TabIndex = 0;
             // 
             // pnlContent
@@ -109,13 +110,14 @@ namespace ClinicEMR.Forms
             pnlContent.ColumnCount = 1;
             pnlContent.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             pnlContent.Dock = DockStyle.Fill;
-            pnlContent.Location = new Point(0, 55);
+            pnlContent.Location = new Point(0, 73);
             pnlContent.Margin = new Padding(0);
-            pnlContent.MinimumSize = new Size(261, 61);
+            pnlContent.MinimumSize = new Size(298, 81);
             pnlContent.Name = "pnlContent";
+            pnlContent.Padding = new Padding(5, 0, 0, 0);
             pnlContent.RowCount = 1;
             pnlContent.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            pnlContent.Size = new Size(801, 585);
+            pnlContent.Size = new Size(865, 626);
             pnlContent.TabIndex = 1;
             // 
             // panel2
@@ -126,7 +128,7 @@ namespace ClinicEMR.Forms
             panel2.Location = new Point(0, 0);
             panel2.Margin = new Padding(0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(801, 45);
+            panel2.Size = new Size(865, 60);
             panel2.TabIndex = 2;
             // 
             // btnHeader
@@ -144,11 +146,11 @@ namespace ClinicEMR.Forms
             btnHeader.Location = new Point(0, 0);
             btnHeader.Margin = new Padding(3, 0, 0, 0);
             btnHeader.Name = "btnHeader";
-            btnHeader.Padding = new Padding(20, 10, 10, 10);
+            btnHeader.Padding = new Padding(23, 13, 11, 13);
             btnHeader.PressedBorderColor = Color.Transparent;
             btnHeader.PressedColor = Color.Transparent;
             btnHeader.RightToLeft = RightToLeft.Yes;
-            btnHeader.Size = new Size(801, 45);
+            btnHeader.Size = new Size(865, 60);
             btnHeader.TabIndex = 1;
             btnHeader.Text = "  Hello!";
             btnHeader.TextAlignment = StringAlignment.Near;
@@ -158,10 +160,10 @@ namespace ClinicEMR.Forms
             pnlSide.BackColor = Color.FromArgb(92, 143, 204);
             pnlSide.Dock = DockStyle.Fill;
             pnlSide.ForeColor = Color.LightGray;
-            pnlSide.Location = new Point(169, 92);
+            pnlSide.Location = new Point(187, 124);
             pnlSide.Margin = new Padding(0);
             pnlSide.Name = "pnlSide";
-            pnlSide.Size = new Size(5, 41);
+            pnlSide.Size = new Size(6, 50);
             pnlSide.TabIndex = 12;
             // 
             // tblFooter
@@ -174,17 +176,18 @@ namespace ClinicEMR.Forms
             tblFooter.Controls.Add(btnLogout, 0, 6);
             tblFooter.Controls.Add(button3, 0, 5);
             tblFooter.Dock = DockStyle.Bottom;
-            tblFooter.Location = new Point(3, 508);
+            tblFooter.Location = new Point(8, 562);
+            tblFooter.Margin = new Padding(3, 4, 3, 4);
             tblFooter.Name = "tblFooter";
             tblFooter.RowCount = 7;
-            tblFooter.RowStyles.Add(new RowStyle(SizeType.Absolute, 2F));
-            tblFooter.RowStyles.Add(new RowStyle(SizeType.Absolute, 5F));
-            tblFooter.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tblFooter.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tblFooter.RowStyles.Add(new RowStyle(SizeType.Absolute, 5F));
-            tblFooter.RowStyles.Add(new RowStyle(SizeType.Absolute, 2F));
+            tblFooter.RowStyles.Add(new RowStyle(SizeType.Absolute, 3F));
+            tblFooter.RowStyles.Add(new RowStyle(SizeType.Absolute, 7F));
+            tblFooter.RowStyles.Add(new RowStyle(SizeType.Absolute, 27F));
+            tblFooter.RowStyles.Add(new RowStyle(SizeType.Absolute, 27F));
+            tblFooter.RowStyles.Add(new RowStyle(SizeType.Absolute, 7F));
+            tblFooter.RowStyles.Add(new RowStyle(SizeType.Absolute, 3F));
             tblFooter.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tblFooter.Size = new Size(155, 123);
+            tblFooter.Size = new Size(167, 133);
             tblFooter.TabIndex = 0;
             // 
             // button2
@@ -202,11 +205,11 @@ namespace ClinicEMR.Forms
             button2.Location = new Point(0, 0);
             button2.Margin = new Padding(0);
             button2.Name = "button2";
-            button2.Padding = new Padding(10, 10, 10, 100);
+            button2.Padding = new Padding(11, 13, 11, 133);
             button2.PressedBorderColor = Color.Transparent;
             button2.PressedColor = Color.Transparent;
             button2.RightToLeft = RightToLeft.Yes;
-            button2.Size = new Size(155, 2);
+            button2.Size = new Size(167, 3);
             button2.TabIndex = 14;
             button2.TextAlignment = StringAlignment.Near;
             // 
@@ -215,9 +218,9 @@ namespace ClinicEMR.Forms
             lblUserRole.Anchor = AnchorStyles.Top;
             lblUserRole.AutoSize = true;
             lblUserRole.ForeColor = Color.Black;
-            lblUserRole.Location = new Point(77, 27);
+            lblUserRole.Location = new Point(83, 37);
             lblUserRole.Name = "lblUserRole";
-            lblUserRole.Size = new Size(0, 15);
+            lblUserRole.Size = new Size(0, 20);
             lblUserRole.TabIndex = 1;
             // 
             // lblUserName
@@ -225,9 +228,9 @@ namespace ClinicEMR.Forms
             lblUserName.Anchor = AnchorStyles.Top;
             lblUserName.AutoSize = true;
             lblUserName.Font = new Font("Franklin Gothic Medium", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblUserName.Location = new Point(77, 7);
+            lblUserName.Location = new Point(83, 10);
             lblUserName.Name = "lblUserName";
-            lblUserName.Size = new Size(0, 17);
+            lblUserName.Size = new Size(0, 21);
             lblUserName.TabIndex = 0;
             // 
             // btnLogout
@@ -240,11 +243,11 @@ namespace ClinicEMR.Forms
             btnLogout.ForeColor = Color.White;
             btnLogout.Image = (Image)resources.GetObject("btnLogout.Image");
             btnLogout.ImageAlign = ContentAlignment.MiddleLeft;
-            btnLogout.Location = new Point(0, 86);
+            btnLogout.Location = new Point(0, 85);
             btnLogout.Margin = new Padding(0, 3, 0, 3);
             btnLogout.Name = "btnLogout";
-            btnLogout.Padding = new Padding(3, 0, 0, 0);
-            btnLogout.Size = new Size(155, 34);
+            btnLogout.Padding = new Padding(5, 0, 0, 0);
+            btnLogout.Size = new Size(167, 45);
             btnLogout.TabIndex = 11;
             btnLogout.Text = "     Log Out";
             btnLogout.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -262,14 +265,14 @@ namespace ClinicEMR.Forms
             button3.Image = null;
             button3.ImageAlign = ContentAlignment.BottomLeft;
             button3.InactiveColor = Color.FromArgb(108, 111, 127);
-            button3.Location = new Point(0, 52);
+            button3.Location = new Point(0, 71);
             button3.Margin = new Padding(0);
             button3.Name = "button3";
-            button3.Padding = new Padding(10, 10, 10, 100);
+            button3.Padding = new Padding(11, 13, 11, 133);
             button3.PressedBorderColor = Color.Transparent;
             button3.PressedColor = Color.Transparent;
             button3.RightToLeft = RightToLeft.Yes;
-            button3.Size = new Size(155, 2);
+            button3.Size = new Size(167, 3);
             button3.TabIndex = 15;
             button3.TextAlignment = StringAlignment.Near;
             // 
@@ -284,11 +287,11 @@ namespace ClinicEMR.Forms
             btnUsers.ForeColor = Color.White;
             btnUsers.Image = (Image)resources.GetObject("btnUsers.Image");
             btnUsers.ImageAlign = ContentAlignment.MiddleLeft;
-            btnUsers.Location = new Point(0, 423);
+            btnUsers.Location = new Point(5, 513);
             btnUsers.Margin = new Padding(0, 3, 0, 3);
             btnUsers.Name = "btnUsers";
-            btnUsers.Padding = new Padding(3, 0, 0, 0);
-            btnUsers.Size = new Size(169, 35);
+            btnUsers.Padding = new Padding(5, 0, 0, 0);
+            btnUsers.Size = new Size(182, 42);
             btnUsers.TabIndex = 10;
             btnUsers.Text = "     Users";
             btnUsers.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -305,11 +308,11 @@ namespace ClinicEMR.Forms
             btnReports.ForeColor = Color.White;
             btnReports.Image = (Image)resources.GetObject("btnReports.Image");
             btnReports.ImageAlign = ContentAlignment.MiddleLeft;
-            btnReports.Location = new Point(0, 382);
+            btnReports.Location = new Point(5, 465);
             btnReports.Margin = new Padding(0, 3, 0, 3);
             btnReports.Name = "btnReports";
-            btnReports.Padding = new Padding(3, 0, 0, 0);
-            btnReports.Size = new Size(169, 35);
+            btnReports.Padding = new Padding(5, 0, 0, 0);
+            btnReports.Size = new Size(182, 42);
             btnReports.TabIndex = 9;
             btnReports.Text = "     Reports";
             btnReports.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -320,8 +323,8 @@ namespace ClinicEMR.Forms
             pnlSidebar.BackColor = Color.Transparent;
             pnlSidebar.ColumnCount = 3;
             pnlSidebar.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            pnlSidebar.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 8F));
-            pnlSidebar.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 5F));
+            pnlSidebar.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 9F));
+            pnlSidebar.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 6F));
             pnlSidebar.Controls.Add(pnlSide, 2, 4);
             pnlSidebar.Controls.Add(tblFooter, 0, 13);
             pnlSidebar.Controls.Add(btnUsers, 0, 12);
@@ -337,14 +340,15 @@ namespace ClinicEMR.Forms
             pnlSidebar.Controls.Add(lblAppName, 0, 1);
             pnlSidebar.Controls.Add(pictureBox1, 0, 0);
             pnlSidebar.Dock = DockStyle.Fill;
-            pnlSidebar.Location = new Point(5, 23);
-            pnlSidebar.Margin = new Padding(5, 3, 0, 3);
+            pnlSidebar.Location = new Point(0, 30);
+            pnlSidebar.Margin = new Padding(0, 3, 0, 3);
             pnlSidebar.Name = "pnlSidebar";
+            pnlSidebar.Padding = new Padding(5, 0, 0, 0);
             pnlSidebar.RowCount = 14;
-            pnlSidebar.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-            pnlSidebar.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            pnlSidebar.RowStyles.Add(new RowStyle(SizeType.Absolute, 2F));
-            pnlSidebar.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            pnlSidebar.RowStyles.Add(new RowStyle(SizeType.Absolute, 67F));
+            pnlSidebar.RowStyles.Add(new RowStyle(SizeType.Absolute, 27F));
+            pnlSidebar.RowStyles.Add(new RowStyle(SizeType.Absolute, 3F));
+            pnlSidebar.RowStyles.Add(new RowStyle(SizeType.Absolute, 27F));
             pnlSidebar.RowStyles.Add(new RowStyle());
             pnlSidebar.RowStyles.Add(new RowStyle());
             pnlSidebar.RowStyles.Add(new RowStyle());
@@ -354,8 +358,8 @@ namespace ClinicEMR.Forms
             pnlSidebar.RowStyles.Add(new RowStyle());
             pnlSidebar.RowStyles.Add(new RowStyle());
             pnlSidebar.RowStyles.Add(new RowStyle());
-            pnlSidebar.RowStyles.Add(new RowStyle(SizeType.Absolute, 106F));
-            pnlSidebar.Size = new Size(174, 634);
+            pnlSidebar.RowStyles.Add(new RowStyle(SizeType.Absolute, 141F));
+            pnlSidebar.Size = new Size(193, 693);
             pnlSidebar.TabIndex = 0;
             // 
             // btnMedHistory
@@ -369,11 +373,11 @@ namespace ClinicEMR.Forms
             btnMedHistory.ForeColor = Color.White;
             btnMedHistory.Image = (Image)resources.GetObject("btnMedHistory.Image");
             btnMedHistory.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMedHistory.Location = new Point(0, 341);
+            btnMedHistory.Location = new Point(5, 417);
             btnMedHistory.Margin = new Padding(0, 3, 0, 3);
             btnMedHistory.Name = "btnMedHistory";
-            btnMedHistory.Padding = new Padding(3, 0, 0, 0);
-            btnMedHistory.Size = new Size(169, 35);
+            btnMedHistory.Padding = new Padding(5, 0, 0, 0);
+            btnMedHistory.Size = new Size(182, 42);
             btnMedHistory.TabIndex = 8;
             btnMedHistory.Text = "     Clinical Hx";
             btnMedHistory.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -390,11 +394,11 @@ namespace ClinicEMR.Forms
             btnRx.ForeColor = Color.White;
             btnRx.Image = (Image)resources.GetObject("btnRx.Image");
             btnRx.ImageAlign = ContentAlignment.MiddleLeft;
-            btnRx.Location = new Point(0, 300);
+            btnRx.Location = new Point(5, 369);
             btnRx.Margin = new Padding(0, 3, 0, 3);
             btnRx.Name = "btnRx";
-            btnRx.Padding = new Padding(3, 0, 0, 0);
-            btnRx.Size = new Size(169, 35);
+            btnRx.Padding = new Padding(5, 0, 0, 0);
+            btnRx.Size = new Size(182, 42);
             btnRx.TabIndex = 7;
             btnRx.Text = "     Prescription";
             btnRx.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -411,11 +415,11 @@ namespace ClinicEMR.Forms
             btnConsult.ForeColor = Color.White;
             btnConsult.Image = (Image)resources.GetObject("btnConsult.Image");
             btnConsult.ImageAlign = ContentAlignment.MiddleLeft;
-            btnConsult.Location = new Point(0, 259);
+            btnConsult.Location = new Point(5, 321);
             btnConsult.Margin = new Padding(0, 3, 0, 3);
             btnConsult.Name = "btnConsult";
-            btnConsult.Padding = new Padding(3, 0, 0, 0);
-            btnConsult.Size = new Size(169, 35);
+            btnConsult.Padding = new Padding(5, 0, 0, 0);
+            btnConsult.Size = new Size(182, 42);
             btnConsult.TabIndex = 6;
             btnConsult.Text = "     Consultation";
             btnConsult.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -432,11 +436,11 @@ namespace ClinicEMR.Forms
             btnVitals.ForeColor = Color.White;
             btnVitals.Image = (Image)resources.GetObject("btnVitals.Image");
             btnVitals.ImageAlign = ContentAlignment.MiddleLeft;
-            btnVitals.Location = new Point(0, 218);
+            btnVitals.Location = new Point(5, 273);
             btnVitals.Margin = new Padding(0, 3, 0, 3);
             btnVitals.Name = "btnVitals";
-            btnVitals.Padding = new Padding(3, 0, 0, 0);
-            btnVitals.Size = new Size(169, 35);
+            btnVitals.Padding = new Padding(5, 0, 0, 0);
+            btnVitals.Size = new Size(182, 42);
             btnVitals.TabIndex = 5;
             btnVitals.Text = "     Vitals";
             btnVitals.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -453,11 +457,11 @@ namespace ClinicEMR.Forms
             btnAppts.ForeColor = Color.White;
             btnAppts.Image = (Image)resources.GetObject("btnAppts.Image");
             btnAppts.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAppts.Location = new Point(0, 177);
+            btnAppts.Location = new Point(5, 225);
             btnAppts.Margin = new Padding(0, 3, 0, 3);
             btnAppts.Name = "btnAppts";
-            btnAppts.Padding = new Padding(3, 0, 0, 0);
-            btnAppts.Size = new Size(169, 35);
+            btnAppts.Padding = new Padding(5, 0, 0, 0);
+            btnAppts.Size = new Size(182, 42);
             btnAppts.TabIndex = 4;
             btnAppts.Text = "     Appointments";
             btnAppts.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -474,11 +478,11 @@ namespace ClinicEMR.Forms
             btnPatients.ForeColor = Color.White;
             btnPatients.Image = (Image)resources.GetObject("btnPatients.Image");
             btnPatients.ImageAlign = ContentAlignment.MiddleLeft;
-            btnPatients.Location = new Point(0, 136);
+            btnPatients.Location = new Point(5, 177);
             btnPatients.Margin = new Padding(0, 3, 0, 3);
             btnPatients.Name = "btnPatients";
-            btnPatients.Padding = new Padding(3, 0, 0, 0);
-            btnPatients.Size = new Size(169, 35);
+            btnPatients.Padding = new Padding(5, 0, 0, 0);
+            btnPatients.Size = new Size(182, 42);
             btnPatients.TabIndex = 3;
             btnPatients.Text = "     Patients";
             btnPatients.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -495,11 +499,11 @@ namespace ClinicEMR.Forms
             btnDashboard.ForeColor = Color.White;
             btnDashboard.Image = (Image)resources.GetObject("btnDashboard.Image");
             btnDashboard.ImageAlign = ContentAlignment.MiddleLeft;
-            btnDashboard.Location = new Point(0, 95);
+            btnDashboard.Location = new Point(5, 127);
             btnDashboard.Margin = new Padding(0, 3, 0, 3);
             btnDashboard.Name = "btnDashboard";
-            btnDashboard.Padding = new Padding(3, 0, 0, 0);
-            btnDashboard.Size = new Size(169, 35);
+            btnDashboard.Padding = new Padding(5, 0, 0, 0);
+            btnDashboard.Size = new Size(182, 44);
             btnDashboard.TabIndex = 2;
             btnDashboard.Text = "     Dashboard";
             btnDashboard.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -517,14 +521,14 @@ namespace ClinicEMR.Forms
             button1.Image = null;
             button1.ImageAlign = ContentAlignment.BottomLeft;
             button1.InactiveColor = Color.FromArgb(108, 111, 127);
-            button1.Location = new Point(0, 70);
+            button1.Location = new Point(5, 94);
             button1.Margin = new Padding(0);
             button1.Name = "button1";
-            button1.Padding = new Padding(10);
+            button1.Padding = new Padding(11, 13, 11, 13);
             button1.PressedBorderColor = Color.Transparent;
             button1.PressedColor = Color.Transparent;
             button1.RightToLeft = RightToLeft.Yes;
-            button1.Size = new Size(161, 2);
+            button1.Size = new Size(173, 3);
             button1.TabIndex = 15;
             button1.TextAlignment = StringAlignment.Near;
             // 
@@ -534,9 +538,9 @@ namespace ClinicEMR.Forms
             lblAppName.Dock = DockStyle.Fill;
             lblAppName.Font = new Font("Panton-Trial", 8.249999F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblAppName.ForeColor = Color.FromArgb(108, 111, 127);
-            lblAppName.Location = new Point(3, 50);
+            lblAppName.Location = new Point(8, 67);
             lblAppName.Name = "lblAppName";
-            lblAppName.Size = new Size(155, 20);
+            lblAppName.Size = new Size(167, 27);
             lblAppName.TabIndex = 16;
             lblAppName.Text = "Digital MedRecords System";
             lblAppName.TextAlign = ContentAlignment.TopCenter;
@@ -545,9 +549,10 @@ namespace ClinicEMR.Forms
             // 
             pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(3, 3);
+            pictureBox1.Location = new Point(8, 4);
+            pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(155, 44);
+            pictureBox1.Size = new Size(167, 59);
             pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox1.TabIndex = 17;
             pictureBox1.TabStop = false;
@@ -558,31 +563,34 @@ namespace ClinicEMR.Forms
             tblBackground.ColumnCount = 3;
             tblBackground.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 18.2653065F));
             tblBackground.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 81.7346954F));
-            tblBackground.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tblBackground.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
             tblBackground.Controls.Add(pnlSidebar, 0, 1);
             tblBackground.Controls.Add(pnlContentbg, 1, 1);
             tblBackground.Dock = DockStyle.Fill;
             tblBackground.Location = new Point(0, 0);
-            tblBackground.Margin = new Padding(0, 3, 3, 3);
+            tblBackground.Margin = new Padding(0, 4, 3, 4);
             tblBackground.Name = "tblBackground";
             tblBackground.RowCount = 3;
-            tblBackground.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tblBackground.RowStyles.Add(new RowStyle(SizeType.Absolute, 27F));
             tblBackground.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tblBackground.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tblBackground.Size = new Size(1000, 680);
+            tblBackground.RowStyles.Add(new RowStyle(SizeType.Absolute, 27F));
+            tblBackground.Size = new Size(1082, 753);
             tblBackground.TabIndex = 1;
             // 
             // MainShellForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1000, 680);
+            ClientSize = new Size(1082, 753);
             Controls.Add(tblBackground);
-            MinimumSize = new Size(1000, 680);
+            Margin = new Padding(3, 4, 3, 4);
+            MaximizeBox = false;
+            MaximumSize = new Size(2200, 1600);
+            MinimumSize = new Size(1100, 800);
             Name = "MainShellForm";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "themeForm1";
+            Text = "ClinicKa";
             TransparencyKey = Color.Fuchsia;
             pnlContentbg.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);

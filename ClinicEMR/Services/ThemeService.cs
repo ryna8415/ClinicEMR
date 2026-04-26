@@ -40,11 +40,6 @@ namespace ClinicEMR.Services
             public const int MD = 12;
             public const int LG = 16;
             public const int XL = 24;
-
-            public static readonly Padding FormPadding = new(16);
-            public static readonly Padding SectionPadding = new(12);
-            public static readonly Padding ButtonPadding = new(12, 0, 12, 0);
-            public static readonly Padding SidebarButtonPadding = new(3, 0, 0, 0);
         }
 
         internal static class Sizes
@@ -69,11 +64,6 @@ namespace ClinicEMR.Services
             ApplyThemeRecursive(root);
         }
 
-        public static void StylePrimaryButton(Button button)
-        {
-            // Button styling is handled manually per form/control.
-        }
-
         public static void StyleSidebarButton(Button button)
         {
             button.FlatStyle = FlatStyle.Flat;
@@ -83,7 +73,6 @@ namespace ClinicEMR.Services
             button.BackColor = Color.Transparent;
             button.ForeColor = UITheme.SidebarText;
             button.Height = Sizes.ButtonHeight;
-            button.Padding = Spacing.SidebarButtonPadding;
             button.TextAlign = ContentAlignment.MiddleLeft;
             button.ImageAlign = ContentAlignment.MiddleLeft;
             button.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -223,15 +212,18 @@ namespace ClinicEMR.Services
 
         public static void ApplyRoundedCorners(TableLayoutPanel panel, int radius)
         {
-            GraphicsPath path = new GraphicsPath();
+            void ApplyRounded()
+            {
+                if (panel.Width <= 0 || panel.Height <= 0)
+                    return;
 
-            path.AddArc(0, 0, radius, radius, 180, 90);
-            path.AddArc(panel.Width - radius, 0, radius, radius, 260, 90);
-            path.AddArc(panel.Width - radius, panel.Height - radius, radius, radius, 0, 90);
-            path.AddArc(0, panel.Height - radius, radius, radius, 90, 90);
-            path.CloseAllFigures();
+                using GraphicsPath path = BuildRoundedPath(panel.ClientRectangle, radius);
+                panel.Region = new Region(path);
+            }
 
-            panel.Region = new Region(path);
+            panel.HandleCreated += (_, _) => ApplyRounded();
+            panel.SizeChanged += (_, _) => ApplyRounded();
+            ApplyRounded();
         }
 
         public static void TryRoundGrid(DataGridView grid, int radius)
