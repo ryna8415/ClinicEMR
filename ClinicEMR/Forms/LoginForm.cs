@@ -10,6 +10,11 @@ namespace ClinicEMR
         {
             InitializeComponent();
             ThemeService.ApplyTheme(this);
+
+            btnLogin.InactiveColor = Color.FromArgb(32, 34, 37);      // normal: dark
+            btnLogin.EnteredColor = Color.FromArgb(80, 80, 80);        // hover: lighter gray
+            btnLogin.EnteredBorderColor = Color.FromArgb(80, 80, 80);
+            btnLogin.PressedColor = Color.FromArgb(165, 37, 37);       // click: red accent
         }
 
         private int _failCount = 0;

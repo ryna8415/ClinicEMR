@@ -14,14 +14,14 @@
         }
 
         private Panel pnlBackground;
-        private Panel pnlContainer;
+        private RoundedPanel pnlContainer;
         private Label lblTitle;
         private PictureBox pictureBox1;
 
         private Label lblUsername;
-        private TextBox txtUsername;
+        private RoundedTextBox txtUsername;
         private Label lblPassword;
-        private TextBox txtPassword;
+        private RoundedTextBox txtPassword;
         private Label lblError;
 
         private ReaLTaiizor.Controls.Button btnLogin;
@@ -32,11 +32,11 @@
             pnlBackground = new Panel();
             pictureBox1 = new PictureBox();
             lblTitle = new Label();
-            pnlContainer = new Panel();
+            pnlContainer = new RoundedPanel();
             lblUsername = new Label();
-            txtUsername = new TextBox();
+            txtUsername = new RoundedTextBox();
             lblPassword = new Label();
-            txtPassword = new TextBox();
+            txtPassword = new RoundedTextBox();
             lblError = new Label();
             btnLogin = new ReaLTaiizor.Controls.Button();
             pnlBackground.SuspendLayout();
@@ -94,7 +94,7 @@
             // 
             lblUsername.Font = new Font("Segoe UI", 9F);
             lblUsername.ForeColor = Color.FromArgb(49, 62, 80);
-            lblUsername.Location = new Point(10, 14);
+            lblUsername.Location = new Point(13, 14);
             lblUsername.Name = "lblUsername";
             lblUsername.Size = new Size(100, 17);
             lblUsername.TabIndex = 0;
@@ -102,9 +102,11 @@
             // 
             // txtUsername
             // 
+            txtUsername.BackColor = Color.White;
             txtUsername.Font = new Font("Segoe UI", 9F);
-            txtUsername.Location = new Point(10, 34);
+            txtUsername.Location = new Point(14, 34);
             txtUsername.Name = "txtUsername";
+            txtUsername.Padding = new Padding(6, 4, 6, 4);
             txtUsername.Size = new Size(230, 23);
             txtUsername.TabIndex = 1;
             // 
@@ -112,7 +114,7 @@
             // 
             lblPassword.Font = new Font("Segoe UI", 9F);
             lblPassword.ForeColor = Color.FromArgb(49, 62, 80);
-            lblPassword.Location = new Point(10, 64);
+            lblPassword.Location = new Point(13, 64);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new Size(100, 17);
             lblPassword.TabIndex = 2;
@@ -120,10 +122,12 @@
             // 
             // txtPassword
             // 
+            ((ClinicEMR.RoundedTextBox)this.txtPassword).UseSystemPasswordChar = true;
+            txtPassword.BackColor = Color.White;
             txtPassword.Font = new Font("Segoe UI", 9F);
-            txtPassword.Location = new Point(10, 84);
+            txtPassword.Location = new Point(14, 84);
             txtPassword.Name = "txtPassword";
-            txtPassword.PasswordChar = '*';
+            txtPassword.Padding = new Padding(6, 4, 6, 4);
             txtPassword.Size = new Size(230, 23);
             txtPassword.TabIndex = 3;
             // 
@@ -143,11 +147,11 @@
             btnLogin.BorderColor = Color.FromArgb(32, 34, 37);
             btnLogin.EnteredBorderColor = Color.FromArgb(165, 37, 37);
             btnLogin.EnteredColor = Color.FromArgb(32, 34, 37);
-            btnLogin.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
+            btnLogin.Font = new Font("Microsoft Sans Serif", 10F);
             btnLogin.Image = null;
             btnLogin.ImageAlign = ContentAlignment.MiddleLeft;
             btnLogin.InactiveColor = Color.FromArgb(32, 34, 37);
-            btnLogin.Location = new Point(140, 140);
+            btnLogin.Location = new Point(79, 140);
             btnLogin.Name = "btnLogin";
             btnLogin.PressedBorderColor = Color.FromArgb(165, 37, 37);
             btnLogin.PressedColor = Color.FromArgb(165, 37, 37);
@@ -172,7 +176,6 @@
             pnlBackground.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             pnlContainer.ResumeLayout(false);
-            pnlContainer.PerformLayout();
             ResumeLayout(false);
         }
     }
