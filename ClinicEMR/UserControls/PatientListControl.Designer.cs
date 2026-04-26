@@ -2,296 +2,219 @@
 using ClinicEMR.Models;
 using ClinicEMR.Services;
 
-
 namespace ClinicEMR.UserControls
-
 {
-    public partial class PatientListControl : UserControl
-    {
-        /// <summary> 
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+	public partial class PatientListControl : UserControl
+	{
+		private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && (components != null)) components.Dispose();
+			base.Dispose(disposing);
+		}
 
-        #region Component Designer generated code
+		#region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PatientListControl));
-            tblLayout = new TableLayoutPanel();
-            dgvPatients = new DataGridView();
-            tblHeader = new TableLayoutPanel();
-            btnSearch = new ReaLTaiizor.Controls.Button();
-            txtSearch = new ReaLTaiizor.Controls.HopeTextBox();
-            tableLayoutPanel1 = new TableLayoutPanel();
-            btnAdd = new ReaLTaiizor.Controls.Button();
-            pictureBox3 = new PictureBox();
-            label1 = new Label();
-            tableLayoutPanel2 = new TableLayoutPanel();
-            btnOpen = new ReaLTaiizor.Controls.Button();
-            tblLayout.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvPatients).BeginInit();
-            tblHeader.SuspendLayout();
-            tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            tableLayoutPanel2.SuspendLayout();
-            SuspendLayout();
-            // 
-            // tblLayout
-            // 
-            tblLayout.BackColor = Color.FromArgb(226, 230, 237);
-            tblLayout.ColumnCount = 1;
-            tblLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tblLayout.Controls.Add(dgvPatients, 0, 3);
-            tblLayout.Controls.Add(tblHeader, 0, 2);
-            tblLayout.Controls.Add(tableLayoutPanel1, 0, 1);
-            tblLayout.Controls.Add(tableLayoutPanel2, 0, 4);
-            tblLayout.Dock = DockStyle.Fill;
-            tblLayout.Location = new Point(0, 0);
-            tblLayout.Margin = new Padding(23, 27, 23, 27);
-            tblLayout.Name = "tblLayout";
-            tblLayout.RowCount = 4;
-            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 49F));
-            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 53F));
-            tblLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 119F));
-            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tblLayout.Size = new Size(854, 697);
-            tblLayout.TabIndex = 4;
-            // 
-            // dgvPatients
-            // 
-            dgvPatients.BackgroundColor = Color.FromArgb(108, 111, 127);
-            dgvPatients.BorderStyle = BorderStyle.None;
-            dgvPatients.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvPatients.Dock = DockStyle.Fill;
-            dgvPatients.Location = new Point(23, 126);
-            dgvPatients.Margin = new Padding(23, 4, 23, 4);
-            dgvPatients.Name = "dgvPatients";
-            dgvPatients.RowHeadersWidth = 51;
-            dgvPatients.Size = new Size(808, 448);
-            dgvPatients.TabIndex = 7;
-            // 
-            // tblHeader
-            // 
-            tblHeader.ColumnCount = 3;
-            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 55F));
-            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 106F));
-            tblHeader.Controls.Add(btnAdd, 2, 0);
-            tblHeader.Controls.Add(btnSearch, 1, 0);
-            tblHeader.Controls.Add(txtSearch, 0, 0);
-            tblHeader.Dock = DockStyle.Fill;
-            tblHeader.Location = new Point(23, 73);
-            tblHeader.Margin = new Padding(23, 4, 23, 4);
-            tblHeader.Name = "tblHeader";
-            tblHeader.RowCount = 1;
-            tblHeader.RowStyles.Add(new RowStyle(SizeType.Absolute, 68F));
-            tblHeader.Size = new Size(808, 45);
-            tblHeader.TabIndex = 0;
-            // 
-            // btnSearch
-            // 
-            btnSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            btnSearch.BackColor = Color.FromArgb(226, 230, 237);
-            btnSearch.BorderColor = Color.FromArgb(37, 45, 56);
-            btnSearch.Cursor = Cursors.Hand;
-            btnSearch.EnteredBorderColor = Color.FromArgb(37, 45, 56);
-            btnSearch.EnteredColor = Color.FromArgb(37, 45, 56);
-            btnSearch.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
-            btnSearch.Image = (Image)resources.GetObject("btnSearch.Image");
-            btnSearch.ImageAlign = ContentAlignment.MiddleCenter;
-            btnSearch.InactiveColor = Color.FromArgb(37, 45, 56);
-            btnSearch.Location = new Point(647, 3);
-            btnSearch.Margin = new Padding(0, 3, 3, 4);
-            btnSearch.Name = "btnSearch";
-            btnSearch.PressedBorderColor = Color.FromArgb(37, 45, 56);
-            btnSearch.PressedColor = Color.FromArgb(37, 45, 56);
-            btnSearch.Size = new Size(52, 37);
-            btnSearch.TabIndex = 20;
-            btnSearch.TextAlignment = StringAlignment.Center;
-            btnSearch.Click += btnSearch_Click;
-            // 
-            // txtSearch
-            // 
-            txtSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtSearch.BackColor = Color.FromArgb(37, 45, 56);
-            txtSearch.BaseColor = Color.FromArgb(226, 230, 237);
-            txtSearch.BorderColorA = Color.FromArgb(37, 45, 56);
-            txtSearch.BorderColorB = Color.FromArgb(37, 45, 56);
-            txtSearch.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
-            txtSearch.ForeColor = Color.FromArgb(226, 230, 237);
-            txtSearch.Hint = "Search: Name/Patient Code";
-            txtSearch.Location = new Point(3, 3);
-            txtSearch.Margin = new Padding(3, 3, 0, 3);
-            txtSearch.MaxLength = 32767;
-            txtSearch.Multiline = false;
-            txtSearch.Name = "txtSearch";
-            txtSearch.PasswordChar = '\0';
-            txtSearch.ScrollBars = ScrollBars.None;
-            txtSearch.SelectedText = "";
-            txtSearch.SelectionLength = 0;
-            txtSearch.SelectionStart = 0;
-            txtSearch.Size = new Size(644, 37);
-            txtSearch.TabIndex = 21;
-            txtSearch.TabStop = false;
-            txtSearch.UseSystemPasswordChar = false;
-            txtSearch.KeyDown += txtSearch_KeyDown;
-            txtSearch.TextChanged += txtSearch_TextChanged;
-            // 
-            // tableLayoutPanel1
-            // 
-            tableLayoutPanel1.ColumnCount = 3;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 106F));
-            tableLayoutPanel1.Controls.Add(pictureBox3, 0, 0);
-            tableLayoutPanel1.Controls.Add(label1, 1, 0);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(23, 24);
-            tableLayoutPanel1.Margin = new Padding(23, 4, 23, 4);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(808, 41);
-            tableLayoutPanel1.TabIndex = 19;
-            // 
-            // btnAdd
-            // 
-            btnAdd.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnAdd.BackColor = Color.FromArgb(226, 230, 237);
-            btnAdd.BorderColor = Color.FromArgb(108, 111, 127);
-            btnAdd.Cursor = Cursors.Hand;
-            btnAdd.EnteredBorderColor = Color.FromArgb(108, 111, 127);
-            btnAdd.EnteredColor = Color.FromArgb(69, 85, 97);
-            btnAdd.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
-            btnAdd.Image = null;
-            btnAdd.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAdd.InactiveColor = Color.FromArgb(26, 35, 48);
-            btnAdd.Location = new Point(708, 2);
-            btnAdd.Margin = new Padding(3, 2, 0, 0);
-            btnAdd.Name = "btnAdd";
-            btnAdd.PressedBorderColor = Color.FromArgb(108, 111, 127);
-            btnAdd.PressedColor = Color.FromArgb(108, 111, 127);
-            btnAdd.Size = new Size(100, 40);
-            btnAdd.TabIndex = 23;
-            btnAdd.Text = "Add New";
-            btnAdd.TextAlignment = StringAlignment.Center;
-            btnAdd.Click += btnAddNew_Click;
-            // 
-            // pictureBox3
-            // 
-            pictureBox3.Anchor = AnchorStyles.Left;
-            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(0, 0);
-            pictureBox3.Margin = new Padding(0);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(40, 41);
-            pictureBox3.SizeMode = PictureBoxSizeMode.CenterImage;
-            pictureBox3.TabIndex = 0;
-            pictureBox3.TabStop = false;
-            // 
-            // label1
-            // 
-            label1.Anchor = AnchorStyles.Left;
-            label1.AutoSize = true;
-            label1.Font = new Font("Panton-Trial ExtraBold", 14F, FontStyle.Bold);
-            label1.ForeColor = Color.FromArgb(26, 35, 48);
-            label1.Location = new Point(43, 5);
-            label1.Name = "label1";
-            label1.Size = new Size(194, 31);
-            label1.TabIndex = 1;
-            label1.Text = "Patient Registry";
-            // 
-            // tableLayoutPanel2
-            // 
-            tableLayoutPanel2.ColumnCount = 3;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 106F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 106F));
-            tableLayoutPanel2.Controls.Add(btnOpen, 2, 0);
-            tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(20, 581);
-            tableLayoutPanel2.Margin = new Padding(20, 3, 20, 3);
-            tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 1;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.Size = new Size(814, 113);
-            tableLayoutPanel2.TabIndex = 20;
-            // 
-            // btnOpen
-            // 
-            btnOpen.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnOpen.BackColor = Color.FromArgb(226, 230, 237);
-            btnOpen.BorderColor = Color.FromArgb(108, 111, 127);
-            btnOpen.Cursor = Cursors.Hand;
-            btnOpen.EnteredBorderColor = Color.FromArgb(108, 111, 127);
-            btnOpen.EnteredColor = Color.FromArgb(69, 85, 97);
-            btnOpen.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
-            btnOpen.Image = null;
-            btnOpen.ImageAlign = ContentAlignment.MiddleLeft;
-            btnOpen.InactiveColor = Color.FromArgb(92, 102, 114);
-            btnOpen.Location = new Point(711, 0);
-            btnOpen.Margin = new Padding(3, 0, 3, 0);
-            btnOpen.Name = "btnOpen";
-            btnOpen.PressedBorderColor = Color.FromArgb(108, 111, 127);
-            btnOpen.PressedColor = Color.FromArgb(108, 111, 127);
-            btnOpen.Size = new Size(100, 40);
-            btnOpen.TabIndex = 22;
-            btnOpen.Text = "Open Info";
-            btnOpen.TextAlignment = StringAlignment.Center;
-            btnOpen.Click += btnOpenRecord_Click;
-            // 
-            // PatientListControl
-            // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(tblLayout);
-            Margin = new Padding(3, 4, 3, 4);
-            Name = "PatientListControl";
-            Size = new Size(854, 697);
-            Load += PatientListControl_Load;
-            tblLayout.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvPatients).EndInit();
-            tblHeader.ResumeLayout(false);
-            tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            tableLayoutPanel2.ResumeLayout(false);
-            ResumeLayout(false);
+		private void InitializeComponent()
+		{
+			tblLayout = new TableLayoutPanel();
+			tblHeader = new TableLayoutPanel();
+			lblTitle = new Label();
+			txtSearch = new TextBox();
+			btnSearch = new ReaLTaiizor.Controls.Button();
+			btnAddNew = new ReaLTaiizor.Controls.Button();
+			dgvPatients = new DataGridView();
+			pnlFooter = new TableLayoutPanel();
+			btnOpen = new ReaLTaiizor.Controls.Button();
+			tblLayout.SuspendLayout();
+			tblHeader.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)dgvPatients).BeginInit();
+			pnlFooter.SuspendLayout();
+			SuspendLayout();
+			// 
+			// tblLayout
+			// 
+			tblLayout.BackColor = Color.FromArgb(226, 230, 237);
+			tblLayout.ColumnCount = 1;
+			tblLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+			tblLayout.Controls.Add(tblHeader, 0, 0);
+			tblLayout.Controls.Add(dgvPatients, 0, 1);
+			tblLayout.Controls.Add(pnlFooter, 0, 2);
+			tblLayout.Dock = DockStyle.Fill;
+			tblLayout.Location = new Point(0, 0);
+			tblLayout.Name = "tblLayout";
+			tblLayout.RowCount = 3;
+			tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 85F));
+			tblLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+			tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 80F));
+			tblLayout.Size = new Size(800, 550);
+			tblLayout.TabIndex = 0;
+			// 
+			// tblHeader
+			// 
+			tblHeader.ColumnCount = 4;
+			tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+			tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
+			tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
+			tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
+			tblHeader.Controls.Add(lblTitle, 0, 0);
+			tblHeader.Controls.Add(txtSearch, 1, 0);
+			tblHeader.Controls.Add(btnSearch, 2, 0);
+			tblHeader.Controls.Add(btnAddNew, 3, 0);
+			tblHeader.Dock = DockStyle.Fill;
+			tblHeader.Location = new Point(20, 10);
+			tblHeader.Margin = new Padding(20, 10, 20, 0);
+			tblHeader.Name = "tblHeader";
+			tblHeader.RowCount = 1;
+			tblHeader.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+			tblHeader.Size = new Size(760, 75);
+			tblHeader.TabIndex = 0;
+			// 
+			// lblTitle
+			// 
+			lblTitle.Anchor = AnchorStyles.Left;
+			lblTitle.AutoSize = true;
+			lblTitle.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Bold);
+			lblTitle.ForeColor = Color.FromArgb(26, 35, 48);
+			lblTitle.Location = new Point(3, 21);
+			lblTitle.Name = "lblTitle";
+			lblTitle.Size = new Size(126, 32);
+			lblTitle.TabIndex = 0;
+			lblTitle.Text = "Patients";
+			// 
+			// txtSearch
+			// 
+			txtSearch.Anchor = AnchorStyles.Right;
+			txtSearch.BorderStyle = BorderStyle.FixedSingle;
+			txtSearch.Font = new Font("Segoe UI", 11F);
+			txtSearch.Location = new Point(247, 20);
+			txtSearch.Name = "txtSearch";
+			txtSearch.PlaceholderText = "Search Name/ID...";
+			txtSearch.Size = new Size(240, 35);
+			txtSearch.TabIndex = 1;
+			// 
+			// btnSearch
+			// 
+			btnSearch.Anchor = AnchorStyles.Right;
+			btnSearch.BackColor = Color.Transparent;
+			btnSearch.BorderColor = Color.FromArgb(108, 111, 127);
+			btnSearch.Cursor = Cursors.Hand;
+			btnSearch.EnteredBorderColor = Color.FromArgb(108, 111, 127);
+			btnSearch.EnteredColor = Color.FromArgb(200, 205, 215);
+			btnSearch.Font = new Font("Microsoft Sans Serif", 10F);
+			btnSearch.ForeColor = Color.FromArgb(26, 35, 48); // Dark text for light button
+			btnSearch.Image = null;
+			btnSearch.ImageAlign = ContentAlignment.MiddleLeft;
+			btnSearch.InactiveColor = Color.FromArgb(226, 230, 237);
+			btnSearch.Location = new Point(497, 11);
+			btnSearch.Name = "btnSearch";
+			btnSearch.PressedBorderColor = Color.FromArgb(108, 111, 127);
+			btnSearch.PressedColor = Color.FromArgb(108, 111, 127);
+			btnSearch.Size = new Size(100, 53);
+			btnSearch.TabIndex = 2;
+			btnSearch.Text = "Search";
+			btnSearch.TextAlignment = StringAlignment.Center;
+			btnSearch.Click += btnSearch_Click;
+			// 
+			// btnAddNew
+			// 
+			btnAddNew.Anchor = AnchorStyles.Right;
+			btnAddNew.BackColor = Color.Transparent;
+			btnAddNew.BorderColor = Color.FromArgb(26, 35, 48);
+			btnAddNew.Cursor = Cursors.Hand;
+			btnAddNew.EnteredBorderColor = Color.FromArgb(26, 35, 48);
+			btnAddNew.EnteredColor = Color.FromArgb(46, 55, 68);
+			btnAddNew.Font = new Font("Microsoft Sans Serif", 10F);
+			btnAddNew.Image = null;
+			btnAddNew.ImageAlign = ContentAlignment.MiddleLeft;
+			btnAddNew.InactiveColor = Color.FromArgb(26, 35, 48);
+			btnAddNew.Location = new Point(607, 11);
+			btnAddNew.Name = "btnAddNew";
+			btnAddNew.PressedBorderColor = Color.Black;
+			btnAddNew.PressedColor = Color.Black;
+			btnAddNew.Size = new Size(150, 53);
+			btnAddNew.TabIndex = 3;
+			btnAddNew.Text = "+ Add Patient";
+			btnAddNew.TextAlignment = StringAlignment.Center;
+			btnAddNew.Click += btnAddNew_Click;
+			// 
+			// dgvPatients
+			// 
+			dgvPatients.BackgroundColor = Color.FromArgb(108, 111, 127);
+			dgvPatients.BorderStyle = BorderStyle.None;
+			dgvPatients.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			dgvPatients.Dock = DockStyle.Fill;
+			dgvPatients.EnableHeadersVisualStyles = false;
+			dgvPatients.Location = new Point(25, 90);
+			dgvPatients.Margin = new Padding(25, 5, 25, 5);
+			dgvPatients.Name = "dgvPatients";
+			dgvPatients.RowHeadersWidth = 57;
+			dgvPatients.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+			dgvPatients.Size = new Size(750, 375);
+			dgvPatients.TabIndex = 1;
+			// 
+			// pnlFooter
+			// 
+			pnlFooter.ColumnCount = 2;
+			pnlFooter.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+			pnlFooter.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 180F));
+			pnlFooter.Controls.Add(btnOpen, 1, 0);
+			pnlFooter.Dock = DockStyle.Fill;
+			pnlFooter.Location = new Point(20, 470);
+			pnlFooter.Margin = new Padding(20, 0, 20, 10);
+			pnlFooter.Name = "pnlFooter";
+			pnlFooter.RowCount = 1;
+			pnlFooter.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+			pnlFooter.Size = new Size(760, 70);
+			pnlFooter.TabIndex = 2;
+			// 
+			// btnOpen
+			// 
+			btnOpen.Anchor = AnchorStyles.Right;
+			btnOpen.BackColor = Color.Transparent;
+			btnOpen.BorderColor = Color.FromArgb(26, 35, 48);
+			btnOpen.Cursor = Cursors.Hand;
+			btnOpen.EnteredBorderColor = Color.FromArgb(26, 35, 48);
+			btnOpen.EnteredColor = Color.FromArgb(46, 55, 68);
+			btnOpen.Font = new Font("Microsoft Sans Serif", 10F);
+			btnOpen.Image = null;
+			btnOpen.ImageAlign = ContentAlignment.MiddleLeft;
+			btnOpen.InactiveColor = Color.FromArgb(26, 35, 48);
+			btnOpen.Location = new Point(607, 8);
+			btnOpen.Name = "btnOpen";
+			btnOpen.PressedBorderColor = Color.Black;
+			btnOpen.PressedColor = Color.Black;
+			btnOpen.Size = new Size(150, 53);
+			btnOpen.TabIndex = 0;
+			btnOpen.Text = "Open Profile";
+			btnOpen.TextAlignment = StringAlignment.Center;
+			btnOpen.Click += btnOpenRecord_Click;
+			// 
+			// PatientListControl
+			// 
+			Controls.Add(tblLayout);
+			Name = "PatientListControl";
+			Size = new Size(800, 550);
+			Load += PatientListControl_Load;
+			tblLayout.ResumeLayout(false);
+			tblHeader.ResumeLayout(false);
+			tblHeader.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)dgvPatients).EndInit();
+			pnlFooter.ResumeLayout(false);
+			ResumeLayout(false);
+		}
 
-            #endregion
-        }
+		#endregion
 
-        private TableLayoutPanel tblLayout;
-        private DataGridView dgvPatients;
-        private TableLayoutPanel tblHeader;
-        private ReaLTaiizor.Controls.Button btnSearch;
-        private TableLayoutPanel tableLayoutPanel1;
-        private PictureBox pictureBox3;
-        private Label label1;
-        private ReaLTaiizor.Controls.HopeTextBox txtSearch;
-        private TableLayoutPanel tableLayoutPanel2;
-        private ReaLTaiizor.Controls.Button btnOpen;
-        private ReaLTaiizor.Controls.Button btnAdd;
-    }
-
+		private TableLayoutPanel tblLayout;
+		private TableLayoutPanel tblHeader;
+		private TableLayoutPanel pnlFooter;
+		private Label lblTitle;
+		private TextBox txtSearch;
+		private ReaLTaiizor.Controls.Button btnSearch;
+		private ReaLTaiizor.Controls.Button btnAddNew;
+		private ReaLTaiizor.Controls.Button btnOpen;
+		private DataGridView dgvPatients;
+	}
 }
