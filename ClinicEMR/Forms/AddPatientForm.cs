@@ -20,9 +20,7 @@ namespace ClinicEMR.Forms
 			cboSex.DropDownStyle = ComboBoxStyle.DropDownList;
 			dtpDOB.MaxDate = DateTime.Today;
 			txtContact.MaxLength = 16;
-			txtContact.PlaceholderText = "09XXXXXXXXX or +639XXXXXXXXX";
 			txtEmergency.MaxLength = 11;
-			txtEmergency.PlaceholderText = "Numbers only";
 			txtEmergency.KeyPress += txtEmergency_KeyPress;
 			txtFirstName.TextChanged += (_, _) => ClearError(lblFirstNameError);
 			txtLastName.TextChanged += (_, _) => ClearError(lblLastNameError);

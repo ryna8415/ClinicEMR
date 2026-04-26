@@ -138,7 +138,6 @@
             txtAllergies.TabIndex = 43;
             txtAllergies.TabStop = false;
             txtAllergies.UseSystemPasswordChar = false;
-            txtAllergies.KeyDown += AddPatientForm_KeyDown;
             // 
             // lblAllergy
             // 
@@ -194,7 +193,6 @@
             txtAddress.TabIndex = 39;
             txtAddress.TabStop = false;
             txtAddress.UseSystemPasswordChar = false;
-            txtAddress.KeyDown += AddPatientForm_KeyDown;
             // 
             // lblAddress
             // 
@@ -230,7 +228,6 @@
             txtEmergency.TabIndex = 37;
             txtEmergency.TabStop = false;
             txtEmergency.UseSystemPasswordChar = false;
-            txtEmergency.KeyDown += AddPatientForm_KeyDown;
             // 
             // lblEmergency
             // 
@@ -266,7 +263,6 @@
             txtContact.TabIndex = 35;
             txtContact.TabStop = false;
             txtContact.UseSystemPasswordChar = false;
-            txtContact.KeyDown += AddPatientForm_KeyDown;
             // 
             // lblContact
             // 
@@ -366,7 +362,6 @@
             txtLastName.TabIndex = 26;
             txtLastName.TabStop = false;
             txtLastName.UseSystemPasswordChar = false;
-            txtLastName.KeyDown += AddPatientForm_KeyDown;
             // 
             // lblLastName
             // 
@@ -402,7 +397,6 @@
             txtFirstName.TabIndex = 24;
             txtFirstName.TabStop = false;
             txtFirstName.UseSystemPasswordChar = false;
-            txtFirstName.KeyDown += AddPatientForm_KeyDown;
             // 
             // lblFirstName
             // 
