@@ -181,29 +181,38 @@ namespace ClinicEMR.Services
             if (bounds.Width <= 0 || bounds.Height <= 0)
                 return path;
 
-            int maxRadius = Math.Min(bounds.Width, bounds.Height) / 8; 
-            radius = Math.Min(radius, maxRadius);
+            Rectangle safeBounds = new(
+                bounds.X,
+                bounds.Y,
+                Math.Max(1, bounds.Width - 1),
+                Math.Max(1, bounds.Height - 1));
+
+            int maxRadius = Math.Min(safeBounds.Width, safeBounds.Height) / 2;
+            radius = Math.Max(0, Math.Min(radius, maxRadius));
+
+            if (radius <= 1)
+            {
+                path.AddRectangle(safeBounds);
+                path.CloseFigure();
+                return path;
+            }
 
             int diameter = radius * 2;
-
-            if (diameter > bounds.Width) diameter = bounds.Width;
-            if (diameter > bounds.Height) diameter = bounds.Height;
-
-            Rectangle arc = new(bounds.Location, new Size(diameter, diameter));
+            Rectangle arc = new(safeBounds.Location, new Size(diameter, diameter));
 
             // Top-left
             path.AddArc(arc, 180, 90);
 
             // Top-right
-            arc.X = bounds.Right - diameter;
+            arc.X = safeBounds.Right - diameter;
             path.AddArc(arc, 270, 90);
 
             // Bottom-right
-            arc.Y = bounds.Bottom - diameter;
+            arc.Y = safeBounds.Bottom - diameter;
             path.AddArc(arc, 0, 90);
 
             // Bottom-left
-            arc.X = bounds.Left;
+            arc.X = safeBounds.Left;
             path.AddArc(arc, 90, 90);
 
             path.CloseFigure();

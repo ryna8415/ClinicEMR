@@ -12,7 +12,11 @@ CREATE TABLE IF NOT EXISTS users (
   full_name     VARCHAR(100) NOT NULL,
   role          ENUM('admin','doctor','nurse') NOT NULL,
   is_active     TINYINT(1) DEFAULT 1,
-  last_login    DATETIME
+  last_login    DATETIME,
+  recovery_question VARCHAR(120) NULL,
+  recovery_answer_hash VARCHAR(255) NULL,
+  recovery_failed_attempts INT NOT NULL DEFAULT 0,
+  recovery_locked_until DATETIME NULL
 );
 
 -- TABLE 2: patients
@@ -78,6 +82,8 @@ CREATE TABLE IF NOT EXISTS consultations (
   diagnosis       VARCHAR(300),
   doctor_notes    TEXT,
   consult_date    DATETIME DEFAULT CURRENT_TIMESTAMP,
+  status          VARCHAR(20) NOT NULL DEFAULT 'Active',
+  updated_at      DATETIME NULL,
   is_locked       TINYINT(1) DEFAULT 0,
   FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
   FOREIGN KEY (doctor_id)  REFERENCES users(user_id),
@@ -94,9 +100,20 @@ CREATE TABLE IF NOT EXISTS prescriptions (
   frequency        VARCHAR(80),
   duration         VARCHAR(80),
   instructions     TEXT,
+  status           VARCHAR(20) NOT NULL DEFAULT 'Active',
   issued_at        DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at       DATETIME NULL,
   FOREIGN KEY (consultation_id) REFERENCES consultations(consultation_id),
   FOREIGN KEY (patient_id)      REFERENCES patients(patient_id)
+);
+
+CREATE TABLE IF NOT EXISTS audit_logs (
+  audit_log_id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id      INT NULL,
+  user_name    VARCHAR(100) NOT NULL,
+  action       VARCHAR(255) NOT NULL,
+  logged_at    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE SET NULL
 );
 
 INSERT IGNORE INTO users (username, password_hash, full_name, role)

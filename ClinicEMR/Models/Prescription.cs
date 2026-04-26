@@ -15,10 +15,25 @@ namespace ClinicEMR.Models
         public string Duration { get; set; }
         public string Instructions { get; set; }
         public DateTime IssuedAt { get; set; }
+        public string Status { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         private int _patientId = 0;
         public string Summary =>
-          $"{MedicationName} {Dosage} — {Frequency} for {Duration}";
+          $"{MedicationName} {Dosage} - {Frequency} for {Duration}" +
+          (string.Equals(NormalizedStatus, "Active", StringComparison.OrdinalIgnoreCase) || string.IsNullOrWhiteSpace(NormalizedStatus)
+              ? string.Empty
+              : $" [{NormalizedStatus}]");
+
+        public string NormalizedStatus =>
+            string.Equals(Status, "Cancelled", StringComparison.OrdinalIgnoreCase)
+                ? "Voided"
+                : Status;
+
+        public override string ToString()
+        {
+            return Summary;
+        }
     }
 
 }

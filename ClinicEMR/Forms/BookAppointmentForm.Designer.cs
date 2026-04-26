@@ -15,227 +15,319 @@
 
         private Panel pnlBackground;
         private Panel pnlContainer;
-        private Label lblTitle;
-        private PictureBox pictureBox1;
-
-        private ComboBox cboPatient, cboDoctor, cboTime;
         private DateTimePicker dtpDate;
-        private TextBox txtPurpose;
-
-        private Label lblPatient, lblDoctor, lblDate, lblTime, lblPurpose;
-
-        private ReaLTaiizor.Controls.Button btnConfirm, btnCancel;
 
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BookAppointmentForm));
             pnlBackground = new Panel();
-            pictureBox1 = new PictureBox();
-            lblTitle = new Label();
-            pnlContainer = new Panel();
-            lblPatient = new Label();
-            cboPatient = new ComboBox();
-            lblDoctor = new Label();
-            cboDoctor = new ComboBox();
-            lblDate = new Label();
-            dtpDate = new DateTimePicker();
-            lblTime = new Label();
-            cboTime = new ComboBox();
-            lblPurpose = new Label();
-            txtPurpose = new TextBox();
             btnCancel = new ReaLTaiizor.Controls.Button();
-            btnConfirm = new ReaLTaiizor.Controls.Button();
+            btnSave = new ReaLTaiizor.Controls.Button();
+            pnlContainer = new Panel();
+            cboPatient = new ReaLTaiizor.Controls.HopeComboBox();
+            txtPurpose = new ReaLTaiizor.Controls.HopeTextBox();
+            label5 = new Label();
+            label4 = new Label();
+            cboTime = new ReaLTaiizor.Controls.HopeComboBox();
+            label3 = new Label();
+            label2 = new Label();
+            cboDoctor = new ReaLTaiizor.Controls.HopeComboBox();
+            dtpDate = new DateTimePicker();
+            lblFullName = new Label();
+            panel1 = new Panel();
+            lblMeta = new Label();
+            label1 = new Label();
+            button1 = new ReaLTaiizor.Controls.Button();
+            button2 = new ReaLTaiizor.Controls.Button();
             pnlBackground.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             pnlContainer.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // pnlBackground
             // 
             pnlBackground.BackColor = Color.FromArgb(49, 62, 80);
-            pnlBackground.Controls.Add(pictureBox1);
-            pnlBackground.Controls.Add(lblTitle);
+            pnlBackground.Controls.Add(btnCancel);
+            pnlBackground.Controls.Add(btnSave);
             pnlBackground.Controls.Add(pnlContainer);
+            pnlBackground.Controls.Add(panel1);
+            pnlBackground.Controls.Add(button2);
             pnlBackground.Dock = DockStyle.Fill;
             pnlBackground.Location = new Point(0, 0);
             pnlBackground.Name = "pnlBackground";
-            pnlBackground.Size = new Size(474, 502);
+            pnlBackground.Size = new Size(611, 562);
             pnlBackground.TabIndex = 0;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(186, 24);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(102, 106);
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
-            // 
-            // lblTitle
-            // 
-            lblTitle.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            lblTitle.ForeColor = Color.White;
-            lblTitle.Location = new Point(0, 120);
-            lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(480, 45);
-            lblTitle.TabIndex = 1;
-            lblTitle.Text = "Book Appointment";
-            lblTitle.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // pnlContainer
-            // 
-            pnlContainer.BackColor = Color.FromArgb(226, 230, 237);
-            pnlContainer.Controls.Add(lblPatient);
-            pnlContainer.Controls.Add(cboPatient);
-            pnlContainer.Controls.Add(lblDoctor);
-            pnlContainer.Controls.Add(cboDoctor);
-            pnlContainer.Controls.Add(lblDate);
-            pnlContainer.Controls.Add(dtpDate);
-            pnlContainer.Controls.Add(lblTime);
-            pnlContainer.Controls.Add(cboTime);
-            pnlContainer.Controls.Add(lblPurpose);
-            pnlContainer.Controls.Add(txtPurpose);
-            pnlContainer.Controls.Add(btnCancel);
-            pnlContainer.Controls.Add(btnConfirm);
-            pnlContainer.Location = new Point(20, 170);
-            pnlContainer.Name = "pnlContainer";
-            pnlContainer.Size = new Size(435, 306);
-            pnlContainer.TabIndex = 2;
-            // 
-            // lblPatient
-            // 
-            lblPatient.Font = new Font("Segoe UI", 9F);
-            lblPatient.ForeColor = Color.FromArgb(49, 62, 80);
-            lblPatient.Location = new Point(10, 10);
-            lblPatient.Name = "lblPatient";
-            lblPatient.Size = new Size(100, 17);
-            lblPatient.TabIndex = 0;
-            lblPatient.Text = "Choose Patient:";
-            // 
-            // cboPatient
-            // 
-            cboPatient.Font = new Font("Segoe UI", 9F);
-            cboPatient.Location = new Point(10, 30);
-            cboPatient.Name = "cboPatient";
-            cboPatient.Size = new Size(200, 23);
-            cboPatient.TabIndex = 1;
-            // 
-            // lblDoctor
-            // 
-            lblDoctor.Font = new Font("Segoe UI", 9F);
-            lblDoctor.ForeColor = Color.FromArgb(49, 62, 80);
-            lblDoctor.Location = new Point(220, 10);
-            lblDoctor.Name = "lblDoctor";
-            lblDoctor.Size = new Size(100, 17);
-            lblDoctor.TabIndex = 2;
-            lblDoctor.Text = "Choose Doctor:";
-            // 
-            // cboDoctor
-            // 
-            cboDoctor.Font = new Font("Segoe UI", 9F);
-            cboDoctor.Location = new Point(220, 30);
-            cboDoctor.Name = "cboDoctor";
-            cboDoctor.Size = new Size(200, 23);
-            cboDoctor.TabIndex = 3;
-            // 
-            // lblDate
-            // 
-            lblDate.Font = new Font("Segoe UI", 9F);
-            lblDate.ForeColor = Color.FromArgb(49, 62, 80);
-            lblDate.Location = new Point(10, 70);
-            lblDate.Name = "lblDate";
-            lblDate.Size = new Size(100, 17);
-            lblDate.TabIndex = 4;
-            lblDate.Text = "Choose Date:";
-            // 
-            // dtpDate
-            // 
-            dtpDate.Font = new Font("Segoe UI", 9F);
-            dtpDate.Location = new Point(10, 90);
-            dtpDate.Name = "dtpDate";
-            dtpDate.Size = new Size(200, 23);
-            dtpDate.TabIndex = 5;
-            // 
-            // lblTime
-            // 
-            lblTime.Font = new Font("Segoe UI", 9F);
-            lblTime.ForeColor = Color.FromArgb(49, 62, 80);
-            lblTime.Location = new Point(220, 70);
-            lblTime.Name = "lblTime";
-            lblTime.Size = new Size(100, 17);
-            lblTime.TabIndex = 6;
-            lblTime.Text = "Choose Time:";
-            // 
-            // cboTime
-            // 
-            cboTime.Font = new Font("Segoe UI", 9F);
-            cboTime.Location = new Point(220, 90);
-            cboTime.Name = "cboTime";
-            cboTime.Size = new Size(200, 23);
-            cboTime.TabIndex = 7;
-            // 
-            // lblPurpose
-            // 
-            lblPurpose.Font = new Font("Segoe UI", 9F);
-            lblPurpose.ForeColor = Color.FromArgb(49, 62, 80);
-            lblPurpose.Location = new Point(10, 130);
-            lblPurpose.Name = "lblPurpose";
-            lblPurpose.Size = new Size(100, 14);
-            lblPurpose.TabIndex = 8;
-            lblPurpose.Text = "Purpose:";
-            // 
-            // txtPurpose
-            // 
-            txtPurpose.Font = new Font("Segoe UI", 9F);
-            txtPurpose.Location = new Point(10, 147);
-            txtPurpose.Multiline = true;
-            txtPurpose.Name = "txtPurpose";
-            txtPurpose.Size = new Size(410, 80);
-            txtPurpose.TabIndex = 9;
             // 
             // btnCancel
             // 
-            btnCancel.BackColor = Color.Transparent;
-            btnCancel.BorderColor = Color.FromArgb(108, 111, 127);
+            btnCancel.BackColor = Color.FromArgb(49, 62, 80);
+            btnCancel.BorderColor = Color.FromArgb(92, 102, 114);
+            btnCancel.Cursor = Cursors.Hand;
             btnCancel.EnteredBorderColor = Color.FromArgb(108, 111, 127);
             btnCancel.EnteredColor = Color.FromArgb(69, 85, 97);
             btnCancel.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
             btnCancel.Image = null;
             btnCancel.ImageAlign = ContentAlignment.MiddleLeft;
             btnCancel.InactiveColor = Color.FromArgb(92, 102, 114);
-            btnCancel.Location = new Point(220, 255);
+            btnCancel.Location = new Point(370, 488);
             btnCancel.Name = "btnCancel";
-            btnCancel.PressedBorderColor = Color.FromArgb(165, 37, 37);
-            btnCancel.PressedColor = Color.FromArgb(165, 37, 37);
-            btnCancel.Size = new Size(90, 30);
-            btnCancel.TabIndex = 10;
+            btnCancel.PressedBorderColor = Color.FromArgb(153, 27, 27);
+            btnCancel.PressedColor = Color.FromArgb(153, 27, 27);
+            btnCancel.Size = new Size(100, 40);
+            btnCancel.TabIndex = 43;
             btnCancel.Text = "Cancel";
             btnCancel.TextAlignment = StringAlignment.Center;
             btnCancel.Click += btnCancel_Click;
             // 
-            // btnConfirm
+            // btnSave
             // 
-            btnConfirm.BackColor = Color.Transparent;
-            btnConfirm.BorderColor = Color.FromArgb(32, 34, 37);
-            btnConfirm.EnteredBorderColor = Color.FromArgb(165, 37, 37);
-            btnConfirm.EnteredColor = Color.FromArgb(32, 34, 37);
-            btnConfirm.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
-            btnConfirm.Image = null;
-            btnConfirm.ImageAlign = ContentAlignment.MiddleLeft;
-            btnConfirm.InactiveColor = Color.FromArgb(32, 34, 37);
-            btnConfirm.Location = new Point(330, 255);
-            btnConfirm.Name = "btnConfirm";
-            btnConfirm.PressedBorderColor = Color.FromArgb(165, 37, 37);
-            btnConfirm.PressedColor = Color.FromArgb(165, 37, 37);
-            btnConfirm.Size = new Size(90, 30);
-            btnConfirm.TabIndex = 11;
-            btnConfirm.Text = "Confirm";
-            btnConfirm.TextAlignment = StringAlignment.Center;
-            btnConfirm.Click += btnConfirm_Click;
+            btnSave.BackColor = Color.FromArgb(49, 62, 80);
+            btnSave.BorderColor = Color.FromArgb(26, 35, 48);
+            btnSave.Cursor = Cursors.Hand;
+            btnSave.EnteredBorderColor = Color.FromArgb(108, 111, 127);
+            btnSave.EnteredColor = Color.FromArgb(69, 85, 97);
+            btnSave.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
+            btnSave.Image = null;
+            btnSave.ImageAlign = ContentAlignment.MiddleLeft;
+            btnSave.InactiveColor = Color.FromArgb(26, 35, 48);
+            btnSave.Location = new Point(480, 488);
+            btnSave.Name = "btnSave";
+            btnSave.PressedBorderColor = Color.FromArgb(22, 101, 52);
+            btnSave.PressedColor = Color.FromArgb(22, 101, 52);
+            btnSave.Size = new Size(100, 40);
+            btnSave.TabIndex = 44;
+            btnSave.Text = "Confirm";
+            btnSave.TextAlignment = StringAlignment.Center;
+            btnSave.Click += btnConfirm_Click;
+            // 
+            // pnlContainer
+            // 
+            pnlContainer.BackColor = Color.FromArgb(108, 111, 127);
+            pnlContainer.Controls.Add(cboPatient);
+            pnlContainer.Controls.Add(txtPurpose);
+            pnlContainer.Controls.Add(label5);
+            pnlContainer.Controls.Add(label4);
+            pnlContainer.Controls.Add(cboTime);
+            pnlContainer.Controls.Add(label3);
+            pnlContainer.Controls.Add(label2);
+            pnlContainer.Controls.Add(cboDoctor);
+            pnlContainer.Controls.Add(dtpDate);
+            pnlContainer.Controls.Add(lblFullName);
+            pnlContainer.Location = new Point(30, 149);
+            pnlContainer.Name = "pnlContainer";
+            pnlContainer.Size = new Size(550, 324);
+            pnlContainer.TabIndex = 2;
+            // 
+            // cboPatient
+            // 
+            cboPatient.DrawMode = DrawMode.OwnerDrawFixed;
+            cboPatient.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboPatient.FlatStyle = FlatStyle.Flat;
+            cboPatient.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
+            cboPatient.ForeColor = Color.FromArgb(226, 230, 237);
+            cboPatient.FormattingEnabled = true;
+            cboPatient.ItemHeight = 30;
+            cboPatient.Items.AddRange(new object[] { "doctor", "nurse", "admin" });
+            cboPatient.Location = new Point(23, 54);
+            cboPatient.Name = "cboPatient";
+            cboPatient.Size = new Size(246, 36);
+            cboPatient.TabIndex = 41;
+            // 
+            // txtPurpose
+            // 
+            txtPurpose.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            txtPurpose.BackColor = Color.FromArgb(197, 202, 212);
+            txtPurpose.BaseColor = Color.FromArgb(108, 111, 127);
+            txtPurpose.BorderColorA = Color.FromArgb(108, 111, 127);
+            txtPurpose.BorderColorB = Color.FromArgb(108, 111, 127);
+            txtPurpose.Font = new Font("TT Interphases Pro Trl", 10F);
+            txtPurpose.ForeColor = Color.FromArgb(26, 35, 48);
+            txtPurpose.Hint = "Street, Barangay, Municipality, Province";
+            txtPurpose.Location = new Point(22, 228);
+            txtPurpose.Margin = new Padding(3, 3, 0, 3);
+            txtPurpose.MaxLength = 32767;
+            txtPurpose.Multiline = true;
+            txtPurpose.Name = "txtPurpose";
+            txtPurpose.PasswordChar = '\0';
+            txtPurpose.ScrollBars = ScrollBars.None;
+            txtPurpose.SelectedText = "";
+            txtPurpose.SelectionLength = 0;
+            txtPurpose.SelectionStart = 0;
+            txtPurpose.Size = new Size(505, 62);
+            txtPurpose.TabIndex = 40;
+            txtPurpose.TabStop = false;
+            txtPurpose.UseSystemPasswordChar = false;
+            // 
+            // label5
+            // 
+            label5.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
+            label5.ForeColor = Color.FromArgb(26, 35, 48);
+            label5.Location = new Point(23, 204);
+            label5.Name = "label5";
+            label5.Size = new Size(143, 17);
+            label5.TabIndex = 32;
+            label5.Text = "State Purpose:";
+            // 
+            // label4
+            // 
+            label4.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
+            label4.ForeColor = Color.FromArgb(26, 35, 48);
+            label4.Location = new Point(279, 112);
+            label4.Name = "label4";
+            label4.Size = new Size(143, 17);
+            label4.TabIndex = 31;
+            label4.Text = "Choose Date:";
+            // 
+            // cboTime
+            // 
+            cboTime.DrawMode = DrawMode.OwnerDrawFixed;
+            cboTime.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboTime.FlatStyle = FlatStyle.Flat;
+            cboTime.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
+            cboTime.ForeColor = Color.FromArgb(226, 230, 237);
+            cboTime.FormattingEnabled = true;
+            cboTime.ItemHeight = 30;
+            cboTime.Items.AddRange(new object[] { "doctor", "nurse", "admin" });
+            cboTime.Location = new Point(23, 140);
+            cboTime.Name = "cboTime";
+            cboTime.Size = new Size(246, 36);
+            cboTime.TabIndex = 30;
+            // 
+            // label3
+            // 
+            label3.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
+            label3.ForeColor = Color.FromArgb(26, 35, 48);
+            label3.Location = new Point(22, 112);
+            label3.Name = "label3";
+            label3.Size = new Size(143, 17);
+            label3.TabIndex = 29;
+            label3.Text = "Choose Timeslot:";
+            // 
+            // label2
+            // 
+            label2.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
+            label2.ForeColor = Color.FromArgb(26, 35, 48);
+            label2.Location = new Point(279, 25);
+            label2.Name = "label2";
+            label2.Size = new Size(207, 26);
+            label2.TabIndex = 28;
+            label2.Text = "Choose Attending Doctor: ";
+            // 
+            // cboDoctor
+            // 
+            cboDoctor.DrawMode = DrawMode.OwnerDrawFixed;
+            cboDoctor.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboDoctor.FlatStyle = FlatStyle.Flat;
+            cboDoctor.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
+            cboDoctor.ForeColor = Color.FromArgb(226, 230, 237);
+            cboDoctor.FormattingEnabled = true;
+            cboDoctor.ItemHeight = 30;
+            cboDoctor.Items.AddRange(new object[] { "doctor", "nurse", "admin" });
+            cboDoctor.Location = new Point(279, 54);
+            cboDoctor.Name = "cboDoctor";
+            cboDoctor.Size = new Size(246, 36);
+            cboDoctor.TabIndex = 27;
+            // 
+            // dtpDate
+            // 
+            dtpDate.Font = new Font("Segoe UI", 9F);
+            dtpDate.Location = new Point(279, 139);
+            dtpDate.Name = "dtpDate";
+            dtpDate.Size = new Size(246, 27);
+            dtpDate.TabIndex = 5;
+            // 
+            // lblFullName
+            // 
+            lblFullName.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
+            lblFullName.ForeColor = Color.FromArgb(26, 35, 48);
+            lblFullName.Location = new Point(23, 25);
+            lblFullName.Name = "lblFullName";
+            lblFullName.Size = new Size(131, 17);
+            lblFullName.TabIndex = 1;
+            lblFullName.Text = "Choose Patient: ";
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(37, 45, 56);
+            panel1.Controls.Add(lblMeta);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(button1);
+            panel1.Location = new Point(30, 46);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(550, 125);
+            panel1.TabIndex = 42;
+            // 
+            // lblMeta
+            // 
+            lblMeta.Anchor = AnchorStyles.Left;
+            lblMeta.AutoSize = true;
+            lblMeta.Font = new Font("TT Interphases Pro Trl Variable", 10F, FontStyle.Bold);
+            lblMeta.ForeColor = Color.FromArgb(92, 102, 114);
+            lblMeta.Location = new Point(144, 49);
+            lblMeta.Name = "lblMeta";
+            lblMeta.Size = new Size(374, 21);
+            lblMeta.TabIndex = 40;
+            lblMeta.Text = "Fill the following details to book an appointment";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Panton-Trial ExtraBold", 14F, FontStyle.Bold);
+            label1.ForeColor = Color.FromArgb(197, 202, 212);
+            label1.Location = new Point(142, 16);
+            label1.Margin = new Padding(0, 0, 3, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(215, 31);
+            label1.TabIndex = 39;
+            label1.Text = "Book Appointment";
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.Transparent;
+            button1.BorderColor = Color.Transparent;
+            button1.Enabled = false;
+            button1.EnteredBorderColor = Color.Transparent;
+            button1.EnteredColor = Color.Transparent;
+            button1.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.Image = (Image)resources.GetObject("button1.Image");
+            button1.ImageAlign = ContentAlignment.MiddleCenter;
+            button1.InactiveColor = Color.FromArgb(49, 62, 80);
+            button1.Location = new Point(23, 0);
+            button1.Margin = new Padding(3, 0, 0, 0);
+            button1.Name = "button1";
+            button1.Padding = new Padding(23, 13, 11, 13);
+            button1.PressedBorderColor = Color.Transparent;
+            button1.PressedColor = Color.Transparent;
+            button1.RightToLeft = RightToLeft.Yes;
+            button1.Size = new Size(108, 84);
+            button1.TabIndex = 39;
+            button1.TextAlignment = StringAlignment.Center;
+            // 
+            // button2
+            // 
+            button2.BackColor = Color.Transparent;
+            button2.BorderColor = Color.Transparent;
+            button2.Enabled = false;
+            button2.EnteredBorderColor = Color.Transparent;
+            button2.EnteredColor = Color.Transparent;
+            button2.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button2.Image = null;
+            button2.ImageAlign = ContentAlignment.MiddleLeft;
+            button2.InactiveColor = Color.FromArgb(37, 45, 56);
+            button2.Location = new Point(30, 28);
+            button2.Margin = new Padding(3, 0, 0, 0);
+            button2.Name = "button2";
+            button2.Padding = new Padding(23, 13, 11, 13);
+            button2.PressedBorderColor = Color.Transparent;
+            button2.PressedColor = Color.Transparent;
+            button2.RightToLeft = RightToLeft.Yes;
+            button2.Size = new Size(550, 58);
+            button2.TabIndex = 41;
+            button2.TextAlignment = StringAlignment.Center;
             // 
             // BookAppointmentForm
             // 
-            ClientSize = new Size(474, 502);
+            ClientSize = new Size(611, 562);
             Controls.Add(pnlBackground);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
@@ -243,10 +335,28 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Book Appointment";
             pnlBackground.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             pnlContainer.ResumeLayout(false);
-            pnlContainer.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
         }
+
+        private Panel panel1;
+        private Label lblMeta;
+        private Label label1;
+        protected internal ReaLTaiizor.Controls.Button button1;
+        protected internal ReaLTaiizor.Controls.Button button2;
+        private Label lblFullName;
+        private ReaLTaiizor.Controls.HopeComboBox cboRole;
+        private ReaLTaiizor.Controls.HopeComboBox cboDoctor;
+        private Label label2;
+        private Label label3;
+        private ReaLTaiizor.Controls.HopeComboBox cboTime;
+        private Label label5;
+        private Label label4;
+        private ReaLTaiizor.Controls.HopeTextBox txtPurpose;
+        private ReaLTaiizor.Controls.Button btnCancel;
+        private ReaLTaiizor.Controls.Button btnSave;
+        private ReaLTaiizor.Controls.HopeComboBox cboPatient;
     }
 }

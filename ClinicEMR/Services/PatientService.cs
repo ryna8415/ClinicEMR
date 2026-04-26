@@ -82,6 +82,11 @@ namespace ClinicEMR.Services
 
                 var cmd = new MySqlCommand(
                   "UPDATE patients SET " +
+                  "date_of_birth=@dateOfBirth, " +
+                  "sex=@sex, " +
+                  "contact_number=@contactNumber, " +
+                  "address=@address, " +
+                  "emergency_contact=@emergencyContact, " +
                   "known_allergies=@allergies, " +
                   "chronic_conditions=@conditions, " +
                   "past_surgeries=@surgeries, " +
@@ -89,6 +94,11 @@ namespace ClinicEMR.Services
                   "current_medications=@currentMeds " +
                   "WHERE patient_id=@id", conn);
                 cmd.Parameters.AddWithValue("@id", p.PatientId);
+                cmd.Parameters.AddWithValue("@dateOfBirth", p.DateOfBirth);
+                cmd.Parameters.AddWithValue("@sex", p.Sex ?? "");
+                cmd.Parameters.AddWithValue("@contactNumber", p.ContactNumber ?? "");
+                cmd.Parameters.AddWithValue("@address", p.Address ?? "");
+                cmd.Parameters.AddWithValue("@emergencyContact", p.EmergencyContact.HasValue ? p.EmergencyContact.Value : DBNull.Value);
                 cmd.Parameters.AddWithValue("@allergies", p.KnownAllergies ?? "");
                 cmd.Parameters.AddWithValue("@conditions", p.ChronicConditions ?? "");
                 cmd.Parameters.AddWithValue("@surgeries", p.PastSurgeries ?? "");

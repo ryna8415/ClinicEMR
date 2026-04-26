@@ -69,44 +69,90 @@ namespace ClinicEMR.Services
             }
             else
             {
-                if (password.Length < MinPasswordLength || password.Length > MaxPasswordLength)
-                {
-                    AddError(errors, "Password", $"Password must be {MinPasswordLength}-{MaxPasswordLength} characters long.");
-                }
-
-                if (!UppercaseRegex().IsMatch(password))
-                {
-                    AddError(errors, "Password", "Password must include at least one uppercase letter.");
-                }
-
-                if (!LowercaseRegex().IsMatch(password))
-                {
-                    AddError(errors, "Password", "Password must include at least one lowercase letter.");
-                }
-
-                if (!DigitRegex().IsMatch(password))
-                {
-                    AddError(errors, "Password", "Password must include at least one number.");
-                }
-
-                if (!SpecialCharacterRegex().IsMatch(password))
-                {
-                    AddError(errors, "Password", "Password must include at least one special character.");
-                }
-
-                if (password.Contains(' '))
-                {
-                    AddError(errors, "Password", "Password must not contain spaces.");
-                }
-
-                if (!string.IsNullOrWhiteSpace(username) &&
-                    password.Contains(username, System.StringComparison.OrdinalIgnoreCase))
-                {
-                    AddError(errors, "Password", "Password must not contain the username.");
-                }
+                AddPasswordErrors(errors, password, username);
             }
 
             return errors;
+        }
+
+        public static List<string> ValidatePassword(string password, string username = "")
+        {
+            var errors = new Dictionary<string, List<string>>();
+            AddPasswordErrors(errors, password, username);
+
+            return errors.TryGetValue("Password", out var passwordErrors)
+                ? passwordErrors
+                : new List<string>();
+        }
+
+        public static List<string> ValidateRecoverySetup(string question, string answer, string username = "")
+        {
+            var errors = new List<string>();
+
+            question = question?.Trim() ?? string.Empty;
+            answer = answer?.Trim() ?? string.Empty;
+
+            if (question.Length < 8 || question.Length > 120)
+            {
+                errors.Add("Recovery question must be 8-120 characters long.");
+            }
+
+            if (answer.Length < 6 || answer.Length > 120)
+            {
+                errors.Add("Recovery answer must be 6-120 characters long.");
+            }
+
+            if (answer.Contains(' '))
+            {
+                errors.Add("Recovery answer must not contain spaces.");
+            }
+
+            if (!string.IsNullOrWhiteSpace(username) &&
+                answer.Contains(username, System.StringComparison.OrdinalIgnoreCase))
+            {
+                errors.Add("Recovery answer must not contain the username.");
+            }
+
+            return errors;
+        }
+
+        private static void AddPasswordErrors(Dictionary<string, List<string>> errors, string password, string username)
+        {
+            if (password.Length < MinPasswordLength || password.Length > MaxPasswordLength)
+            {
+                AddError(errors, "Password", $"{MinPasswordLength}-{MaxPasswordLength} characters required.");
+            }
+
+            if (!UppercaseRegex().IsMatch(password))
+            {
+                AddError(errors, "Password", "Add 1 uppercase letter.");
+            }
+
+            if (!LowercaseRegex().IsMatch(password))
+            {
+                AddError(errors, "Password", "Add 1 lowercase letter.");
+            }
+
+            if (!DigitRegex().IsMatch(password))
+            {
+                AddError(errors, "Password", "Add 1 number.");
+            }
+
+            if (!SpecialCharacterRegex().IsMatch(password))
+            {
+                AddError(errors, "Password", "Add 1 special character.");
+            }
+
+            if (password.Contains(' '))
+            {
+                AddError(errors, "Password", "No spaces allowed.");
+            }
+
+            if (!string.IsNullOrWhiteSpace(username) &&
+                password.Contains(username, System.StringComparison.OrdinalIgnoreCase))
+            {
+                AddError(errors, "Password", "Must not contain the username.");
+            }
         }
 
         private static void AddError(Dictionary<string, List<string>> errors, string fieldName, string message)

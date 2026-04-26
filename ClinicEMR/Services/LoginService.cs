@@ -6,12 +6,15 @@ namespace ClinicEMR.Services
 {
     public class LoginService
     {
-
-        // Returns User object if login is valid, null if not
         public static User Authenticate(string username, string password)
         {
             using (var conn = DatabaseHelper.GetConnection())
             {
+                if (conn == null)
+                {
+                    return null;
+                }
+
                 var cmd = new MySqlCommand(
                   "SELECT * FROM users WHERE username=@u AND is_active=1", conn);
                 cmd.Parameters.AddWithValue("@u", username);
@@ -33,6 +36,8 @@ namespace ClinicEMR.Services
                           "UPDATE users SET last_login=NOW() WHERE user_id=@id", conn);
                         updateCmd.Parameters.AddWithValue("@id", userId);
                         updateCmd.ExecuteNonQuery();
+
+                        AuditLogService.Log(userId, "Logged in", fullNameValue);
 
                         return new User
                         {
