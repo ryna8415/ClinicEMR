@@ -4,7 +4,7 @@ using System.Text;
 using System.Drawing.Drawing2D;
 using System.ComponentModel;
 
-namespace ClinicEMR
+namespace ClinicEMR.Services
 {
     public class RoundedPanel : Panel
     {

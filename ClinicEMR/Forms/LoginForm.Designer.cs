@@ -1,4 +1,6 @@
-﻿namespace ClinicEMR
+﻿using ClinicEMR.Services;
+
+namespace ClinicEMR
 {
     partial class LoginForm
     {
@@ -122,7 +124,7 @@
             // 
             // txtPassword
             // 
-            ((ClinicEMR.RoundedTextBox)this.txtPassword).UseSystemPasswordChar = true;
+            ((RoundedTextBox)this.txtPassword).UseSystemPasswordChar = true;
             txtPassword.BackColor = Color.White;
             txtPassword.Font = new Font("Segoe UI", 9F);
             txtPassword.Location = new Point(14, 84);
