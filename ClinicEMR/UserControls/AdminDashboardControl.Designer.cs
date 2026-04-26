@@ -175,7 +175,7 @@ namespace ClinicEMR.UserControls
             // materialDivider3
             // 
             materialDivider3.Anchor = AnchorStyles.Top;
-            materialDivider3.BackColor = Color.FromArgb(22, 101, 52);
+            materialDivider3.BackColor = Color.FromArgb(74, 168, 122);
             materialDivider3.Depth = 0;
             materialDivider3.Location = new Point(231, 0);
             materialDivider3.Margin = new Padding(3, 0, 3, 4);
@@ -305,7 +305,7 @@ namespace ClinicEMR.UserControls
             lblTotalPatientsText.RightToLeft = RightToLeft.No;
             lblTotalPatientsText.Size = new Size(163, 25);
             lblTotalPatientsText.TabIndex = 14;
-            lblTotalPatientsText.Text = "Patients Registered";
+            lblTotalPatientsText.Text = "Patient Count";
             lblTotalPatientsText.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // pbPatients
@@ -350,7 +350,7 @@ namespace ClinicEMR.UserControls
             // tblContent
             // 
             tblContent.ColumnCount = 1;
-            tblContent.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tblContent.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tblContent.Controls.Add(dgvRecentLogins, 0, 1);
             tblContent.Controls.Add(tableLayoutPanel1, 0, 0);
             tblContent.Dock = DockStyle.Fill;
@@ -358,8 +358,8 @@ namespace ClinicEMR.UserControls
             tblContent.Margin = new Padding(23, 4, 23, 4);
             tblContent.Name = "tblContent";
             tblContent.RowCount = 2;
-            tblContent.RowStyles.Add(new RowStyle(SizeType.Percent, 13.0952377F));
-            tblContent.RowStyles.Add(new RowStyle(SizeType.Percent, 86.90476F));
+            tblContent.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            tblContent.RowStyles.Add(new RowStyle(SizeType.Percent, 100.000008F));
             tblContent.Size = new Size(853, 447);
             tblContent.TabIndex = 2;
             // 
@@ -369,18 +369,18 @@ namespace ClinicEMR.UserControls
             dgvRecentLogins.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvRecentLogins.Cursor = Cursors.Hand;
             dgvRecentLogins.Dock = DockStyle.Fill;
-            dgvRecentLogins.Location = new Point(3, 62);
+            dgvRecentLogins.Location = new Point(3, 54);
             dgvRecentLogins.Margin = new Padding(3, 4, 3, 4);
             dgvRecentLogins.Name = "dgvRecentLogins";
             dgvRecentLogins.RowHeadersWidth = 51;
-            dgvRecentLogins.Size = new Size(847, 381);
+            dgvRecentLogins.Size = new Size(847, 389);
             dgvRecentLogins.TabIndex = 17;
             // 
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4.3184886F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 95.68151F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.Controls.Add(pictureBox3, 0, 0);
             tableLayoutPanel1.Controls.Add(label1, 1, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
@@ -388,18 +388,18 @@ namespace ClinicEMR.UserControls
             tableLayoutPanel1.Margin = new Padding(3, 4, 3, 4);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(847, 50);
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Size = new Size(847, 42);
             tableLayoutPanel1.TabIndex = 18;
             // 
             // pictureBox3
             // 
-            pictureBox3.Anchor = AnchorStyles.Left;
+            pictureBox3.Dock = DockStyle.Fill;
             pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
             pictureBox3.Location = new Point(0, 0);
             pictureBox3.Margin = new Padding(0);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(36, 50);
+            pictureBox3.Size = new Size(40, 42);
             pictureBox3.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox3.TabIndex = 0;
             pictureBox3.TabStop = false;
@@ -410,7 +410,7 @@ namespace ClinicEMR.UserControls
             label1.AutoSize = true;
             label1.Font = new Font("Panton-Trial ExtraBold", 14F, FontStyle.Bold);
             label1.ForeColor = Color.FromArgb(26, 35, 48);
-            label1.Location = new Point(39, 9);
+            label1.Location = new Point(43, 5);
             label1.Name = "label1";
             label1.Size = new Size(230, 31);
             label1.TabIndex = 1;

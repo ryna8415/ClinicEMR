@@ -1,12 +1,20 @@
-﻿using ClinicEMR.Services;
+﻿using ClinicEMR.Helpers;
+using ClinicEMR.Models;
+using ClinicEMR.Services;
 using System;
 using System.Windows.Forms;
-using ClinicEMR.Models;
 
 namespace ClinicEMR.Forms
 {
     public partial class AppointmentControl : UserControl
     {
+        private readonly Color Card1 = Color.FromArgb(92, 143, 204);
+        private readonly Color Card2 = Color.FromArgb(74, 168, 122);
+        private readonly Color Card3 = UITheme.OrangeWarning;
+        private readonly Color Card4 = UITheme.AllergyRed;
+        private readonly Color baseColor = UITheme.BlueSlate;
+
+
         private readonly User _user;
         private readonly MainShellForm _shell;
 
@@ -19,7 +27,6 @@ namespace ClinicEMR.Forms
 
             dtpDate.Value = DateTime.Today;
 
-            // ✅ Default filter values
             cboStatus.Items.Clear();
             cboStatus.Items.AddRange(new string[]
             {
@@ -30,13 +37,38 @@ namespace ClinicEMR.Forms
                 "No-Show"
             });
 
-            cboStatus.SelectedIndex = 0; // Default = All
+            cboStatus.SelectedIndex = 0; 
             chkAllDates.Checked = false;
+            ThemeService.ApplyRoundedCorners(tblLayout, 10);
+            ThemeService.TryRoundGrid(dgvAppointments, 4);
+            ThemeService.ApplyRoundedCorners(card1, 10);
+            ThemeService.ApplyRoundedCorners(card2, 10);
+            ThemeService.ApplyRoundedCorners(card3, 10);
+            ThemeService.ApplyRoundedCorners(card4, 10);
+
         }
 
         private void AppointmentControl_Load(object s, EventArgs e)
         {
             LoadSchedule();
+            ApplyHover(card1);
+            ApplyHover(card2);
+            ApplyHover(card3);
+            ApplyHover(card4);
+        }
+
+        private void ApplyHover(Control parent)
+        {
+            parent.MouseEnter += Card_MouseEnter;
+            parent.MouseLeave += Card_MouseLeave;
+
+
+            parent.Cursor = Cursors.Hand;
+
+            foreach (Control child in parent.Controls)
+            {
+                ApplyHover(child);
+            }
         }
 
         public void LoadSchedule()
@@ -46,28 +78,23 @@ namespace ClinicEMR.Forms
 
             List<Appointment> data;
 
-            // ✅ CASE 1: SHOW EVERYTHING
             if (allDates && status == "All")
             {
                 data = AppointmentService.GetAll();
             }
-            // ✅ CASE 2: FILTER BY STATUS ONLY
             else if (allDates)
             {
                 data = AppointmentService.GetByStatus(status);
             }
-            // ✅ CASE 3: FILTER BY DATE ONLY
             else if (status == "All")
             {
                 data = AppointmentService.GetByDate(dtpDate.Value);
             }
-            // ✅ CASE 4: FILTER BY DATE + STATUS
             else
             {
                 data = AppointmentService.GetByDateAndStatus(dtpDate.Value, status);
             }
 
-            // 🔄 Refresh grid properly
             dgvAppointments.DataSource = null;
             dgvAppointments.DataSource = data;
 
@@ -92,6 +119,42 @@ namespace ClinicEMR.Forms
             });
 
             HideCol("AppointmentId");
+            LoadTodaySummary();
+        }
+
+        private void LoadTodaySummary()
+        {
+            List<Appointment> todayAppointments = AppointmentService.GetByDate(DateTime.Today);
+
+            int totalToday = todayAppointments.Count;
+            int completedToday = 0;
+            int remainingToday = 0;
+            int cancelledToday = 0;
+
+            foreach (Appointment appointment in todayAppointments)
+            {
+                string appointmentStatus = appointment.Status?.Trim() ?? string.Empty;
+
+                if (appointmentStatus.Equals("Completed", StringComparison.OrdinalIgnoreCase))
+                {
+                    completedToday++;
+                    continue;
+                }
+
+                if (appointmentStatus.Equals("Cancelled", StringComparison.OrdinalIgnoreCase) ||
+                    appointmentStatus.Equals("No-Show", StringComparison.OrdinalIgnoreCase))
+                {
+                    cancelledToday++;
+                    continue;
+                }
+
+                remainingToday++;
+            }
+
+            lblTodayTotalCount.Text = totalToday.ToString();
+            lblDoneTodayCount.Text = completedToday.ToString();
+            lblRemainingCount.Text = remainingToday.ToString();
+            lblCancelledCount.Text = cancelledToday.ToString();
         }
 
         private void btnLoad_Click(object s, EventArgs e)
@@ -114,56 +177,17 @@ namespace ClinicEMR.Forms
                 return;
             }
 
-            // 🔽 Status dialog
-            Form dialog = new Form()
+            int id = (int)dgvAppointments.SelectedRows[0].Cells["AppointmentId"].Value;
+            var appointment = AppointmentService.GetById(id);
+            if (appointment == null)
             {
-                Width = 300,
-                Height = 150,
-                Text = "Update Status",
-                StartPosition = FormStartPosition.CenterParent
-            };
+                MessageBox.Show("Unable to load the selected appointment.");
+                return;
+            }
 
-            ComboBox cbo = new ComboBox()
-            {
-                Left = 20,
-                Top = 20,
-                Width = 240,
-                DropDownStyle = ComboBoxStyle.DropDownList
-            };
-
-            cbo.Items.AddRange(new string[]
-            {
-                "Scheduled",
-                "Completed",
-                "Cancelled",
-                "No-Show"
-            });
-
-            cbo.SelectedIndex = 1;
-
-            Button btnOk = new Button()
-            {
-                Text = "OK",
-                Left = 100,
-                Width = 80,
-                Top = 60,
-                DialogResult = DialogResult.OK
-            };
-
-            dialog.Controls.Add(cbo);
-            dialog.Controls.Add(btnOk);
-            dialog.AcceptButton = btnOk;
-            ThemeService.ApplyTheme(dialog);
-
+            using var dialog = new EditAppointmentForm(id, _user.UserId);
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                string newStatus = cbo.SelectedItem.ToString();
-
-                int id = (int)dgvAppointments
-                    .SelectedRows[0]
-                    .Cells["AppointmentId"].Value;
-
-                AppointmentService.UpdateStatus(id, newStatus);
                 LoadSchedule();
             }
         }
@@ -189,6 +213,68 @@ namespace ClinicEMR.Forms
         {
             dtpDate.Enabled = !chkAllDates.Checked;
             LoadSchedule();
+        }
+
+        private void Card_MouseEnter(object sender, EventArgs e)
+        {
+            Panel? p = GetCardPanel(sender);
+            if (p == null) return;
+
+            if (p.Tag as string != "hover")
+            {
+                string[] labelNames = { "lblTodayTotal", "lblCompleted", "lblRemaining", "lblCancelled" };
+
+                foreach (string labelName in labelNames)
+                {
+                    if (p.Controls[labelName] is Label lbl)
+                    {
+                        switch (labelName)
+                        {
+                            case "lblTodayTotal":
+                                lbl.ForeColor = Card1;
+                                break;
+
+                            case "lblCompleted":
+                                lbl.ForeColor = Card2;
+                                break;
+
+                            case "lblRemaining":
+                                lbl.ForeColor = Card3;
+                                break;
+                            case "lblCancelled":
+                                lbl.ForeColor = Card4;
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void Card_MouseLeave(object sender, EventArgs e)
+        {
+            Panel? p = GetCardPanel(sender);
+            if (p == null) return;
+
+            string[] labelNames = { "lblTodayTotal", "lblCompleted", "lblRemaining", "lblCancelled" };
+
+            foreach (string labelName in labelNames)
+            {
+                if (p.Controls[labelName] is Label lbl)
+                {
+                    lbl.ForeColor = baseColor;
+                }
+            }
+
+            p.Tag = null;
+        }
+        private Panel? GetCardPanel(object sender)
+        {
+            Control? c = sender as Control;
+
+            while (c != null && !(c is Panel))
+                c = c.Parent;
+
+            return c as Panel;
         }
     }
 }

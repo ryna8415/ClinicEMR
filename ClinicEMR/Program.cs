@@ -1,4 +1,5 @@
 using ClinicEMR.Forms;
+using ClinicEMR.Services;
 
 namespace ClinicEMR
 {
@@ -13,6 +14,7 @@ namespace ClinicEMR
             ApplicationConfiguration.Initialize();
 
             AppConfig.Init();
+            SchemaService.EnsureDatabaseObjects();
 
             Application.Run(new LoginForm());
         }

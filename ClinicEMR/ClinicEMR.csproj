@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,6 +22,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Remove="obj\**\*.cs" />
+    <Compile Remove="tmpobj\**\*.cs" />
+    <Compile Remove=".codex_obj\**\*.cs" />
+    <Compile Remove=".codex_obj_recovery\**\*.cs" />
   </ItemGroup>
 
   <ItemGroup>

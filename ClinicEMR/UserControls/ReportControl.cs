@@ -29,34 +29,51 @@ namespace ClinicEMR.UserControls
 
         private void btnGenerate_Click(object sender, EventArgs e)
         {
-            DateTime d = dtpDate.Value.Date;
-            int count = ReportService.GetDailyVisitCount(d);
-            lblCount.Text = $"Patients seen on {d:MMMM dd, yyyy}: {count}";
-            DataTable reportData = ReportService.GetDailySummary(d);
-            dgvReport.DataSource = reportData;
-            GridViewService.ShowOnly(dgvReport, "Patient Code", "Patient Name", "Diagnosis", "Doctor", "Time");
-            ShowPlaceholder(reportData.Rows.Count == 0 ? "Nothing to show for the selected date." : null);
+            try
+            {
+                DateTime d = dtpDate.Value.Date;
+                int count = ReportService.GetDailyVisitCount(d);
+                lblCount.Text = $"Patients seen on {d:MMMM dd, yyyy}: {count}";
+                DataTable reportData = ReportService.GetDailySummary(d);
+                dgvReport.DataSource = reportData;
+                GridViewService.ShowOnly(dgvReport, "Patient Code", "Patient Name", "Diagnosis", "Doctor", "Time");
+                ShowPlaceholder(reportData.Rows.Count == 0 ? "Nothing to show for the selected date." : null);
+            }
+            catch (Exception ex)
+            {
+                dgvReport.DataSource = null;
+                lblCount.Text = "Unable to load report.";
+                ShowPlaceholder("Unable to load the report right now.");
+                MessageBox.Show(ex.Message, "Report", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            DateTime selectedDate = dtpDate.Value.Date;
-            DataTable reportData = ReportService.GetDailySummary(selectedDate);
-
-            if (reportData.Rows.Count == 0)
+            try
             {
-                MessageBox.Show(
-                    "Generate a report with at least one row before printing.",
-                    "Nothing to Print",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-                return;
-            }
+                DateTime selectedDate = dtpDate.Value.Date;
+                DataTable reportData = ReportService.GetDailySummary(selectedDate);
 
-            PrintService.ShowPrintPreview(
-                this,
-                $"Daily Report - {selectedDate:yyyy-MM-dd}",
-                BuildPrintableReport(selectedDate, reportData));
+                if (reportData.Rows.Count == 0)
+                {
+                    MessageBox.Show(
+                        "Generate a report with at least one row before printing.",
+                        "Nothing to Print",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                    return;
+                }
+
+                PrintService.ShowPrintPreview(
+                    this,
+                    $"Daily Report - {selectedDate:yyyy-MM-dd}",
+                    BuildPrintableReport(selectedDate, reportData));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Print Report", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private Label CreatePlaceholder()

@@ -18,6 +18,8 @@ namespace ClinicEMR.Models
         public string DoctorNotes { get; set; }
         public DateTime ConsultDate { get; set; }
         public bool IsLocked { get; set; }
+        public string Status { get; set; }
+        public DateTime? UpdatedAt { get; set; }
     }
 
 }

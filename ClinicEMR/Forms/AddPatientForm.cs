@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -12,15 +13,16 @@ namespace ClinicEMR.Forms
 {
     public partial class AddPatientForm : Form
     {
+        private Control[] _enterNavigationOrder = Array.Empty<Control>();
+        private bool _isSaving;
+
         public AddPatientForm()
         {
             InitializeComponent();
             cboSex.DropDownStyle = ComboBoxStyle.DropDownList;
             dtpDOB.MaxDate = DateTime.Today;
             txtContact.MaxLength = 16;
-            txtContact.PlaceholderText = "09XXXXXXXXX or +639XXXXXXXXX";
             txtEmergency.MaxLength = 11;
-            txtEmergency.PlaceholderText = "Numbers only";
             txtEmergency.KeyPress += txtEmergency_KeyPress;
             txtFirstName.TextChanged += (_, _) => ClearError(lblFirstNameError);
             txtLastName.TextChanged += (_, _) => ClearError(lblLastNameError);
@@ -28,11 +30,64 @@ namespace ClinicEMR.Forms
             dtpDOB.ValueChanged += (_, _) => ClearError(lblDobError);
             txtContact.TextChanged += (_, _) => ClearError(lblContactError);
             txtEmergency.TextChanged += (_, _) => ClearError(lblEmergencyError);
-            ThemeService.ApplyTheme(this);
+            _enterNavigationOrder =
+            [
+                txtFirstName,
+                txtLastName,
+                cboSex,
+                dtpDOB,
+                txtAddress,
+                txtContact,
+                txtEmergency,
+                txtAllergies
+            ];
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData != Keys.Enter)
+            {
+                return base.ProcessCmdKey(ref msg, keyData);
+            }
+
+            var activeInput = _enterNavigationOrder.FirstOrDefault(control => control.Focused || control.ContainsFocus);
+            if (activeInput == null)
+            {
+                return base.ProcessCmdKey(ref msg, keyData);
+            }
+
+            var currentIndex = Array.IndexOf(_enterNavigationOrder, activeInput);
+            if (currentIndex < 0)
+            {
+                return base.ProcessCmdKey(ref msg, keyData);
+            }
+
+            if (activeInput == cboSex && cboSex.DroppedDown)
+            {
+                return base.ProcessCmdKey(ref msg, keyData);
+            }
+
+            if (currentIndex == _enterNavigationOrder.Length - 1)
+            {
+                btnSave_Click(btnSave, EventArgs.Empty);
+                return true;
+            }
+
+            _enterNavigationOrder[currentIndex + 1].Focus();
+            return true;
+        }
+
+        private void AddPatientForm_KeyDown(object? sender, KeyEventArgs e)
+        {
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (_isSaving)
+            {
+                return;
+            }
+
             DialogResult = DialogResult.None;
             ClearAllErrors();
 
@@ -62,8 +117,25 @@ namespace ClinicEMR.Forms
                 return;
             }
 
-            PatientValidationService.TryNormalizePhilippineContactNumber(contactNumber, out var normalizedContactNumber);
-            PatientValidationService.TryParseEmergencyContact(emergencyContactText, out var emergencyContact);
+            if (!PatientValidationService.TryNormalizePhilippineContactNumber(contactNumber, out var normalizedContactNumber))
+            {
+                ShowError(lblContactError, new Dictionary<string, List<string>>
+                {
+                    ["ContactNumber"] = ["Contact number must be a valid Philippine mobile number."]
+                }, "ContactNumber");
+                txtContact.Focus();
+                return;
+            }
+
+            if (!PatientValidationService.TryParseEmergencyContact(emergencyContactText, out var emergencyContact))
+            {
+                ShowError(lblEmergencyError, new Dictionary<string, List<string>>
+                {
+                    ["EmergencyContact"] = ["Emergency contact must contain numbers only."]
+                }, "EmergencyContact");
+                txtEmergency.Focus();
+                return;
+            }
 
             var p = new Patient
             {
@@ -77,10 +149,23 @@ namespace ClinicEMR.Forms
                 KnownAllergies = txtAllergies.Text.Trim()
             };
 
-            PatientService.Add(p);
-            MessageBox.Show("Patient registered successfully!");
-            DialogResult = DialogResult.OK;
-            Close();
+            try
+            {
+                _isSaving = true;
+                PatientService.Add(p);
+                MessageBox.Show("Patient registered successfully!");
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unable to save the patient right now.\n{ex.Message}", "Patient Registration",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                _isSaving = false;
+            }
         }
 
         private void txtEmergency_KeyPress(object? sender, KeyPressEventArgs e)
@@ -146,6 +231,11 @@ namespace ClinicEMR.Forms
             {
                 txtEmergency.Focus();
             }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

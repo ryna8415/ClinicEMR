@@ -37,8 +37,10 @@
             pictureBox3 = new PictureBox();
             label1 = new Label();
             tblFooter = new TableLayoutPanel();
-            btnDeactivate = new ReaLTaiizor.Controls.Button();
+            btnResetPassword = new ReaLTaiizor.Controls.Button();
             btnReEnable = new ReaLTaiizor.Controls.Button();
+            btnDeactivate = new ReaLTaiizor.Controls.Button();
+            btnClearRecovery = new ReaLTaiizor.Controls.Button();
             tblLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsers).BeginInit();
             tblHeader.SuspendLayout();
@@ -49,6 +51,7 @@
             // 
             // tblLayout
             // 
+            tblLayout.BackColor = Color.FromArgb(226, 230, 237);
             tblLayout.ColumnCount = 1;
             tblLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tblLayout.Controls.Add(dgvUsers, 0, 1);
@@ -107,8 +110,8 @@
             btnAddUser.Image = null;
             btnAddUser.ImageAlign = ContentAlignment.MiddleLeft;
             btnAddUser.InactiveColor = Color.FromArgb(26, 35, 48);
-            btnAddUser.Location = new Point(685, 4);
-            btnAddUser.Margin = new Padding(3, 4, 3, 4);
+            btnAddUser.Location = new Point(688, 4);
+            btnAddUser.Margin = new Padding(3, 4, 0, 4);
             btnAddUser.Name = "btnAddUser";
             btnAddUser.PressedBorderColor = Color.FromArgb(108, 111, 127);
             btnAddUser.PressedColor = Color.FromArgb(108, 111, 127);
@@ -121,26 +124,26 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5.30164528F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 94.69836F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.Controls.Add(pictureBox3, 0, 0);
             tableLayoutPanel1.Controls.Add(label1, 1, 0);
             tableLayoutPanel1.Location = new Point(3, 4);
             tableLayoutPanel1.Margin = new Padding(3, 4, 3, 4);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.Size = new Size(625, 40);
             tableLayoutPanel1.TabIndex = 20;
             // 
             // pictureBox3
             // 
-            pictureBox3.Anchor = AnchorStyles.Left;
+            pictureBox3.Dock = DockStyle.Fill;
             pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
             pictureBox3.Location = new Point(0, 0);
             pictureBox3.Margin = new Padding(0);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(33, 40);
+            pictureBox3.Size = new Size(40, 40);
             pictureBox3.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox3.TabIndex = 0;
             pictureBox3.TabStop = false;
@@ -151,7 +154,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Panton-Trial ExtraBold", 14F, FontStyle.Bold);
             label1.ForeColor = Color.FromArgb(26, 35, 48);
-            label1.Location = new Point(36, 4);
+            label1.Location = new Point(43, 4);
             label1.Name = "label1";
             label1.Size = new Size(168, 31);
             label1.TabIndex = 1;
@@ -159,47 +162,51 @@
             // 
             // tblFooter
             // 
-            tblFooter.ColumnCount = 2;
-            tblFooter.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tblFooter.ColumnCount = 5;
             tblFooter.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 106F));
-            tblFooter.Controls.Add(btnDeactivate, 1, 0);
+            tblFooter.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 106F));
+            tblFooter.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tblFooter.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 109F));
+            tblFooter.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 103F));
+            tblFooter.Controls.Add(btnResetPassword, 4, 0);
             tblFooter.Controls.Add(btnReEnable, 0, 0);
+            tblFooter.Controls.Add(btnDeactivate, 1, 0);
+            tblFooter.Controls.Add(btnClearRecovery, 3, 0);
             tblFooter.Dock = DockStyle.Fill;
             tblFooter.Location = new Point(23, 584);
             tblFooter.Margin = new Padding(23, 4, 23, 4);
             tblFooter.Name = "tblFooter";
             tblFooter.RowCount = 2;
-            tblFooter.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tblFooter.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tblFooter.RowStyles.Add(new RowStyle(SizeType.Percent, 27.93296F));
+            tblFooter.RowStyles.Add(new RowStyle(SizeType.Percent, 72.06704F));
             tblFooter.Size = new Size(788, 179);
             tblFooter.TabIndex = 7;
             // 
-            // btnDeactivate
+            // btnResetPassword
             // 
-            btnDeactivate.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnDeactivate.BackColor = Color.FromArgb(226, 230, 237);
-            btnDeactivate.BorderColor = Color.FromArgb(108, 111, 127);
-            btnDeactivate.Cursor = Cursors.Hand;
-            btnDeactivate.EnteredBorderColor = Color.FromArgb(108, 111, 127);
-            btnDeactivate.EnteredColor = Color.FromArgb(69, 85, 97);
-            btnDeactivate.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
-            btnDeactivate.Image = null;
-            btnDeactivate.ImageAlign = ContentAlignment.MiddleLeft;
-            btnDeactivate.InactiveColor = Color.FromArgb(92, 102, 114);
-            btnDeactivate.Location = new Point(685, 4);
-            btnDeactivate.Margin = new Padding(3, 4, 3, 4);
-            btnDeactivate.Name = "btnDeactivate";
-            btnDeactivate.PressedBorderColor = Color.FromArgb(108, 111, 127);
-            btnDeactivate.PressedColor = Color.FromArgb(108, 111, 127);
-            btnDeactivate.Size = new Size(100, 40);
-            btnDeactivate.TabIndex = 24;
-            btnDeactivate.Text = "Deactivate";
-            btnDeactivate.TextAlignment = StringAlignment.Center;
-            btnDeactivate.Click += btnDeactivate_Click;
+            btnResetPassword.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnResetPassword.BackColor = Color.FromArgb(226, 230, 237);
+            btnResetPassword.BorderColor = Color.FromArgb(108, 111, 127);
+            btnResetPassword.Cursor = Cursors.Hand;
+            btnResetPassword.EnteredBorderColor = Color.FromArgb(108, 111, 127);
+            btnResetPassword.EnteredColor = Color.FromArgb(69, 85, 97);
+            btnResetPassword.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
+            btnResetPassword.Image = null;
+            btnResetPassword.ImageAlign = ContentAlignment.MiddleLeft;
+            btnResetPassword.InactiveColor = Color.FromArgb(92, 102, 114);
+            btnResetPassword.Location = new Point(688, 4);
+            btnResetPassword.Margin = new Padding(3, 4, 0, 4);
+            btnResetPassword.Name = "btnResetPassword";
+            btnResetPassword.PressedBorderColor = Color.FromArgb(26, 35, 48);
+            btnResetPassword.PressedColor = Color.FromArgb(153, 27, 27);
+            btnResetPassword.Size = new Size(100, 40);
+            btnResetPassword.TabIndex = 25;
+            btnResetPassword.Text = "Reset";
+            btnResetPassword.TextAlignment = StringAlignment.Center;
+            btnResetPassword.Click += btnResetPassword_Click;
             // 
             // btnReEnable
             // 
-            btnReEnable.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnReEnable.BackColor = Color.FromArgb(226, 230, 237);
             btnReEnable.BorderColor = Color.FromArgb(108, 111, 127);
             btnReEnable.Cursor = Cursors.Hand;
@@ -209,16 +216,61 @@
             btnReEnable.Image = null;
             btnReEnable.ImageAlign = ContentAlignment.MiddleLeft;
             btnReEnable.InactiveColor = Color.FromArgb(92, 102, 114);
-            btnReEnable.Location = new Point(579, 4);
-            btnReEnable.Margin = new Padding(3, 4, 3, 4);
+            btnReEnable.Location = new Point(0, 4);
+            btnReEnable.Margin = new Padding(0, 4, 3, 4);
             btnReEnable.Name = "btnReEnable";
-            btnReEnable.PressedBorderColor = Color.FromArgb(108, 111, 127);
-            btnReEnable.PressedColor = Color.FromArgb(108, 111, 127);
+            btnReEnable.PressedBorderColor = Color.FromArgb(22, 101, 52);
+            btnReEnable.PressedColor = Color.FromArgb(22, 101, 52);
             btnReEnable.Size = new Size(100, 40);
             btnReEnable.TabIndex = 23;
             btnReEnable.Text = "Re-Enable";
             btnReEnable.TextAlignment = StringAlignment.Center;
             btnReEnable.Click += btnReEnable_Click;
+            // 
+            // btnDeactivate
+            // 
+            btnDeactivate.BackColor = Color.FromArgb(226, 230, 237);
+            btnDeactivate.BorderColor = Color.FromArgb(108, 111, 127);
+            btnDeactivate.Cursor = Cursors.Hand;
+            btnDeactivate.EnteredBorderColor = Color.FromArgb(108, 111, 127);
+            btnDeactivate.EnteredColor = Color.FromArgb(69, 85, 97);
+            btnDeactivate.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
+            btnDeactivate.Image = null;
+            btnDeactivate.ImageAlign = ContentAlignment.MiddleLeft;
+            btnDeactivate.InactiveColor = Color.FromArgb(92, 102, 114);
+            btnDeactivate.Location = new Point(109, 4);
+            btnDeactivate.Margin = new Padding(3, 4, 3, 4);
+            btnDeactivate.Name = "btnDeactivate";
+            btnDeactivate.PressedBorderColor = Color.FromArgb(26, 35, 48);
+            btnDeactivate.PressedColor = Color.FromArgb(153, 27, 27);
+            btnDeactivate.Size = new Size(100, 40);
+            btnDeactivate.TabIndex = 24;
+            btnDeactivate.Text = "Deactivate";
+            btnDeactivate.TextAlignment = StringAlignment.Center;
+            btnDeactivate.Click += btnDeactivate_Click;
+            // 
+            // btnClearRecovery
+            // 
+            btnClearRecovery.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnClearRecovery.BackColor = Color.FromArgb(226, 230, 237);
+            btnClearRecovery.BorderColor = Color.FromArgb(108, 111, 127);
+            btnClearRecovery.Cursor = Cursors.Hand;
+            btnClearRecovery.EnteredBorderColor = Color.FromArgb(108, 111, 127);
+            btnClearRecovery.EnteredColor = Color.FromArgb(69, 85, 97);
+            btnClearRecovery.Font = new Font("Panton Narrow-Trial SemiBold", 10F);
+            btnClearRecovery.Image = null;
+            btnClearRecovery.ImageAlign = ContentAlignment.MiddleLeft;
+            btnClearRecovery.InactiveColor = Color.FromArgb(92, 102, 114);
+            btnClearRecovery.Location = new Point(582, 4);
+            btnClearRecovery.Margin = new Padding(3, 4, 3, 4);
+            btnClearRecovery.Name = "btnClearRecovery";
+            btnClearRecovery.PressedBorderColor = Color.FromArgb(26, 35, 48);
+            btnClearRecovery.PressedColor = Color.FromArgb(153, 27, 27);
+            btnClearRecovery.Size = new Size(100, 40);
+            btnClearRecovery.TabIndex = 26;
+            btnClearRecovery.Text = "Recovery";
+            btnClearRecovery.TextAlignment = StringAlignment.Center;
+            btnClearRecovery.Click += btnClearRecovery_Click;
             // 
             // UserManagementControl
             // 
@@ -251,5 +303,7 @@
         private ReaLTaiizor.Controls.Button btnAddUser;
         private ReaLTaiizor.Controls.Button btnReEnable;
         private ReaLTaiizor.Controls.Button btnDeactivate;
+        private ReaLTaiizor.Controls.Button btnResetPassword;
+        private ReaLTaiizor.Controls.Button btnClearRecovery;
     }
 }

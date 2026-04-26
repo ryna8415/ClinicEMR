@@ -42,8 +42,20 @@ namespace ClinicEMR.Helpers
         public static Color StatusDone = Color.FromArgb(74, 168, 122);
         public static Color StatusCancelled = Color.FromArgb(239, 68, 68);
         public static Color StatusNoShow = Color.FromArgb(251, 191, 36);
-        public static Color AllergyRed = Color.FromArgb(239, 68, 68);
-        public static Color AllergyRedBg = Color.FromArgb(60, 20, 20);
+        public static Color AllergyRed = Color.FromArgb(153, 27, 27);
+        public static Color AllergyRedBg = Color.FromArgb(244, 203, 195);
+        public static Color OrangeWarning = Color.FromArgb(146, 64, 14);
+        public static Color OrangeWarningBg = Color.FromArgb(255, 237, 213);
+        public static Color BmiUnderweight = Color.FromArgb(8, 145, 178);
+        public static Color BmiUnderweightBg = Color.FromArgb(207, 250, 254);
+        public static Color BmiNormal = Color.FromArgb(22, 101, 52);
+        public static Color BmiNormalBg = Color.FromArgb(220, 252, 231);
+        public static Color BmiOverweight = Color.FromArgb(161, 98, 7);
+        public static Color BmiOverweightBg = Color.FromArgb(254, 249, 195);
+        public static Color BmiObese = Color.FromArgb(153, 27, 27);
+        public static Color BmiObeseBg = Color.FromArgb(254, 226, 226);
+        public static Color BmiEmpty = Color.FromArgb(100, 116, 139);
+        public static Color BmiEmptyBg = Color.FromArgb(226, 232, 240);
 
         public static Color GridHeaderBg = Color.FromArgb(49, 62, 80);
         public static Color GridHeaderText = Color.FromArgb(156, 163, 175);
@@ -52,6 +64,9 @@ namespace ClinicEMR.Helpers
         public static Color GridRowHover = Color.FromArgb(49, 62, 80);
         public static Color GridRowSelect = Color.FromArgb(58, 67, 94);
         public static Color GridBorder = Color.FromArgb(49, 62, 80);
+        public static Color ScrollTrack = Color.FromArgb(37, 45, 56);
+        public static Color ScrollThumb = Color.FromArgb(58, 67, 94);
+        public static Color ScrollThumbHover = Color.FromArgb(69, 85, 97);
 
         public static void StyleGrid(DataGridView dgv)
         {

@@ -12,10 +12,18 @@ namespace ClinicEMR.Forms
 
     public partial class MainShellForm : Form
     {
+        private static readonly TimeSpan SessionTimeout = TimeSpan.FromMinutes(15);
         private Dictionary<string, Button> _navButtons = new();
         private readonly Color _sidebarButtonColor = UITheme.SidebarText;
         private readonly Color _sidebarButtonHoverColor = UITheme.SidebarHover;
         private readonly Color _sidebarButtonActiveColor = UITheme.SidebarActive;
+        private readonly SessionActivityMessageFilter _activityFilter = new();
+        private readonly System.Windows.Forms.Timer _sessionTimer = new();
+        private readonly System.Windows.Forms.Timer _clockTimer = new();
+        private DateTime _lastActivityUtc = DateTime.UtcNow;
+        private bool _isShuttingDownSession;
+        private string CurrentRole => _currentUser.Role?.Trim() ?? string.Empty;
+
         private void NavButton_Click(object sender, EventArgs e)
         {
             var btn = (Button)sender;
@@ -61,7 +69,103 @@ namespace ClinicEMR.Forms
             ApplyRolePermissions();
             ShowStartScreen();
             ThemeService.ApplyRoundedCorners(pnlContent, 10);
+            KeyPreview = true;
+            Shown += MainShellForm_Shown;
+            FormClosed += MainShellForm_FormClosed;
+            ConfigureRoleBadge();
+            InitializeHeaderClock();
+            InitializeSessionTimeout();
 
+        }
+
+        private void MainShellForm_Shown(object? sender, EventArgs e)
+        {
+            btnLogout.TabStop = false;
+
+            foreach (var button in _navButtons.Values)
+            {
+                button.TabStop = false;
+            }
+
+            ActiveControl = null;
+            pnlContent.Focus();
+        }
+
+        private void InitializeSessionTimeout()
+        {
+            _activityFilter.ActivityDetected += SessionActivityFilter_ActivityDetected;
+            Application.AddMessageFilter(_activityFilter);
+
+            _sessionTimer.Interval = 30000;
+            _sessionTimer.Tick += SessionTimer_Tick;
+            _sessionTimer.Start();
+            RegisterActivity();
+        }
+
+        private void SessionActivityFilter_ActivityDetected(object? sender, EventArgs e)
+        {
+            RegisterActivity();
+        }
+
+        private void SessionTimer_Tick(object? sender, EventArgs e)
+        {
+            if (_isShuttingDownSession)
+            {
+                return;
+            }
+
+            if (DateTime.UtcNow - _lastActivityUtc >= SessionTimeout)
+            {
+                Logout(true);
+            }
+        }
+
+        private void RegisterActivity()
+        {
+            _lastActivityUtc = DateTime.UtcNow;
+        }
+
+        private void MainShellForm_FormClosed(object? sender, FormClosedEventArgs e)
+        {
+            _sessionTimer.Stop();
+            _sessionTimer.Tick -= SessionTimer_Tick;
+            _clockTimer.Stop();
+            _clockTimer.Tick -= ClockTimer_Tick;
+            _activityFilter.ActivityDetected -= SessionActivityFilter_ActivityDetected;
+            Application.RemoveMessageFilter(_activityFilter);
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Enter && (btnLogout.Focused || btnLogout.ContainsFocus || IsSidebarButtonFocused()))
+            {
+                if (_activeControl != null && _activeControl.CanFocus)
+                {
+                    _activeControl.Focus();
+                }
+                else
+                {
+                    ActiveControl = null;
+                    pnlContent.Focus();
+                }
+
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private bool IsSidebarButtonFocused()
+        {
+            foreach (var button in _navButtons.Values)
+            {
+                if (button.Focused || button.ContainsFocus)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private void BuildSidebar()
@@ -80,7 +184,7 @@ namespace ClinicEMR.Forms
             };
 
             lblUserName.Text = _currentUser.FullName;
-            lblUserRole.Text = char.ToUpper(_currentUser.Role[0]) + _currentUser.Role.Substring(1);
+            lblUserRole.Text = FormatRoleLabel();
             lblUserName.ForeColor = Color.White;
             lblUserRole.ForeColor = Color.FromArgb(202, 219, 233);
 
@@ -123,11 +227,11 @@ namespace ClinicEMR.Forms
 
         private void BuildControls()
         {
-            if (_currentUser.Role == "nurse")
+            if (string.Equals(CurrentRole, "nurse", StringComparison.OrdinalIgnoreCase))
                 _nurseDash = new NurseDashboardControl(_currentUser);
-            if (_currentUser.Role == "doctor")
+            if (string.Equals(CurrentRole, "doctor", StringComparison.OrdinalIgnoreCase))
                 _doctorDash = new DoctorDashboardControl(_currentUser);
-            if (_currentUser.Role == "admin")
+            if (string.Equals(CurrentRole, "admin", StringComparison.OrdinalIgnoreCase))
                 _adminDash = new AdminDashboardControl(_currentUser);
 
             _patients = new PatientListControl(_currentUser, this);
@@ -182,13 +286,7 @@ namespace ClinicEMR.Forms
             string[] doctorButtons = { "btnPatients", "btnConsult", "btnRx", "btnMedHistory", "btnReports" };
             string[] adminButtons = { "btnUsers", "btnReports" };
 
-            string[] toShow = _currentUser.Role switch
-            {
-                "nurse" => nurseButtons,
-                "doctor" => doctorButtons,
-                "admin" => adminButtons,
-                _ => Array.Empty<string>()
-            };
+            string[] toShow = GetRoleButtons(nurseButtons, doctorButtons, adminButtons);
 
             foreach (var name in toShow)
                 _navButtons[name].Visible = true;
@@ -197,7 +295,7 @@ namespace ClinicEMR.Forms
         private void ShowStartScreen()
         {
             SetHeaderContent(GetDashboardHeaderText(), btnDashboard.Image);
-            switch (_currentUser.Role)
+            switch (CurrentRole.ToLowerInvariant())
             {
                 case "nurse": ShowControl(_nurseDash, _navButtons["btnDashboard"]); break;
                 case "doctor": ShowControl(_doctorDash, _navButtons["btnDashboard"]); break;
@@ -231,34 +329,24 @@ namespace ClinicEMR.Forms
             if (button == btnDashboard)
             {
                 SetHeaderContent(GetDashboardHeaderText(), null);
+                lblIntro.Text = GetHeaderDescription(button.Name);
                 return;
             }
 
-            SetHeaderContent($"      {button.Text.Trim()}", button.Image);
+            SetHeaderContent(button.Text.Trim(), button.Image);
+            lblIntro.Text = GetHeaderDescription(button.Name);
         }
 
         private string GetDashboardHeaderText()
         {
-            return $"  Hello, {_currentUser.FullName}";
+            return $"Hello, {_currentUser.FullName}";
         }
 
         private void SetHeaderContent(string headerText, Image? headerImage)
         {
             btnHeader.Text = headerText;
-            btnHeader.Image = headerImage != null
-            ? AddImagePadding(headerImage, 10)
-            : null;
-        }
-
-        private Image AddImagePadding(Image img, int padding)
-        {
-            Bitmap padded = new Bitmap(img.Width + padding, img.Height);
-            using (Graphics g = Graphics.FromImage(padded))
-            {
-                g.Clear(Color.Transparent);
-                g.DrawImage(img, new Rectangle(padding, 0, img.Width, img.Height));
-            }
-            return padded;
+            Header.Text = string.Empty;
+            Header.Image = null;
         }
 
         private void btnDashboard_Click(object s, EventArgs e)
@@ -306,12 +394,18 @@ namespace ClinicEMR.Forms
                 case "consultation":
                     if (id.HasValue) _consultation.LoadPatient(id.Value);
                     ShowControl(_consultation, _navButtons["btnConsult"]); break;
+                case "consultationedit":
+                    if (id.HasValue) _consultation.LoadConsultation(id.Value);
+                    ShowControl(_consultation, _navButtons["btnConsult"]); break;
                 case "vitals":
                     if (id.HasValue) _vitals.LoadPatient(id.Value);
                     ShowControl(_vitals, _navButtons["btnVitals"]); break;
                 case "prescription":
                     if (id.HasValue) _prescription.LoadConsultation(id.Value);
                     else _prescription.ResetForStandalone();
+                    ShowControl(_prescription, _navButtons["btnRx"]); break;
+                case "prescriptionedit":
+                    if (id.HasValue) _prescription.LoadPrescription(id.Value);
                     ShowControl(_prescription, _navButtons["btnRx"]); break;
                 case "medhistory":
                     if (id.HasValue) _medHistory.LoadPatient(id.Value);
@@ -337,9 +431,146 @@ namespace ClinicEMR.Forms
               "Log Out", MessageBoxButtons.YesNo);
             if (confirm == DialogResult.Yes)
             {
-                new LoginForm().Show();
-                this.Close();
+                Logout(false);
             }
+        }
+
+        private void Logout(bool dueToTimeout)
+        {
+            if (_isShuttingDownSession)
+            {
+                return;
+            }
+
+            _isShuttingDownSession = true;
+            _sessionTimer.Stop();
+
+            try
+            {
+                AuditLogService.Log(_currentUser.UserId, dueToTimeout ? "Session timed out." : "Logged out.");
+            }
+            catch
+            {
+            }
+
+            if (dueToTimeout)
+            {
+                MessageBox.Show(
+                    "Your session timed out due to inactivity. Please log in again.",
+                    "Session Timeout",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+
+            new LoginForm().Show();
+            Close();
+        }
+
+        private string[] GetRoleButtons(string[] nurseButtons, string[] doctorButtons, string[] adminButtons)
+        {
+            if (string.Equals(CurrentRole, "nurse", StringComparison.OrdinalIgnoreCase))
+            {
+                return nurseButtons;
+            }
+
+            if (string.Equals(CurrentRole, "doctor", StringComparison.OrdinalIgnoreCase))
+            {
+                return doctorButtons;
+            }
+
+            if (string.Equals(CurrentRole, "admin", StringComparison.OrdinalIgnoreCase))
+            {
+                return adminButtons;
+            }
+
+            return Array.Empty<string>();
+        }
+
+        private string FormatRoleLabel()
+        {
+            if (string.IsNullOrWhiteSpace(CurrentRole))
+            {
+                return "Unknown";
+            }
+
+            return char.ToUpper(CurrentRole[0]) + CurrentRole.Substring(1).ToLowerInvariant();
+        }
+
+        private void InitializeHeaderClock()
+        {
+            _clockTimer.Interval = 1000;
+            _clockTimer.Tick += ClockTimer_Tick;
+            UpdateHeaderDateTime();
+            _clockTimer.Start();
+        }
+
+        private void ClockTimer_Tick(object? sender, EventArgs e)
+        {
+            UpdateHeaderDateTime();
+        }
+
+        private void UpdateHeaderDateTime()
+        {
+            DateTime now = DateTime.Now;
+            lblDate.Text = now.ToString("dddd, MMMM d, yyyy");
+            lblTime.Text = now.ToString("HH:mm:ss");
+        }
+
+        private void ConfigureRoleBadge()
+        {
+            Color inactiveColor;
+            Color foreColor;
+            string roleText = FormatRoleLabel();
+
+            switch (CurrentRole.ToLowerInvariant())
+            {
+                case "nurse":
+                    inactiveColor = Color.FromArgb(192, 228, 252);
+                    foreColor = Color.FromArgb(92, 143, 204);
+                    roleText = "Nurse";
+                    break;
+                case "doctor":
+                    inactiveColor = Color.FromArgb(200, 250, 202);
+                    foreColor = Color.FromArgb(74, 168, 122);
+                    roleText = "Doctor";
+                    break;
+                case "admin":
+                    inactiveColor = Color.FromArgb(217, 189, 240);
+                    foreColor = Color.FromArgb(91, 33, 182);
+                    roleText = "Admin";
+                    break;
+                default:
+                    inactiveColor = Color.FromArgb(226, 230, 237);
+                    foreColor = Color.FromArgb(92, 102, 114);
+                    break;
+            }
+
+            btnBMI.Text = roleText;
+            btnBMI.BackColor = Color.FromArgb(37, 45, 56);
+            btnBMI.InactiveColor = inactiveColor;
+            btnBMI.ForeColor = foreColor;
+            btnBMI.BorderColor = foreColor;
+            btnBMI.EnteredColor = Color.Transparent;
+            btnBMI.PressedColor = Color.Transparent;
+            btnBMI.EnteredBorderColor = foreColor;
+            btnBMI.PressedBorderColor = foreColor;
+        }
+
+        private static string GetHeaderDescription(string buttonName)
+        {
+            return buttonName switch
+            {
+                "btnDashboard" => "Overview your Clinic's records, status, and updates.",
+                "btnPatients" => "Browse and open patient records.",
+                "btnAppts" => "Manage daily appointments and schedules.",
+                "btnVitals" => "Record and review patient vital signs.",
+                "btnConsult" => "Review and update consultation details.",
+                "btnRx" => "Create and manage patient prescriptions.",
+                "btnMedHistory" => "View, edit and update patient records.",
+                "btnReports" => "Generate and print daily clinic reports.",
+                "btnUsers" => "Manage staff access and account settings.",
+                _ => string.Empty
+            };
         }
 
     }

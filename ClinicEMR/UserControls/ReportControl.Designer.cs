@@ -19,21 +19,21 @@ namespace ClinicEMR.UserControls
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportControl));
             lblCount = new Label();
-            tblLayout = new TableLayoutPanel();
-            dgvReport = new DataGridView();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            pictureBox3 = new PictureBox();
+            label1 = new Label();
             tblHeader = new TableLayoutPanel();
             btnPrint = new ReaLTaiizor.Controls.Button();
             dtpDate = new DateTimePicker();
             lblDate = new Label();
             btnGenerate = new ReaLTaiizor.Controls.Button();
-            tableLayoutPanel1 = new TableLayoutPanel();
-            pictureBox3 = new PictureBox();
-            label1 = new Label();
-            tblLayout.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvReport).BeginInit();
-            tblHeader.SuspendLayout();
+            dgvReport = new DataGridView();
+            tblLayout = new TableLayoutPanel();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            tblHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvReport).BeginInit();
+            tblLayout.SuspendLayout();
             SuspendLayout();
             // 
             // lblCount
@@ -45,48 +45,53 @@ namespace ClinicEMR.UserControls
             lblCount.Size = new Size(0, 23);
             lblCount.TabIndex = 2;
             // 
-            // tblLayout
+            // tableLayoutPanel1
             // 
-            tblLayout.BackColor = Color.FromArgb(226, 230, 237);
-            tblLayout.ColumnCount = 1;
-            tblLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tblLayout.Controls.Add(dgvReport, 0, 3);
-            tblLayout.Controls.Add(tblHeader, 0, 2);
-            tblLayout.Controls.Add(tableLayoutPanel1, 0, 1);
-            tblLayout.Dock = DockStyle.Fill;
-            tblLayout.Location = new Point(0, 0);
-            tblLayout.Margin = new Padding(23, 27, 23, 27);
-            tblLayout.Name = "tblLayout";
-            tblLayout.RowCount = 5;
-            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 27F));
-            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 49F));
-            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 76F));
-            tblLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 107F));
-            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 27F));
-            tblLayout.Size = new Size(890, 789);
-            tblLayout.TabIndex = 3;
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(pictureBox3, 0, 0);
+            tableLayoutPanel1.Controls.Add(label1, 1, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(23, 31);
+            tableLayoutPanel1.Margin = new Padding(23, 4, 23, 4);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Size = new Size(844, 41);
+            tableLayoutPanel1.TabIndex = 19;
             // 
-            // dgvReport
+            // pictureBox3
             // 
-            dgvReport.BackgroundColor = Color.FromArgb(108, 111, 127);
-            dgvReport.BorderStyle = BorderStyle.None;
-            dgvReport.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvReport.Dock = DockStyle.Fill;
-            dgvReport.Location = new Point(23, 156);
-            dgvReport.Margin = new Padding(23, 4, 23, 4);
-            dgvReport.Name = "dgvReport";
-            dgvReport.RowHeadersWidth = 51;
-            dgvReport.Size = new Size(844, 522);
-            dgvReport.TabIndex = 7;
+            pictureBox3.Dock = DockStyle.Fill;
+            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.Location = new Point(0, 0);
+            pictureBox3.Margin = new Padding(0);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(40, 41);
+            pictureBox3.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox3.TabIndex = 0;
+            pictureBox3.TabStop = false;
+            // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.Left;
+            label1.AutoSize = true;
+            label1.Font = new Font("Panton-Trial ExtraBold", 14F, FontStyle.Bold);
+            label1.ForeColor = Color.FromArgb(26, 35, 48);
+            label1.Location = new Point(43, 5);
+            label1.Name = "label1";
+            label1.Size = new Size(427, 31);
+            label1.TabIndex = 1;
+            label1.Text = "Generate Patient Consultation Report";
             // 
             // tblHeader
             // 
             tblHeader.ColumnCount = 4;
-            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.6777248F));
-            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 31.042654F));
+            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.2701426F));
+            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.175354F));
             tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.0331755F));
-            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 43.2464447F));
+            tblHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40.7582932F));
             tblHeader.Controls.Add(btnPrint, 3, 0);
             tblHeader.Controls.Add(dtpDate, 1, 0);
             tblHeader.Controls.Add(lblDate, 0, 0);
@@ -113,8 +118,8 @@ namespace ClinicEMR.UserControls
             btnPrint.Image = null;
             btnPrint.ImageAlign = ContentAlignment.MiddleLeft;
             btnPrint.InactiveColor = Color.FromArgb(92, 102, 114);
-            btnPrint.Location = new Point(741, 14);
-            btnPrint.Margin = new Padding(3, 4, 3, 4);
+            btnPrint.Location = new Point(744, 14);
+            btnPrint.Margin = new Padding(3, 4, 0, 4);
             btnPrint.Name = "btnPrint";
             btnPrint.PressedBorderColor = Color.FromArgb(108, 111, 127);
             btnPrint.PressedColor = Color.FromArgb(108, 111, 127);
@@ -133,11 +138,11 @@ namespace ClinicEMR.UserControls
             dtpDate.CalendarTitleForeColor = Color.FromArgb(226, 230, 237);
             dtpDate.CalendarTrailingForeColor = Color.FromArgb(69, 85, 97);
             dtpDate.Cursor = Cursors.Hand;
-            dtpDate.Location = new Point(110, 20);
+            dtpDate.Location = new Point(114, 20);
             dtpDate.Margin = new Padding(3, 4, 3, 4);
             dtpDate.MaximumSize = new Size(434, 30);
             dtpDate.Name = "dtpDate";
-            dtpDate.Size = new Size(256, 27);
+            dtpDate.Size = new Size(273, 27);
             dtpDate.TabIndex = 5;
             // 
             // lblDate
@@ -165,7 +170,7 @@ namespace ClinicEMR.UserControls
             btnGenerate.Image = null;
             btnGenerate.ImageAlign = ContentAlignment.MiddleLeft;
             btnGenerate.InactiveColor = Color.FromArgb(26, 35, 48);
-            btnGenerate.Location = new Point(372, 14);
+            btnGenerate.Location = new Point(393, 14);
             btnGenerate.Margin = new Padding(3, 4, 3, 4);
             btnGenerate.Name = "btnGenerate";
             btnGenerate.PressedBorderColor = Color.FromArgb(108, 111, 127);
@@ -176,45 +181,40 @@ namespace ClinicEMR.UserControls
             btnGenerate.TextAlignment = StringAlignment.Center;
             btnGenerate.Click += btnGenerate_Click;
             // 
-            // tableLayoutPanel1
+            // dgvReport
             // 
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4.3184886F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 95.68151F));
-            tableLayoutPanel1.Controls.Add(pictureBox3, 0, 0);
-            tableLayoutPanel1.Controls.Add(label1, 1, 0);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(23, 31);
-            tableLayoutPanel1.Margin = new Padding(23, 4, 23, 4);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(844, 41);
-            tableLayoutPanel1.TabIndex = 19;
+            dgvReport.BackgroundColor = Color.FromArgb(108, 111, 127);
+            dgvReport.BorderStyle = BorderStyle.None;
+            dgvReport.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvReport.Dock = DockStyle.Fill;
+            dgvReport.Location = new Point(23, 156);
+            dgvReport.Margin = new Padding(23, 4, 23, 4);
+            dgvReport.Name = "dgvReport";
+            dgvReport.RowHeadersWidth = 51;
+            dgvReport.Size = new Size(844, 522);
+            dgvReport.TabIndex = 7;
             // 
-            // pictureBox3
+            // tblLayout
             // 
-            pictureBox3.Anchor = AnchorStyles.Left;
-            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(0, 0);
-            pictureBox3.Margin = new Padding(0);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(35, 41);
-            pictureBox3.SizeMode = PictureBoxSizeMode.CenterImage;
-            pictureBox3.TabIndex = 0;
-            pictureBox3.TabStop = false;
-            // 
-            // label1
-            // 
-            label1.Anchor = AnchorStyles.Left;
-            label1.AutoSize = true;
-            label1.Font = new Font("Panton-Trial ExtraBold", 14F, FontStyle.Bold);
-            label1.ForeColor = Color.FromArgb(26, 35, 48);
-            label1.Location = new Point(39, 5);
-            label1.Name = "label1";
-            label1.Size = new Size(392, 31);
-            label1.TabIndex = 1;
-            label1.Text = "Generate Patient Report Summary";
+            tblLayout.BackColor = Color.FromArgb(226, 230, 237);
+            tblLayout.ColumnCount = 1;
+            tblLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tblLayout.Controls.Add(dgvReport, 0, 3);
+            tblLayout.Controls.Add(tblHeader, 0, 2);
+            tblLayout.Controls.Add(tableLayoutPanel1, 0, 1);
+            tblLayout.Dock = DockStyle.Fill;
+            tblLayout.Location = new Point(0, 0);
+            tblLayout.Margin = new Padding(23, 27, 23, 27);
+            tblLayout.Name = "tblLayout";
+            tblLayout.RowCount = 5;
+            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 27F));
+            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 49F));
+            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 76F));
+            tblLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 107F));
+            tblLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 27F));
+            tblLayout.Size = new Size(890, 789);
+            tblLayout.TabIndex = 3;
             // 
             // ReportControl
             // 
@@ -225,28 +225,28 @@ namespace ClinicEMR.UserControls
             Margin = new Padding(3, 4, 3, 4);
             Name = "ReportControl";
             Size = new Size(890, 789);
-            tblLayout.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvReport).EndInit();
-            tblHeader.ResumeLayout(false);
-            tblHeader.PerformLayout();
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            tblHeader.ResumeLayout(false);
+            tblHeader.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvReport).EndInit();
+            tblLayout.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
         private Label lblCount;
-        private TableLayoutPanel tblLayout;
-        private TableLayoutPanel tblHeader;
-        private DataGridView dgvReport;
         private TableLayoutPanel tableLayoutPanel1;
         private PictureBox pictureBox3;
         private Label label1;
-        private ReaLTaiizor.Controls.Button btnGenerate;
+        private TableLayoutPanel tblHeader;
+        private ReaLTaiizor.Controls.Button btnPrint;
         private DateTimePicker dtpDate;
         private Label lblDate;
-        private ReaLTaiizor.Controls.Button btnPrint;
+        private ReaLTaiizor.Controls.Button btnGenerate;
+        private DataGridView dgvReport;
+        private TableLayoutPanel tblLayout;
     }
 }

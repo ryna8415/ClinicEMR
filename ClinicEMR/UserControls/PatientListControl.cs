@@ -1,27 +1,24 @@
 using ClinicEMR.Forms;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using ClinicEMR.Models;
 using ClinicEMR.Services;
+using ClinicEMR.Helpers;
 
 namespace ClinicEMR.UserControls
 {
     public partial class PatientListControl : UserControl
     {
-        private readonly User _user;
         private readonly MainShellForm _shell;
 
         public PatientListControl(User user, MainShellForm shell)
         {
             InitializeComponent();
-            _user = user;
             _shell = shell;
             GridViewService.MakeReadOnly(dgvPatients);
+            ThemeService.ApplyRoundedCorners(tblLayout, 10);
+            ThemeService.TryRoundGrid(dgvPatients, 4);
         }
 
         private void PatientListControl_Load(object sender, EventArgs e)
@@ -29,8 +26,33 @@ namespace ClinicEMR.UserControls
 
         public void LoadPatients()
         {
-            dgvPatients.DataSource = PatientService.GetAll();
-            FormatGrid();
+            try
+            {
+                dgvPatients.DataSource = PatientService.GetAll();
+                FormatGrid();
+            }
+            catch (Exception ex)
+            {
+                dgvPatients.DataSource = null;
+                MessageBox.Show(ex.Message, "Patients", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void ApplySearch()
+        {
+            try
+            {
+                var keyword = txtSearch.Text.Trim();
+                dgvPatients.DataSource = string.IsNullOrWhiteSpace(keyword)
+                    ? PatientService.GetAll()
+                    : PatientService.Search(keyword);
+                FormatGrid();
+                GridViewService.ClearSelection(dgvPatients);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Patient Search", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void FormatGrid()
@@ -65,11 +87,27 @@ namespace ClinicEMR.UserControls
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            string kw = txtSearch.Text.ToLower().Trim();
-            dgvPatients.DataSource = string.IsNullOrEmpty(kw)
-              ? PatientService.GetAll()
-              : PatientService.Search(kw);
-            FormatGrid();
+            ApplySearch();
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtSearch.Text))
+            {
+                ApplySearch();
+            }
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Enter)
+            {
+                return;
+            }
+
+            e.SuppressKeyPress = true;
+            e.Handled = true;
+            ApplySearch();
         }
 
         private void btnAddNew_Click(object sender, EventArgs e)
